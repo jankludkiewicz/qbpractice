@@ -37,13 +37,13 @@ $previous = optional_param('previous', null, PARAM_BOOL);
 $next = optional_param('next', null, PARAM_BOOL);
 $finish = optional_param('finish', null, PARAM_BOOL);
 
-// Qpractice session, course, course module and context variables
+// Qbpractice session, course and context variables
 $session = $DB->get_record('qbpractice_session', array('id' => $sessionid));
 $context = context_block::instance($session->instanceid);
 $courseid = $context->get_parent_context()->instanceid;
 
 $PAGE->set_url('/blocks/qbpractice/attempt.php', array('id' => $sessionid));
-$PAGE->set_context($context);
+$PAGE->set_context($context->get_parent_context());
 
 // Security functions
 require_login();
