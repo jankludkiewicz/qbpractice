@@ -17,8 +17,8 @@
 /**
  * This page displays an attempt of practice module.
  *
- * @package    mod_qpractice
- * @copyright  2013 Jayesh Anandani
+ * @package    block_qbpractice
+ * @copyright  2021 Jan Kłudkiewicz
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
  
