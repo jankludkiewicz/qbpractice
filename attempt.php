@@ -43,7 +43,7 @@ $context = context_block::instance($session->instanceid);
 $courseid = $context->get_parent_context()->instanceid;
 
 $PAGE->set_url('/blocks/qbpractice/attempt.php', array('id' => $sessionid));
-$PAGE->set_context($context->get_parent_context());
+$PAGE->set_context($context);
 
 // Security functions
 require_login();
