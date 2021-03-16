@@ -89,17 +89,15 @@ function qbpractice_session_finish() {
 				$totalmarks += $maxmarks;
 			}
 				
-			$transaction = $DB->start_delegated_transaction();
+			//$transaction = $DB->start_delegated_transaction();
 	
 			$updatesql = "UPDATE {qpractice_session} 
 							SET marksobtained = ?, totalmarks = ?, status = 'finished'
 							WHERE id=?";
-							
-			var_dump($updatesql);
 					
 			$DB->execute($updatesql, array($marksobtained, $totalmarks, $session->id));
 		
-			$transaction->allow_commit();
+			//$transaction->allow_commit();
 		}
 	}
 }
