@@ -18,11 +18,8 @@ defined('MOODLE_INTERNAL') || die();
 
 function qbpractice_session_start($fromform, $context) {
     global $DB, $USER;
-
-	$sessions = get_user_open_sessions();
-	foreach ($sessions as $session) {
-		qbpractice_session_finish($session->id);
-	}
+	
+	qbpractice_session_finish();
 	
     $session = new stdClass();
 	
@@ -72,32 +69,36 @@ function qbpractice_session_start($fromform, $context) {
     return $sessionid;
 }
 
-function qbpractice_session_finish($sessionid) {
+function qbpractice_session_finish() {
 	global $USER, $DB;
 	
-	if ($session != null) {
-		$quba = question_engine::load_questions_usage_by_activity($session->questionusageid);
+	$sessions = get_user_open_sessions();
 	
-		$slots = $quba->get_slots();
-		$marksobtained = 0;
-		$totalmarks = 0;
+	if ($sessions) {
+		foreach ($sessions as $session) {
+			$quba = question_engine::load_questions_usage_by_activity($session->questionusageid);
+	
+			$slots = $quba->get_slots();
+			$marksobtained = 0;
+			$totalmarks = 0;
 		
-		foreach ($slots as $slot) {
-			$fraction = $quba->get_question_fraction($slot);
-			$maxmarks = $quba->get_question_max_mark($slot);
-			$marksobtained += $fraction * $maxmarks;
-			$totalmarks += $maxmarks;
+			foreach ($slots as $slot) {
+				$fraction = $quba->get_question_fraction($slot);
+				$maxmarks = $quba->get_question_max_mark($slot);
+				$marksobtained += $fraction * $maxmarks;
+				$totalmarks += $maxmarks;
+			}
+				
+			$transaction = $DB->start_delegated_transaction();
+	
+			$updatesql = "UPDATE {qpractice_session} 
+							SET marksobtained = ?, totalmarks = ?, status = 'finished'
+							WHERE id=?";
+					
+			$DB->execute($updatesql, array($marksobtained, $totalmarks, $sessionid));
+		
+			$transaction->allow_commit();
 		}
-		
-		$transaction = $DB->start_delegated_transaction();
-	
-		$updatesql = "UPDATE {qpractice_session} 
-						SET marksobtained = ?, totalmarks = ?, status = 'finished'
-						WHERE id=?";
-						
-		$DB->execute($updatesql, array($marksobtained, $totalmarks, $sessionid));
-		
-		$transaction->allow_commit();
 	}
 }
 
