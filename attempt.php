@@ -79,7 +79,6 @@ if (data_submitted()) {
 		
     } else if ($finish) {
 		
-		qbpractice_session_finish();
         redirect($finishurl);
 	
     } else {
