@@ -158,7 +158,7 @@ function get_question_categories($context) {
 function get_open_session() {
 	global $USER, $DB;
 	
-	$sessionid = $DB->get_record("qbpractice_session", array('userid' => $USER->id, 'status' => 'inprogress'));
+	$session = $DB->get_record("qbpractice_session", array('userid' => $USER->id, 'status' => 'inprogress'));
 	
 	return $session;
 }
