@@ -19,7 +19,10 @@ defined('MOODLE_INTERNAL') || die();
 function qbpractice_session_start($fromform, $context) {
     global $DB, $USER;
 
-	qbpractice_session_finish();
+	$sessions = get_user_open_sessions();
+	foreach ($sessions as $session) {
+		qbpractice_session_finish($session->id);
+	}
 	
     $session = new stdClass();
 	
@@ -69,10 +72,8 @@ function qbpractice_session_start($fromform, $context) {
     return $sessionid;
 }
 
-function qbpractice_session_finish() {
+function qbpractice_session_finish($sessionid) {
 	global $USER, $DB;
-	
-	$session = get_open_session();
 	
 	if ($session != null) {
 		$quba = question_engine::load_questions_usage_by_activity($session->questionusageid);
@@ -94,7 +95,7 @@ function qbpractice_session_finish() {
 						SET marksobtained = ?, totalmarks = ?, status = 'finished'
 						WHERE id=?";
 						
-		$DB->execute($updatesql, array($marksobtained, $totalmarks, $session->id));
+		$DB->execute($updatesql, array($marksobtained, $totalmarks, $sessionid));
 		
 		$transaction->allow_commit();
 	}
@@ -160,10 +161,10 @@ function get_question_categories($context) {
 									ORDER BY categories.sortorder ASC", array($context->id));
 }
 
-function get_open_session() {
+function get_user_open_sessions() {
 	global $USER, $DB;
 	
-	$session = $DB->get_record("qbpractice_session", array('userid' => $USER->id, 'status' => 'inprogress'));
+	$session = $DB->get_records("qbpractice_session", array('userid' => $USER->id, 'status' => 'inprogress'));
 	
 	return $session;
 }

@@ -50,9 +50,9 @@ class block_qbpractice extends block_base {
 		$this->content->text .= html_writer::end_tag('ul');
 		
 		// Continue previous session
-		$session = get_open_session();
-		if ($session != null) {
-			$actionurl = new moodle_url("/blocks/qbpractice/attempt.php", array('id' => $session->id));
+		$sessions = get_user_open_sessions();
+		if ($sessions[0] != null) {
+			$actionurl = new moodle_url("/blocks/qbpractice/attempt.php", array('id' => $sessions[0]->id));
 			$label = html_writer::tag('span', get_string('continuesession', 'block_qbpractice'));
 			$this->content->footer = html_writer::link($actionurl, $label, array(null));
 		}
