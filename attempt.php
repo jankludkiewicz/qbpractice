@@ -85,30 +85,6 @@ if (data_submitted()) {
 		$quba->process_all_actions();
 		$quba->finish_question($slot);
 		question_engine::save_questions_usage_by_activity($quba);
-		
-		/*
-		
-		// Functions to measure student results for report required.
-				
-		$fraction = $quba->get_question_fraction($slot);
-		$maxmarks = $quba->get_question_max_mark($slot);
-		$obtainedmarks = $fraction * $maxmarks;
-		
-		$transaction = $DB->start_delegated_transaction();
-	
-		$updatesql = "UPDATE {qpractice_session}
-						SET marksobtained = marksobtained + ?, totalmarks = totalmarks + ?
-						WHERE id=?";
-		$DB->execute($updatesql, array($obtainedmarks, $maxmarks, $sessionid));
-
-		if ($fraction > 0) {
-			$updatesql1 = "UPDATE {qpractice_session}
-							SET totalnoofquestionsright = totalnoofquestionsright + '1'
-							WHERE id=?";
-			$DB->execute($updatesql1, array($sessionid));
-		}
-		$transaction->allow_commit();
-		*/
 	}
 	
 }
@@ -133,9 +109,9 @@ $html .= $quba->render_question($slot, $options, $slot);
 
 // Finish the question form.
 $html .= html_writer::start_tag('div');
-$html .= html_writer::empty_tag('input', array('type' => 'submit', 'name' => 'previous', 'value' => 'Previous question'));
-$html .= html_writer::empty_tag('input', array('type' => 'submit', 'name' => 'next', 'value' => get_string('nextquestion', 'qpractice')));
-$html .= html_writer::empty_tag('input', array('type' => 'submit', 'name' => 'finish', 'value' => get_string('stoppractice', 'qpractice')));
+$html .= html_writer::empty_tag('input', array('type' => 'submit', 'name' => 'previous', 'value' => get_string('previousquestion', 'block_qbpractice')));
+$html .= html_writer::empty_tag('input', array('type' => 'submit', 'name' => 'next', 'value' => get_string('nextquestion', 'block_qbpractice')));
+$html .= html_writer::empty_tag('input', array('type' => 'submit', 'name' => 'finish', 'value' => get_string('finishsession', 'block_qbpractice')));
 $html .= html_writer::end_tag('div');
 $html .= html_writer::end_tag('form');
 
