@@ -131,6 +131,7 @@ function is_user_session_finished() {
 	global $USER, $DB;
 	
 	$is_finished = true;
-	$status = $DB->get_field("qbpractice_session", "status", array('userid' => $USER->id));
+	$status = $DB->get_field_sql("SELECT status FROM {qbpractice_session} WHERE userid = ? ORDER BY id DESC", array($USER->id));
+	
 	var_dump($status);
 }
