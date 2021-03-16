@@ -18,6 +18,8 @@ defined('MOODLE_INTERNAL') || die();
 
 function qbpractice_session_create($fromform, $context) {
     global $DB, $USER;
+	
+	$DB->set_field('qbpractice_session', 'status', 'finished', array('userid' => $USER->id));
 
     $session = new stdClass();
 	

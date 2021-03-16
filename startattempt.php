@@ -39,7 +39,6 @@ $context = context_block::instance($id);
 $PAGE->set_url('/blocks/qbpractice/startattempt.php', array('id' => $id, 'categoryid' => $categoryid));
 $PAGE->requires->js('/blocks/qbpractice/startattempt_form_script.js');
 $PAGE->set_context($context);
-$DB->set_field('qbpractice_session', 'status', 'finished', array('userid' => $USER->id));
 
 require_login();
 
