@@ -77,16 +77,23 @@ function qbpractice_session_finish() {
 	if ($session != null) {
 		$quba = question_engine::load_questions_usage_by_activity($session->questionusageid);
 	
-		$fraction = $quba->get_question_fraction($slot);
-		$maxmarks = $quba->get_question_max_mark($slot);
-		$obtainedmarks = $fraction * $maxmarks;
+		$slots = $quba->get_slots();
+		$marksobtained = 0;
+		$totalmarks = 0;
+		
+		foreach ($slots as $slot) {
+			$fraction = $quba->get_question_fraction($slot);
+			$maxmarks = $quba->get_question_max_mark($slot);
+			$marksobtained += $fraction * $maxmarks;
+			$totalmarks += $maxmarks;
+		}
 		
 		$transaction = $DB->start_delegated_transaction();
 	
 		$updatesql = "UPDATE {qpractice_session}
-						SET marksobtained = marksobtained + ?, totalmarks = totalmarks + ?, status = finished
+						SET marksobtained = ?, totalmarks = ?, status = 'finished'
 						WHERE id=?";
-		$DB->execute($updatesql, array($obtainedmarks, $maxmarks, $sessionid));
+		$DB->execute($updatesql, array($marksobtained, $totalmarks, $sessionid));
 
 		if ($fraction > 0) {
 			$updatesql1 = "UPDATE {qpractice_session}
