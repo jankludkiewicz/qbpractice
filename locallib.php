@@ -73,26 +73,29 @@ function qbpractice_session_finish() {
 	global $USER, $DB;
 	
 	$session = get_open_session();
-	$quba = question_engine::load_questions_usage_by_activity($session->questionusageid);
 	
-	$fraction = $quba->get_question_fraction($slot);
-	$maxmarks = $quba->get_question_max_mark($slot);
-	$obtainedmarks = $fraction * $maxmarks;
+	if ($session != null) {
+		$quba = question_engine::load_questions_usage_by_activity($session->questionusageid);
+	
+		$fraction = $quba->get_question_fraction($slot);
+		$maxmarks = $quba->get_question_max_mark($slot);
+		$obtainedmarks = $fraction * $maxmarks;
 		
-	$transaction = $DB->start_delegated_transaction();
+		$transaction = $DB->start_delegated_transaction();
 	
-	$updatesql = "UPDATE {qpractice_session}
-					SET marksobtained = marksobtained + ?, totalmarks = totalmarks + ?, status = finished
-					WHERE id=?";
-	$DB->execute($updatesql, array($obtainedmarks, $maxmarks, $sessionid));
-
-	if ($fraction > 0) {
-		$updatesql1 = "UPDATE {qpractice_session}
-						SET totalnoofquestionsright = totalnoofquestionsright + '1'
+		$updatesql = "UPDATE {qpractice_session}
+						SET marksobtained = marksobtained + ?, totalmarks = totalmarks + ?, status = finished
 						WHERE id=?";
-		$DB->execute($updatesql1, array($sessionid));
+		$DB->execute($updatesql, array($obtainedmarks, $maxmarks, $sessionid));
+
+		if ($fraction > 0) {
+			$updatesql1 = "UPDATE {qpractice_session}
+							SET totalnoofquestionsright = totalnoofquestionsright + '1'
+							WHERE id=?";
+			$DB->execute($updatesql1, array($sessionid));
+		}
+		$transaction->allow_commit();
 	}
-	$transaction->allow_commit();
 }
 
 function qbpractice_delete_attempt($sessionid) {
