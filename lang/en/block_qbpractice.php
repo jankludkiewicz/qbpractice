@@ -25,3 +25,4 @@ $string['qbpractice:use'] = 'Allow to use Question Bank Practice';
 $string['selectcategory'] = 'Select category to start new session:';
 $string['practicesession'] = 'Question Bank Practice Session';
 $string['continuesession'] = 'Continue previous session';
+$string['finishsession'] = 'Finish previous session';

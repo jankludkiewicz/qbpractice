@@ -103,19 +103,6 @@ function qbpractice_session_finish() {
 	}
 }
 
-function qbpractice_delete_attempt($sessionid) {
-    global $DB;
-
-    if (is_numeric($sessionid)) {
-        if (!$session = $DB->get_record('qbpractice_session', array('id' => $sessionid))) {
-            return;
-        }
-    }
-
-    question_engine::delete_questions_usage_by_activity($session->questionusageid);
-    $DB->delete_records('qbpractice_session', array('id' => $session->id));
-}
-
 function choose_next_question($categoryids, $excludedquestions, $allowshuffle = true) {
 	
     $available = question_bank::get_finder()->get_questions_from_categories($categoryids, null);

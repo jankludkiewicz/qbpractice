@@ -33,30 +33,41 @@ class block_qbpractice extends block_base {
 		}
  
 		$this->content =  new stdClass;
-		$this->content->text = html_writer::tag('span', get_string('selectcategory', 'block_qbpractice'));
 		
-		$questioncategories = get_question_categories($coursecatcontext);
-		
-		$this->content->text .= html_writer::start_tag('ul', array(null));
-		
-		foreach ($questioncategories as $questioncategory) {
-			$this->content->text .= html_writer::start_tag('li', array(null));
-			$actionurl = new moodle_url("/blocks/qbpractice/startattempt.php", array('id' => $this->context->instanceid, 'categoryid' => $questioncategory->id));
-			$label = html_writer::tag('span', $questioncategory->name);
-			$this->content->text .= html_writer::link($actionurl, $label, array(null));
-			$this->content->text .= html_writer::end_tag('li');
-		}
-		
-		$this->content->text .= html_writer::end_tag('ul');
-		
-		// Continue previous session
 		$sessions = get_user_open_sessions();
+		
 		if ($sessions) {
+			// Continue previous session
 			$session = reset($sessions);
-			$actionurl = new moodle_url("/blocks/qbpractice/attempt.php", array('id' => $session->id));
+			
+			$continueurl = new moodle_url("/blocks/qbpractice/attempt.php", array('id' => $session->id));
 			$label = html_writer::tag('span', get_string('continuesession', 'block_qbpractice'));
-			$this->content->footer = html_writer::link($actionurl, $label, array(null));
+			$this->content->text = html_writer::link($continueurl, $label, array(null));
+			
+			$this->content->text = html_writer::empty_tag('br');
+			
+			$finishurl = new moodle_url("/blocks/qbpractice/summary.php", array(null));
+			$label = html_writer::tab('span', get_string('finishsession', 'block_qbpractice'));
+			$this->content->text .= html_writer::link($finishurl, $label, array(null));
+		} else {
+			// Select category to start session
+			$this->content->text = html_writer::tag('span', get_string('selectcategory', 'block_qbpractice'));
+		
+			$questioncategories = get_question_categories($coursecatcontext);
+		
+			$this->content->text .= html_writer::start_tag('ul', array(null));
+		
+			foreach ($questioncategories as $questioncategory) {
+				$this->content->text .= html_writer::start_tag('li', array(null));
+				$actionurl = new moodle_url("/blocks/qbpractice/startattempt.php", array('id' => $this->context->instanceid, 'categoryid' => $questioncategory->id));
+				$label = html_writer::tag('span', $questioncategory->name);
+				$this->content->text .= html_writer::link($actionurl, $label, array(null));
+				$this->content->text .= html_writer::end_tag('li');
+			}
+		
+			$this->content->text .= html_writer::end_tag('ul');
 		}
+
 		return $this->content;
 	}
 	
