@@ -44,7 +44,7 @@ class block_qbpractice extends block_base {
 			$label = html_writer::tag('span', get_string('continuesession', 'block_qbpractice'));
 			$this->content->text = html_writer::link($continueurl, $label, array(null));
 			
-			$this->content->text = html_writer::empty_tag('br');
+			$this->content->text .= html_writer::empty_tag('br');
 			
 			$finishurl = new moodle_url("/blocks/qbpractice/summary.php", null);
 			$label = html_writer::tag('span', get_string('finishsession', 'block_qbpractice'));
