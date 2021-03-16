@@ -95,6 +95,7 @@ function qbpractice_session_finish() {
 							SET marksobtained = ?, totalmarks = ?, status = 'finished'
 							WHERE id=?";
 					
+					var_dump($session->id);
 			$DB->execute($updatesql, array($marksobtained, $totalmarks, $session->id));
 		
 			//$transaction->allow_commit();
