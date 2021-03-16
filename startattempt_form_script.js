@@ -1,5 +1,14 @@
+var formElements = document.querySelectorAll("input[name^='subcategories']");
+var i;
+for (i=0; i<formElements.length; i++) {
+	formElements.addEventListener("change", function() {
+		console.log(i);
+});
+}
+
 function onRangeMouseUp() {
 	var rangeElement = document.getElementById('questionsno');
 	document.getElementById('questionsnodisplay').innerHTML = rangeElement.value;
-	console.log(document.getElementsByTagName("INPUT"));
+	var formelements = document.querySelectorAll("input[name^='subcategories']")
+	console.log(formelements);
 }
