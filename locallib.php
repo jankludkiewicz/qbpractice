@@ -126,3 +126,11 @@ function get_question_categories($context) {
 									WHERE categories.contextid = ? AND top.parent = 0
 									ORDER BY categories.sortorder ASC", array($context->id));
 }
+
+function is_user_session_finished() {
+	global $USER, $DB;
+	
+	$is_finished = true;
+	$status = $DB->get_field("qbpractice_session", "status", array('userid' => $USER->id));
+	var_dump($status);
+}

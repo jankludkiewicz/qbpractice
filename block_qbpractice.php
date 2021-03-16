@@ -49,6 +49,8 @@ class block_qbpractice extends block_base {
 		
 		$this->content->text .= html_writer::end_tag('ul');
 		
+		is_finished();
+		
 		return $this->content;
 	}
 	
