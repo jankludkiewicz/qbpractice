@@ -44,7 +44,7 @@ $table->align = array('left', 'left');
 $table->size = array('', '');
 $table->data = array();
 
-$sessions = $DB->get_records('qpractice_session', array('userid' => $USER->id));
+$sessions = $DB->get_records('qbpractice_session', array('userid' => $USER->id));
 
 foreach ($sessions as $session) {
 	$score = round($session->marksobtained/$session->totalmarks*100,2);
