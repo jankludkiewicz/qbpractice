@@ -48,7 +48,7 @@ $PAGE->set_context($context);
 $PAGE->set_pagelayout('standard');
 $title = get_string('practicesession', 'block_qbpractice');
 $PAGE->set_heading($title);
-$PAGE->requires->css(dirname(__FILE__) .'/filters/attemptnavstyle.css');
+$PAGE->requires->css('/styles/attemptnavstyle.css');
 
 // Security functions
 require_login();
