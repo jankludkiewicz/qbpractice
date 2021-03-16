@@ -77,8 +77,6 @@ function qbpractice_session_finish() {
 	if ($sessions) {
 		foreach ($sessions as $session) {
 			$quba = question_engine::load_questions_usage_by_activity($session->questionusageid);
-			
-			var_dump($quba);
 	
 			$slots = $quba->get_slots();
 			$marksobtained = 0;
@@ -96,6 +94,8 @@ function qbpractice_session_finish() {
 			$updatesql = "UPDATE {qpractice_session} 
 							SET marksobtained = ?, totalmarks = ?, status = 'finished'
 							WHERE id=?";
+							
+			var_dump($updatesql);
 					
 			$DB->execute($updatesql, array($marksobtained, $totalmarks, $session->id));
 		
