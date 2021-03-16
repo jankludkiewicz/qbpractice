@@ -44,6 +44,7 @@ $courseid = $context->get_parent_context()->instanceid;
 
 $PAGE->set_url('/blocks/qbpractice/attempt.php', array('id' => $sessionid));
 $PAGE->set_context($context);
+$PAGE->set_pagelayout('standard');
 
 // Security functions
 require_login();
