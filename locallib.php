@@ -91,8 +91,6 @@ function qbpractice_session_finish() {
 				$marksobtained += $fraction * $maxmarks;
 				$totalmarks += $maxmarks;
 			}
-			
-			var_dump($marksobtained." ".$totalmarks);
 	
 			$updatesql = "UPDATE {qbpractice_session} 
 							SET status = 'finished', marksobtained = ?, totalmarks = ?
