@@ -34,3 +34,5 @@ $string['finishsession'] = 'Finish session';
 
 $string['nextquestion'] = 'Next';
 $string['previousquestion'] = 'Previous';
+
+$string['sessionnavigation'] = 'Session navigation';

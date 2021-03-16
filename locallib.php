@@ -120,26 +120,6 @@ function choose_next_question($categoryids, $excludedquestions, $allowshuffle = 
     return null;
 }
 
-function get_previous_question_slot($quba, $slot) {
-	$slots = $quba->get_slots();
-	if ($slot == 1) return 1;
-	else return $slot-1;
-}
-
-function get_next_question_slot($quba, $slot) {
-	$slots = $quba->get_slots();
-	if (isset($slots[$slot])) return $slot+1;
-	else return null;
-}
-
-function get_first_active_question($quba) {
-	$slots = $quba->get_slots();
-	foreach ($slots as $slot) {
-		if ($quba->get_question_state($slot)->is_active()) return $slot;
-	}
-	return null;
-}
-
 function get_question_categories($context) {
 	global $DB;
 	

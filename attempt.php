@@ -25,8 +25,8 @@
  // Libraries
 require_once(dirname(dirname(dirname(__FILE__))) . '/config.php');
 require_once($CFG->libdir . '/questionlib.php');
-require_once(dirname(__FILE__) . '/locallib.php');
 require_once($CFG->libdir . '/filelib.php');
+require_once(dirname(__FILE__) . '/attemptlib.php');
 
 // Required parameters
 $sessionid = required_param('id', PARAM_INT); // Session id
@@ -96,6 +96,11 @@ $options->flags = question_display_options::EDITABLE;
 $options->correctness = question_display_options::VISIBLE;
 $options->marks = question_display_options::HIDDEN;
 if (has_capability('moodle/question:editall', $context)) $options->editquestionparams = array('courseid' => $courseid, 'returnurl' => $currenturl);
+
+// Add navigation panel
+$navbc = get_navigation_panel($slot);
+$regions = $PAGE->blocks->get_regions();
+$PAGE->blocks->add_fake_block($navbc, reset($regions));
 
 // Important for flags to work
 $headtags = '';
