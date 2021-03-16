@@ -95,7 +95,7 @@ function qbpractice_session_finish() {
 			var_dump($marksobtained." ".$totalmarks);
 	
 			$updatesql = "UPDATE {qpractice_session} 
-							SET marksobtained = ?, totalmarks = ?, status = 'finished'
+							SET status = 'finished', marksobtained = ?, totalmarks = ?
 							WHERE id=?";
 					
 			$DB->execute($updatesql, array($marksobtained, $totalmarks, $session->id));
