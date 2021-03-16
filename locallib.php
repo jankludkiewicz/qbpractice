@@ -73,11 +73,12 @@ function qbpractice_session_finish() {
 	global $USER, $DB;
 	
 	$sessions = get_user_open_sessions();
-	var_dump($sessions);
 	
 	if ($sessions) {
 		foreach ($sessions as $session) {
 			$quba = question_engine::load_questions_usage_by_activity($session->questionusageid);
+			
+			var_dump($quba);
 	
 			$slots = $quba->get_slots();
 			$marksobtained = 0;
