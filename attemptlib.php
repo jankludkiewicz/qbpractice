@@ -54,6 +54,7 @@ function get_navigation_panel($sessionid, $quba, $active) {
 		$bc->content = '';
 		
 		$slots = $quba->get_slots();
+		var_dump($slots);
 		foreach ($slots as $slot) {
 			$question_state = $quba->get_question_state($slot);
 			
