@@ -90,17 +90,12 @@ function qbpractice_session_finish() {
 		
 		$transaction = $DB->start_delegated_transaction();
 	
-		$updatesql = "UPDATE {qpractice_session}
+		$updatesql = "UPDATE {qpractice_session} 
 						SET marksobtained = ?, totalmarks = ?, status = 'finished'
 						WHERE id=?";
-		$DB->execute($updatesql, array($marksobtained, $totalmarks, $sessionid));
-
-		if ($fraction > 0) {
-			$updatesql1 = "UPDATE {qpractice_session}
-							SET totalnoofquestionsright = totalnoofquestionsright + '1'
-							WHERE id=?";
-			$DB->execute($updatesql1, array($sessionid));
-		}
+						
+		$DB->execute($updatesql, array($marksobtained, $totalmarks, $session->id));
+		
 		$transaction->allow_commit();
 	}
 }
