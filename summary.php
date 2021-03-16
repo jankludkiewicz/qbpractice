@@ -28,7 +28,7 @@ $id = required_param('id', PARAM_INT); // Instance id.
 
 $context = context_block::instance($id);
 
-$PAGE->set_url('/block/qbpractice/summary.php', array('id' => $id);
+$PAGE->set_url('/block/qbpractice/summary.php', array('id' => $id));
 $PAGE->set_context($context);
 
 require_login();
