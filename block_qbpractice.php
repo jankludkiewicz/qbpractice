@@ -52,7 +52,8 @@ class block_qbpractice extends block_base {
 		// Continue previous session
 		$sessions = get_user_open_sessions();
 		if ($sessions) {
-			$actionurl = new moodle_url("/blocks/qbpractice/attempt.php", array('id' => $sessions[0]->id));
+			$session = reset($sessions);
+			$actionurl = new moodle_url("/blocks/qbpractice/attempt.php", array('id' => $session->id));
 			$label = html_writer::tag('span', get_string('continuesession', 'block_qbpractice'));
 			$this->content->footer = html_writer::link($actionurl, $label, array(null));
 		}
