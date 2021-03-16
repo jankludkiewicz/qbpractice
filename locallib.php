@@ -75,6 +75,9 @@ function qbpractice_session_finish() {
 	$sessions = get_user_open_sessions();
 	
 	if ($sessions) {
+		
+		$transaction = $DB->start_delegated_transaction();
+		
 		foreach ($sessions as $session) {
 			$quba = question_engine::load_questions_usage_by_activity($session->questionusageid);
 	
@@ -88,18 +91,15 @@ function qbpractice_session_finish() {
 				$marksobtained += $fraction * $maxmarks;
 				$totalmarks += $maxmarks;
 			}
-				
-			//$transaction = $DB->start_delegated_transaction();
 	
 			$updatesql = "UPDATE {qpractice_session} 
 							SET marksobtained = ?, totalmarks = ?, status = 'finished'
 							WHERE id=?";
 					
-					var_dump($session->id);
 			$DB->execute($updatesql, array($marksobtained, $totalmarks, $session->id));
-		
-			//$transaction->allow_commit();
 		}
+		
+		$transaction->allow_commit();
 	}
 }
 
