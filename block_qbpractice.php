@@ -49,7 +49,7 @@ class block_qbpractice extends block_base {
 		
 		$this->content->text .= html_writer::end_tag('ul');
 		
-		is_finished();
+		is_user_session_finished();
 		
 		return $this->content;
 	}
