@@ -51,7 +51,7 @@ function get_navigation_panel($slot) {
         $bc->attributes['role'] = 'navigation';
         $bc->attributes['aria-labelledby'] = 'block_qbpractice_navblock_title';
         $bc->title = html_writer::span(get_string('sessionnavigation', 'block_qbpractice'));
-        $bc->content->text = "TEST";
+        $bc->content = "TEST";
 		
 		return $bc;
 }
