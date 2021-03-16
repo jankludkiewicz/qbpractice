@@ -22,70 +22,37 @@
  */
  
 require_once(dirname(dirname(dirname(__FILE__))) . '/config.php');
-require_once($CFG->libdir . '/questionlib.php');
-require_once(dirname(__FILE__) . '/renderer.php');
-require_once("$CFG->libdir/formslib.php");
+require_once(dirname(__FILE__) . '/locallib.php');
 
-$sessionid = required_param('id', PARAM_INT); // Sessionid.
-$session = $DB->get_record('qpractice_session', array('id' => $sessionid));
-$cm = get_coursemodule_from_instance('qpractice', $session->qpracticeid);
-$course = $DB->get_record('course', array('id' => $cm->course));
-$qpractice = $DB->get_record('qpractice', array('id' => $cm->instance));
+$id = required_param('id', PARAM_INT); // Instance id.
 
-require_login($course, true, $cm);
-$context = context_module::instance($cm->id);
+$context = context_block::instance($id);
 
-$params = array(
-    'objectid' => $cm->id,
-    'context' => $context
-);
-
-$event = \mod_qpractice\event\qpractice_summary_viewed::create($params);
-$event->trigger();
-
-$actionurl = new moodle_url('/mod/qpractice/attempt.php', array('id' => $sessionid));
-$stopurl = new moodle_url('/mod/qpractice/view.php', array('id' => $cm->id));
-
-if (data_submitted()) {
-    if (optional_param('back', null, PARAM_BOOL)) {
-        redirect($actionurl);
-    } if (optional_param('finish', null, PARAM_BOOL)) {
-        $quba = question_engine::load_questions_usage_by_activity($session->questionusageid);
-        $DB->set_field('qpractice_session', 'status', 'finished', array('id' => $sessionid));
-        $slots = $quba->get_slots();
-        $slot = end($slots);
-        if (!$slot) {
-            redirect($stopurl);
-        } else {
-            $fraction = $quba->get_question_fraction($slot);
-            $maxmarks = $quba->get_question_max_mark($slot);
-            $obtainedmarks = $fraction * $maxmarks;
-            $updatesql = "UPDATE {qpractice_session}
-                          SET marksobtained = marksobtained + ?, totalmarks = totalmarks + ?
-                        WHERE id=?";
-            $DB->execute($updatesql, array($obtainedmarks, $maxmarks, $sessionid));
-            if ($fraction > 0) {
-                $updatesql1 = "UPDATE {qpractice_session}
-                          SET totalnoofquestionsright = totalnoofquestionsright + '1'
-                        WHERE id=?";
-                $DB->execute($updatesql1, array($sessionid));
-            }
-            $DB->set_field('qpractice_session', 'status', 'finished', array('id' => $sessionid));
-            redirect($stopurl);
-        }
-    }
-}
-$PAGE->set_title($qpractice->name);
-$PAGE->set_heading($course->fullname);
+$PAGE->set_url('/block/qbpractice/summary.php', array('id' => $id);
 $PAGE->set_context($context);
-$PAGE->set_url('/mod/qpractice/summary.php', array('id' => $sessionid));
-$output = $PAGE->get_renderer('mod_qpractice');
+
+require_login();
+
+$PAGE->set_title(get_string('pluginname', 'block_qbpractice'));
+$PAGE->set_heading(get_string('summary', 'block_qbpractice'));
+
+$table = new html_table();
+$table->attributes['class'] = 'generaltable boxaligncenter';
+$table->caption = get_string('pastsessions', 'block_qbpractice');
+$table->head = array(get_string('totalnoofquestions', 'block_qbpractice'), get_string('result', 'block_qbpractice'));
+$table->align = array('left', 'left');
+$table->size = array('', '');
+$table->data = array();
+
+$sessions = $DB->get_records('qpractice_session', array('userid' => $USER->id));
+
+foreach ($sessions as $session) {
+	$score = round($session->marksobtained/$session->totalmarks*100,2);
+	$table->data[] = array($session->totalnoofquestions, $score.'%');
+}
 
 echo $OUTPUT->header();
 
-echo $output->summary_table($sessionid);
+echo html_writer::table($table);
 
-echo $output->summary_form($sessionid);
-
-// Finish the page.
 echo $OUTPUT->footer();

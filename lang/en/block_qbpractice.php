@@ -22,6 +22,11 @@ $string['pluginname'] = 'Question Bank Practice';
 $string['qbpractice:addinstance'] = 'Allow to add Question Bank Practice block';
 $string['qbpractice:use'] = 'Allow to use Question Bank Practice';
 
+$string['summary'] = 'Summary table';
+$string['pastsessions'] = 'Past sessions';
+$string['totalnoofquestions'] = 'Total questions number';
+$string['result'] = 'Result';
+
 $string['selectcategory'] = 'Select category to start new session:';
 $string['practicesession'] = 'Question Bank Practice Session';
 $string['continuesession'] = 'Continue previous session';

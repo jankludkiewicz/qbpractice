@@ -61,7 +61,7 @@ $nextslot = get_next_question_slot($quba, $slot);
 $previousurl = new moodle_url('/blocks/qbpractice/attempt.php', array('id' => $sessionid, 'slot' => $previousslot));
 $currenturl = new moodle_url('/blocks/qbpractice/attempt.php', array('id' => $sessionid, 'slot' => $slot));
 $nexturl = new moodle_url('/blocks/qbpractice/attempt.php', array('id' => $sessionid, 'slot' => $nextslot));
-$finishurl = new moodle_url('/blocks/qbpractice/summary.php', array('id' => $sessionid));
+$finishurl = new moodle_url('/blocks/qbpractice/summary.php', array('id' => $session->instanceid));
 
 // No more questions in a question usage
 if ($nextslot == null) $nexturl = $finishurl;
@@ -78,7 +78,8 @@ if (data_submitted()) {
         redirect($nexturl);
 		
     } else if ($finish) {
-
+		
+		qbpractice_session_finish();
         redirect($finishurl);
 	
     } else {
@@ -116,7 +117,6 @@ $html .= html_writer::end_tag('div');
 $html .= html_writer::end_tag('form');
 
 // Final output
-$PAGE->set_url('/block/qbpractice/attempt.php', array('id' => $sessionid, 'slot' => $slot));
 $title = get_string('practicesession', 'block_qbpractice');
 $PAGE->set_heading($title);
 
