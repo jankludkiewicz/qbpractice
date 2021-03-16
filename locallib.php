@@ -83,20 +83,18 @@ function qbpractice_session_finish() {
 	
 			$slots = $quba->get_slots();
 			$marksobtained = 0;
-			$totalmarks = 0;
 		
 			foreach ($slots as $slot) {
 				$fraction = $quba->get_question_fraction($slot);
 				$maxmarks = $quba->get_question_max_mark($slot);
 				$marksobtained += $fraction * $maxmarks;
-				$totalmarks += $maxmarks;
 			}
 	
 			$updatesql = "UPDATE {qbpractice_session} 
 							SET status = 'finished', marksobtained = ?, totalmarks = ?
 							WHERE id=?";
 					
-			$DB->execute($updatesql, array($marksobtained, $totalmarks, $session->id));
+			$DB->execute($updatesql, array($marksobtained, $quba->get_total_mark(), $session->id));
 		}
 		
 		$transaction->allow_commit();

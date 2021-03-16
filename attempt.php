@@ -42,9 +42,13 @@ $session = $DB->get_record('qbpractice_session', array('id' => $sessionid));
 $context = context_block::instance($session->instanceid);
 $courseid = $context->get_parent_context()->instanceid;
 
+// Page custiomization
 $PAGE->set_url('/blocks/qbpractice/attempt.php', array('id' => $sessionid));
 $PAGE->set_context($context);
 $PAGE->set_pagelayout('standard');
+$title = get_string('practicesession', 'block_qbpractice');
+$PAGE->set_heading($title);
+$PAGE->requires->css( 'css/attemptnavstyle.css');
 
 // Security functions
 require_login();
@@ -122,9 +126,6 @@ $html .= html_writer::end_tag('div');
 $html .= html_writer::end_tag('form');
 
 // Final output
-$title = get_string('practicesession', 'block_qbpractice');
-$PAGE->set_heading($title);
-
 echo $OUTPUT->header();
 
 echo $html;

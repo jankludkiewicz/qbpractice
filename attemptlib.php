@@ -45,13 +45,30 @@ function get_first_active_question($quba) {
 	return null;
 }
 
-function get_navigation_panel($slot) {
+function get_navigation_panel($sessionid, $quba, $active) {
 		$bc = new block_contents();
         $bc->attributes['id'] = 'block_qbpractice_navblock';
         $bc->attributes['role'] = 'navigation';
         $bc->attributes['aria-labelledby'] = 'block_qbpractice_navblock_title';
         $bc->title = html_writer::span(get_string('sessionnavigation', 'block_qbpractice'));
-        $bc->content = "TEST";
+		$bc->content = '';
+		
+		$slots = $quba->get_slots();
+		foreach ($slots as $slot) {
+			$question_state = $quba->get_question_state($slot);
+			
+			if ($question_state->is_correct()) $slotclass = "correct_slot";
+			else if ($question_state->is_incorrect()) $slotclass = "incorrect_slot";
+			else $slotclass = "normal_slot";
+			
+			if ($slot == $active) $activeclass = "this_slot";
+			else $activeclass = "other_slot";
+			
+			$actionurl = new moodle_url("/blocks/qbpractice/attempt.php", array('id' => $sessionid, 'slot' => $slot));
+			$buttoncontent = html_writer::tag('span', '', array('class' => "status_box".$slotclass));
+			$buttoncontent .= html_writer::tag('span', '', array('class' => "status_box".$activeclass));
+			$bc->content .= html_writer::link($actionurl, $buttoncontent, array('class' => 'slot_button'));
+		} 
 		
 		return $bc;
 }
