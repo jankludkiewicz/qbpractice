@@ -127,11 +127,10 @@ function get_question_categories($context) {
 									ORDER BY categories.sortorder ASC", array($context->id));
 }
 
-function is_user_session_finished() {
+function get_open_session() {
 	global $USER, $DB;
 	
-	$is_finished = true;
-	$status = ($DB->get_fieldset_sql("SELECT status FROM {qbpractice_session} WHERE userid = ? ORDER BY id DESC", array($USER->id)))[0];
+	$sessionid = $DB->get_field("qbpractice_session", "id", array('userid' => $USER->id, 'status' => 'inprogress'));
 	
-	var_dump($status);
+	return $sessionid;
 }
