@@ -51,7 +51,8 @@ function get_navigation_panel($sessionid, $quba, $active) {
         $bc->attributes['role'] = 'navigation';
         $bc->attributes['aria-labelledby'] = 'block_qbpractice_navblock_title';
         $bc->title = html_writer::span(get_string('sessionnavigation', 'block_qbpractice'));
-		$bc->content = '';
+		
+		$bc->content = html_writer::start_tag('div', array('class' => 'slot_buttons'));
 		
 		$slots = $quba->get_slots();
 		foreach ($slots as $slot) {
@@ -70,7 +71,7 @@ function get_navigation_panel($sessionid, $quba, $active) {
 			$buttoncontent .= html_writer::tag('span', '', array('class' => "status_box ".$activeclass));
 			$bc->content .= html_writer::link($actionurl, $buttoncontent, array('class' => 'slot_button'));
 		}
-		$bc->content .= html_writer::empty_tag('br');
+		$bc->content .= html_writer::end_tag('div');
 		
 		return $bc;
 }

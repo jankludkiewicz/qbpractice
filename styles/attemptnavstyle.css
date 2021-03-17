@@ -1,3 +1,12 @@
+div.slot_buttons {
+	box-sizing: border-box;
+	display: block;
+}
+div.other_nav {
+	box-sizing: border-box;
+	margin: .5em 0;
+}
+
 .slot_button {
 	width: 35px;
     height: 45px;
