@@ -6,9 +6,13 @@ div.other_nav {
 	margin: .5em 0;
 }
 
+.navigation_buttons {
+	text-align: center;
+}
+
 .navigation_button {
-	margin-left: auto;
-	margin-right: auto;
+	margin-left: 20px;
+	margin-right: 20px;
 }
 
 .slot_button {
