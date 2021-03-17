@@ -1,4 +1,5 @@
 div.slot_buttons {
+	overflow: auto;
 }
 
 div.other_nav {
@@ -20,7 +21,6 @@ div.other_nav {
     display: block;
     position: relative;
     float: left;
-    font-family: open sans
 }
 .status_box {
 	display: block;
