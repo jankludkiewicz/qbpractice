@@ -6,6 +6,11 @@ div.other_nav {
 	margin: .5em 0;
 }
 
+.navigation_button {
+	margin-left: auto;
+	margin-right: auto;
+}
+
 .slot_button {
 	width: 35px;
     height: 45px;
