@@ -49,7 +49,7 @@ $PAGE->set_context($context);
 $PAGE->set_pagelayout('standard');
 $title = get_string('practicesession', 'block_qbpractice');
 $PAGE->set_heading($title);
-$PAGE->requires->css('/blocks/qbpractice/style/attemptstyle.css');
+$PAGE->requires->css('/blocks/qbpractice/styles/attemptstyle.css');
 
 // Security functions
 require_login();
