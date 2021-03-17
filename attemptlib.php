@@ -72,6 +72,8 @@ function get_navigation_panel($sessionid, $quba, $active) {
 			$bc->content .= html_writer::link($actionurl, $buttoncontent, array('class' => 'slot_button'));
 		}
 		$bc->content .= html_writer::end_tag('div');
+		$bc->content .= html_writer::start_tag('div', array('class' => 'other_nav'));
+		$bc->content .= html_writer::end_tag('div');
 		
 		return $bc;
 }
