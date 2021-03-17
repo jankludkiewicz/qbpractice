@@ -45,14 +45,14 @@ function get_first_active_question($quba) {
 	return null;
 }
 
-function get_navigation_panel($sessionid, $quba, $active) {
+function get_navigation_panel($sessionid, $quba, $active, $returnurl) {
 		$bc = new block_contents();
         $bc->attributes['id'] = 'block_qbpractice_navblock';
         $bc->attributes['role'] = 'navigation';
         $bc->attributes['aria-labelledby'] = 'block_qbpractice_navblock_title';
         $bc->title = html_writer::span(get_string('sessionnavigation', 'block_qbpractice'));
 		
-		$bc->content = html_writer::start_tag('div', array('class' => 'slot_buttons'));
+		$html = html_writer::start_tag('div', array('class' => 'slot_buttons'));
 		
 		$slots = $quba->get_slots();
 		foreach ($slots as $slot) {
@@ -69,11 +69,16 @@ function get_navigation_panel($sessionid, $quba, $active) {
 			$buttoncontent = $slot;
 			$buttoncontent .= html_writer::tag('span', '', array('class' => "status_box ".$slotclass));
 			$buttoncontent .= html_writer::tag('span', '', array('class' => "status_box ".$activeclass));
-			$bc->content .= html_writer::link($actionurl, $buttoncontent, array('class' => 'slot_button'));
+			$html .= html_writer::link($actionurl, $buttoncontent, array('class' => 'slot_button'));
 		}
-		$bc->content .= html_writer::end_tag('div');
-		$bc->content .= html_writer::start_tag('div', array('class' => 'other_nav'));
-		$bc->content .= html_writer::end_tag('div');
+		$html = html_writer::end_tag('div');
+		$html .= html_writer::start_tag('div', array('class' => 'other_nav'));
+		$html = html_writer::start_tag('form', array('method' => 'post', 'action' => $returnurl, 'enctype' => 'multipart/form-data', 'id' => 'navigationform'));
+		$html .= html_writer::empty_tag('input', array('type' => 'submit', 'name' => 'finish', 'value' => get_string('finishsession', 'block_qbpractice')));
+		$html .= html_writer::end_tag('form');
+		$html .= html_writer::end_tag('div');
+		
+		$bc->content = $html;
 		
 		return $bc;
 }

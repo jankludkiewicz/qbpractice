@@ -103,7 +103,7 @@ $options->marks = question_display_options::HIDDEN;
 if (has_capability('moodle/question:editall', $context)) $options->editquestionparams = array('courseid' => $courseid, 'returnurl' => $currenturl);
 
 // Add navigation panel
-$navbc = get_navigation_panel($sessionid, $quba, $slot);
+$navbc = get_navigation_panel($sessionid, $quba, $slot, $currenturl);
 $regions = $PAGE->blocks->get_regions();
 $PAGE->blocks->add_fake_block($navbc, reset($regions));
 
