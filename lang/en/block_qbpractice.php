@@ -34,6 +34,7 @@ $string['selectcategory'] = 'Select category to start new session:';
 $string['practicesession'] = 'Question Bank Practice Session';
 $string['continuesession'] = 'Continue previous session';
 $string['finishsession'] = 'Finish session';
+$string['previoussessionssummary'] = 'Previous sessions summary';
 
 $string['nextquestion'] = 'Next';
 $string['previousquestion'] = 'Previous';
