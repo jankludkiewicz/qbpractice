@@ -48,9 +48,18 @@ qbpractice_session_finish();
 
 $sessions = $DB->get_records('qbpractice_session', array('userid' => $USER->id));
 
+
+
+$i = 1;
 foreach ($sessions as $session) {
+	$category_ids = explode(',', $session->categoryids);
+	$subjectname = $DB->get_field_sql("SELECT top.name
+										FROM {question_categories} AS top
+										JOIN {question_categories} AS sub ON sub.parent = top.id
+										WHERE sub.id = ?", array($category_ids[0]));
 	$score = round($session->marksobtained/$session->totalmarks*100,2);
-	$table->data[] = array($session->totalnoofquestions, $score.'%');
+	$table->data[] = array($i, $subjectname, $session->totalnoofquestions, $score.'%', date("d-m-Y H:i", $session->timefinished));
+	$i++;
 }
 
 echo $OUTPUT->header();
