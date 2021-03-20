@@ -39,7 +39,7 @@ $PAGE->set_heading(get_string('summary', 'block_qbpractice'));
 $table = new html_table();
 $table->attributes['class'] = 'generaltable boxaligncenter';
 $table->caption = get_string('pastsessions', 'block_qbpractice');
-$table->head = array(get_string('totalnoofquestions', 'block_qbpractice'), get_string('result', 'block_qbpractice'));
+$table->head = array(get_string('order', 'block_qbpractice'), get_string('subjectname', 'block_qbpractice'), get_string('totalnoofquestions', 'block_qbpractice'), get_string('result', 'block_qbpractice'), get_string('date', 'block_qbpracice'));
 $table->align = array('left', 'left');
 $table->size = array('', '');
 $table->data = array();

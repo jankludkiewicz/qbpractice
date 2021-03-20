@@ -39,7 +39,6 @@ function qbpractice_session_start($fromform, $context) {
 
 	$session->instanceid = $fromform->id;
     $session->timecreated = time();
-    $session->practicedate = time();
     $session->typeofpractice = $value;
 	$session->userid = $USER->id;
 	$session->totalnoofquestions = $fromform->noofquestions;
@@ -93,10 +92,10 @@ function qbpractice_session_finish() {
 			}
 	
 			$updatesql = "UPDATE {qbpractice_session} 
-							SET status = 'finished', marksobtained = ?, totalmarks = ?
+							SET status = 'finished', marksobtained = ?, totalmarks = ?, timefinished = ?
 							WHERE id=?";
 					
-			$DB->execute($updatesql, array($marksobtained, $totalmarks, $session->id));
+			$DB->execute($updatesql, array($marksobtained, $totalmarks, time(), $session->id));
 		}
 		
 		$transaction->allow_commit();
