@@ -52,6 +52,10 @@ function qbpractice_session_start($fromform, $context) {
 	$quba->set_preferred_behaviour($fromform->behaviour);
 	
 	$questions = array();
+	
+	$questionids = get_questions($arraycategoryids);
+	
+	var_dump($questionids);
 	for ($i=0; $i<$session->totalnoofquestions; $i++) {		
 		$question = choose_next_question($arraycategoryids, $questions);
 		$slot = $quba->add_question($question);
@@ -100,6 +104,14 @@ function qbpractice_session_finish() {
 		
 		$transaction->allow_commit();
 	}
+}
+
+function get_questions($categoryids, $allowshuffle = true) {
+	$available = question_bank::get_finder()->get_questions_from_categories($categoryids, null);
+	
+    if ($allowshuffle) shuffle($available);
+	
+	return $available;
 }
 
 function choose_next_question($categoryids, $excludedquestions, $allowshuffle = true) {
