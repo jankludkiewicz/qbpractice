@@ -53,7 +53,7 @@ $PAGE->set_heading($title);
 $PAGE->requires->css('/blocks/qbpractice/style/attemptstyle.css');
 
 // Security functions
-require_login($course);
+require_login($courseid);
 require_capability('block/qbpractice:use', $context);
 
 // Load question usage for session
