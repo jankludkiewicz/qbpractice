@@ -51,15 +51,11 @@ function qbpractice_session_start($fromform, $context) {
 	$quba = question_engine::make_questions_usage_by_activity('block_qbpractice', $context);
 	$quba->set_preferred_behaviour($fromform->behaviour);
 	
-	$questions = array();
-	
 	$questionids = get_questions($arraycategoryids);
 	
-	var_dump($questionids);
 	for ($i=0; $i<$session->totalnoofquestions; $i++) {		
-		$question = choose_next_question($arraycategoryids, $questions);
+		$question = question_bank::load_question($questionids[$i]);
 		$slot = $quba->add_question($question);
-		$questions[$slot] = $question->id;
 	}
 	
 	$quba->start_all_questions();
