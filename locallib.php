@@ -110,6 +110,7 @@ function get_questions($categoryids, $allowshuffle = true) {
 	return $available;
 }
 
+/*
 function choose_next_question($categoryids, $excludedquestions, $allowshuffle = true) {
 	
     $available = question_bank::get_finder()->get_questions_from_categories($categoryids, null);
@@ -125,7 +126,7 @@ function choose_next_question($categoryids, $excludedquestions, $allowshuffle = 
     }
 
     return null;
-}
+}*/
 
 function get_question_categories($context) {
 	global $DB;

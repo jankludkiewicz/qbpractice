@@ -42,6 +42,7 @@ $finish = optional_param('finish', null, PARAM_BOOL);
 $session = $DB->get_record('qbpractice_session', array('id' => $sessionid));
 $context = context_block::instance($session->instanceid);
 $courseid = $context->get_parent_context()->instanceid;
+$course = $DB->get_record('course', array('id' => $courseid));
 
 // Page custiomization
 $PAGE->set_url('/blocks/qbpractice/attempt.php', array('id' => $sessionid));
@@ -52,7 +53,7 @@ $PAGE->set_heading($title);
 $PAGE->requires->css('/blocks/qbpractice/style/attemptstyle.css');
 
 // Security functions
-require_login();
+require_login($course, true, $context->instanceid);
 require_capability('block/qbpractice:use', $context);
 
 // Load question usage for session
