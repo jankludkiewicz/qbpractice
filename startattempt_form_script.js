@@ -31,6 +31,7 @@ function updateRange() {
 function initRange() {
 	var rangeElement = document.getElementById('questionsno');
 	rangeElement.value = Math.round(noofquestions/2);
+	console.log(rangeElement.value);
 	if (noofquestions == 0) rangeElement.min = 0;
 	else rangeElement.min = 1;
 	rangeElement.max = noofquestions;
