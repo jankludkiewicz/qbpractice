@@ -1,12 +1,11 @@
 var formElements = document.querySelectorAll("input[name^='subcategories']");
 for (var i=1; i<formElements.length; i+=2) {
 	formElements[i].addEventListener("change", function() {eventListener(i)}, false);
-	console.log(i);
 }
 
 function eventListener(a) {
 	console.log(a);
-	a++;
+	i++;
 }
 
 function onRangeMouseUp() {
