@@ -8,6 +8,8 @@ for (var i=0; i<formElements.length; i++) {
 	noofquestions += parseInt(questionElement.value);
 }
 
+initRange();
+
 function eventListener(a) {
 	console.log(a.checked);
 	questionElement = document.querySelector("input[name='"+a.name+"_noofquestions']");
@@ -27,5 +29,7 @@ function updateRange() {
 function initRange() {
 	var rangeElement = document.getElementById('questionsno');
 	rangeElement.value = Math.round(noofquestions/2);
+	if (noofquestions == 0) rangeElement.min = 0;
 	rangeElement.max = noofquestions;
+	document.getElementById('questionsnodisplay').innerHTML = rangeElement.value+" / "+noofquestions;
 }
