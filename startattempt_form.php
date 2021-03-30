@@ -38,12 +38,10 @@ class block_qbpractice_startattempt_form extends moodleform {
         $mform->addElement('header', 'general', get_string('general', 'form'));
 		$mform->addElement('static', 'categoryname', $this->_customdata['category']->name);
 		
-		$totalnoofquestions = 0;
 		foreach ($this->_customdata['subcategories'] as $subcategory) {
 			$mform->addElement('advcheckbox', 'subcategories['.$subcategory->id.']', $subcategory->name.' ('.$subcategory->noofquestions.')', null, array('group' => 1), array(0, 1));
 			$mform->addElement('hidden', 'subcategories['.$subcategory->id.']_noofquestions', $subcategory->noofquestions);
 			$mform->setType('subcategories['.$subcategory->id.']_noofquestions', PARAM_INT);
-			$totalnoofquestions += $subcategory->noofquestions;
 		}
 		$this->add_checkbox_controller(1, "Select ALL / Select NONE", null, 1); // 1st argument is group name, 2nd is link text, 3rd is attributes and 4th is original value
 		
@@ -57,7 +55,7 @@ class block_qbpractice_startattempt_form extends moodleform {
 		$mform->setDefault('studypreference', 0);
 		
 		$mform->addElement('static', 'questions', 'Number of questions');
-		$mform->addElement('html','<div class="form-group row"><div class="col-md-3"></div><div class="col-md-9"><input type="range" min="1" max="'.$totalnoofquestions.'" step="1" value="'.round($totalnoofquestions/2).'" name="noofquestions" id="questionsno" onmouseup="updateRange()"> <label id="questionsnodisplay"></label></div></div>');
+		$mform->addElement('html','<div class="form-group row"><div class="col-md-3"></div><div class="col-md-9"><input type="range" min="1" max="1" step="1" value="1" name="noofquestions" id="questionsno" onmouseup="updateRange()"> <label id="questionsnodisplay"></label></div></div>');
 
         $this->add_action_buttons(true, get_string('startpractice', 'qpractice'));
 
