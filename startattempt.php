@@ -68,6 +68,7 @@ $mform->set_data(array('categoryid' => $categoryid));
 // Print the page header.
 $PAGE->set_title(format_string($data['category']->name));
 $PAGE->set_heading(format_string($data['category']->name));
+$PAGE->set_pagelayout('course');
 
 // Output starts here.
 echo $OUTPUT->header();
