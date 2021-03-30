@@ -35,12 +35,13 @@ $id = required_param('id', PARAM_INT); // instance id.
 $categoryid = required_param('categoryid', PARAM_INT); // Question category id
 
 $context = context_block::instance($id);
+$courseid = $context->get_parent_context()->instanceid;
 
 $PAGE->set_url('/blocks/qbpractice/startattempt.php', array('id' => $id, 'categoryid' => $categoryid));
 $PAGE->requires->js('/blocks/qbpractice/startattempt_form_script.js?v='.rand());
 $PAGE->set_context($context);
 
-require_login();
+require_login($courseid);
 
 $data = array();
 $data['category'] = $DB->get_record('question_categories', array('id' => $categoryid), 'id, name');
