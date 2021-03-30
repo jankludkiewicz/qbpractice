@@ -1,6 +1,6 @@
 var noofquestions = 0;
 
-var formElements = document.querySelectorAll("input[type='checkbox' name^='subcategories']");
+var formElements = document.querySelectorAll("input[type='checkbox'][name^='subcategories']");
 
 console.log(formElements);
 for (var i=0; i<formElements.length; i++) {
