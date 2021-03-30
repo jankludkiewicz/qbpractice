@@ -37,7 +37,7 @@ $categoryid = required_param('categoryid', PARAM_INT); // Question category id
 $context = context_block::instance($id);
 
 $PAGE->set_url('/blocks/qbpractice/startattempt.php', array('id' => $id, 'categoryid' => $categoryid));
-$PAGE->requires->js('/blocks/qbpractice/startattempt_form_script.js?v=12345');
+$PAGE->requires->js('/blocks/qbpractice/startattempt_form_script.js?v='.rand());
 $PAGE->set_context($context);
 
 require_login();
