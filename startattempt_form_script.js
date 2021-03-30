@@ -6,6 +6,7 @@ console.log(formElements);
 for (var i=0; i<formElements.length; i++) {
 	formElements[i].addEventListener("change", function() {eventListener(this)}, false);
 	questionElement = document.querySelector("input[name='"+formElements[i].name+"_noofquestions']");
+	console.log(questionElement.value);
 }
 
 function eventListener(a) {
