@@ -55,7 +55,7 @@ $data['subcategories'] = $DB->get_records_sql("SELECT categories.id, categories.
 $mform = new block_qbpractice_startattempt_form(null, $data); //Starts new form (included in "startattempt_form.php")
 
 if ($mform->is_cancelled()) {
-    $returnurl = new moodle_url('/block/qbpractice/view.php', array('id' => $id));
+    $returnurl = new moodle_url($context->get_url());
     redirect($returnurl);
 } else if ($fromform = $mform->get_data()) {
     $sessionid = qbpractice_session_start($fromform, $context);
