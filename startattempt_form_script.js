@@ -1,7 +1,7 @@
 var formElements = document.querySelectorAll("input[name^='subcategories']");
 var i;
 for (i=0; i<formElements.length; i++) {
-	formElements.addEventListener("change", function() {
+	formElements[i].addEventListener("change", function() {
 		console.log(i);
 });
 }
