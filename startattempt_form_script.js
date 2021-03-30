@@ -6,14 +6,14 @@ console.log(formElements);
 for (var i=0; i<formElements.length; i++) {
 	formElements[i].addEventListener("change", function() {eventListener(this)}, false);
 	questionElement = document.querySelector("input[name='"+formElements[i].name+"_noofquestions']");
-	noofquestions += questionElement.value;
+	noofquestions += parseInt(questionElement.value);
 }
 
 function eventListener(a) {
 	console.log(a.checked);
 	questionElement = document.querySelector("input[name='"+a.name+"_noofquestions']");
-	if (a.checked) noofquestions += questionElement.value;
-	else noofquestions -= questionElement.value;
+	if (a.checked) noofquestions += parseInt(questionElement.value);
+	else noofquestions -= parseInt(questionElement.value);
 	updateRangeInfo();
 }
 
