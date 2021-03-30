@@ -4,7 +4,7 @@ for (var i=1; i<formElements.length; i+=2) {
 }
 
 function eventListener(a) {
-	console.log(a);
+	console.log(a.checked);
 }
 
 function onRangeMouseUp() {
