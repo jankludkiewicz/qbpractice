@@ -5,6 +5,7 @@ var formElements = document.querySelectorAll("input[type='checkbox'][name^='subc
 for (var i=0; i<formElements.length; i++) {
 	formElements[i].addEventListener("change", function() {eventListener(this)}, false);
 	questionElement = document.querySelector("input[name='"+formElements[i].name+"_noofquestions']");
+	formElements[i].checked = true;
 	noofquestions += parseInt(questionElement.value);
 }
 
