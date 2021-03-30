@@ -42,7 +42,7 @@ class block_qbpractice_startattempt_form extends moodleform {
 		foreach ($this->_customdata['subcategories'] as $subcategory) {
 			$mform->addElement('advcheckbox', 'subcategories['.$subcategory->id.']', $subcategory->name.' ('.$subcategory->noofquestions.')', null, array('group' => 1), array(0, 1));
 			$mform->addElement('hidden', 'subcategories_noofquestions['.$subcategory->id.']', $subcategory->noofquestions);
-			$mform->setType('subcategories_noofquestions['.$subcategory->id.']', PARAM_INT);
+			$mform->setType('subcategories['.$subcategory->id.']_noofquestions', PARAM_INT);
 			$totalnoofquestions += $subcategory->noofquestions;
 		}
 		$this->add_checkbox_controller(1, "Select ALL / Select NONE", null, 1); // 1st argument is group name, 2nd is link text, 3rd is attributes and 4th is original value

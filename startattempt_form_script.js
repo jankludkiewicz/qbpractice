@@ -1,6 +1,9 @@
-var formElements = document.querySelectorAll("input[name^='subcategories']");
-for (var i=1; i<formElements.length; i+=2) {
+var noofquestions = 0;
+
+var formElements = document.querySelectorAll("input[type='checkbox' name^='subcategories']");
+for (var i=0; i<formElements.length; i++) {
 	formElements[i].addEventListener("change", function() {eventListener(this)}, false);
+	questionElement = document.querySelector();
 }
 
 function eventListener(a) {
