@@ -43,7 +43,6 @@ class block_qbpractice_startattempt_form extends moodleform {
 			$mform->addElement('hidden', 'subcategories['.$subcategory->id.']_noofquestions', $subcategory->noofquestions);
 			$mform->setType('subcategories['.$subcategory->id.']_noofquestions', PARAM_INT);
 		}
-		$this->add_checkbox_controller(1, "Select ALL / Select NONE", null, 1); // 1st argument is group name, 2nd is link text, 3rd is attributes and 4th is original value
 		
 		$mform->addElement('header', 'study', 'My practice preferences');
 		
