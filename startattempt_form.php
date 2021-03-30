@@ -57,7 +57,7 @@ class block_qbpractice_startattempt_form extends moodleform {
 		$mform->setDefault('studypreference', 0);
 		
 		$mform->addElement('static', 'questions', 'Number of questions');
-		$mform->addElement('html','<div class="form-group row"><div class="col-md-3"></div><div class="col-md-9"><input type="range" min="1" max="'.$totalnoofquestions.'" step="1" value="'.round($totalnoofquestions/2).'" name="noofquestions" id="questionsno" onmouseup="onRangeMouseUp()"> <label id="questionsnodisplay">'.round($totalnoofquestions/2).'/'.$totalnoofquestions.'</label></div></div>');
+		$mform->addElement('html','<div class="form-group row"><div class="col-md-3"></div><div class="col-md-9"><input type="range" min="1" max="'.$totalnoofquestions.'" step="1" value="'.round($totalnoofquestions/2).'" name="noofquestions" id="questionsno" onmouseup="updateRange()"> <label id="questionsnodisplay"></label></div></div>');
 
         $this->add_action_buttons(true, get_string('startpractice', 'qpractice'));
 
