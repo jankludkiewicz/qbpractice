@@ -4,7 +4,7 @@ for (i=0; i<formElements.length; i++) {
 	formElements[i].addEventListener("change",eventListener(i));
 }
 
-function eventListener(var a) {
+function eventListener(a) {
 	console.log(a);
 }
 
