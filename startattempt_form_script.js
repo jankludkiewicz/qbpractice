@@ -6,7 +6,7 @@ var incorrectquestions = 0;
 var formElements = document.querySelectorAll("input[type='checkbox'][name^='subcategories']");
 
 for (var i=0; i<formElements.length; i++) {
-	formElements[i].addEventListener("change", function() {eventListener(this)}, false);
+	formElements[i].addEventListener("change", function() {updateQuestionNumbers(this)}, false);
 	formElements[i].checked = true;
 	
 	allquestionElement = document.querySelector("input[name='"+formElements[i].name+"_allquestions']");
@@ -24,7 +24,7 @@ for (var i=0; i<formElements.length; i++) {
 
 initRange();
 
-function eventListener(input) {
+function updateQuestionNumbers(input) {
 	questionElement = document.querySelector("input[name='"+input.name+"_noofquestions']");
 	if (input.checked) allquestions += parseInt(questionElement.value);
 	else allquestions -= parseInt(questionElement.value);
@@ -74,6 +74,16 @@ function changeTab(input) {
 	
 	//Select label
 	selectedLabel.style = "box-shadow: 0 3px 0 -1px #fff, inset 0 5px 0 -1px #13cd4a;";
+}
+
+function initTabs() {
+	var radioTabInputs = document.querySelectorAll("input[name='studypreference']");
+	for (var i = 0; i < radioTabInputs.length; i++) {
+		// Check first element
+		if (i == 0) radioTabInputs[i].checked = true;
+		radioTabInputs[i].addEventListener("change", function() {changeTab(this)}, false);
+	}
+	changeTab(radioTabInputs[0]);
 }
 
 function initRange() {
