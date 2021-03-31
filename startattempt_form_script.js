@@ -29,6 +29,7 @@ function updateQuestionNumbers(input) {
 	questionElement = document.querySelector("input[name='"+input.name+"_noofquestions']");
 	if (input.checked) allquestions += parseInt(questionElement.value);
 	else allquestions -= parseInt(questionElement.value);
+	
 	updateRange();
 }
 
@@ -47,11 +48,10 @@ function updateRange() {
 	document.getElementById('questionsnodisplay').innerHTML = rangeElement.value+" / "+allquestions;
 }
 
-function changeTab(input) {
-	var value = parseInt(input.value);
+function updateTabs(input) {
 	
 	var selectedLabel;
-	switch(value) {
+	switch(parseInt(input.value)) {
 		case 0:
 		selectedLabel = document.getElementById('allquestions');
 		break;
@@ -79,11 +79,11 @@ function changeTab(input) {
 
 function initTabs() {
 	var radioTabInputs = document.querySelectorAll("input[name='studypreference']");
-	for (var i = 0; i < radioTabInputs.length; i++) {
-		// Check first element
-		if (i == 0) radioTabInputs[i].checked = true;
-		radioTabInputs[i].addEventListener("change", function() {changeTab(this)}, false);
-	}
+	
+	for (var i = 0; i < radioTabInputs.length; i++) radioTabInputs[i].addEventListener("change", function() {updateTabs(this)}, false);
+	
+	// Check first element
+	radioTabInputs[0].checked = true;
 	changeTab(radioTabInputs[0]);
 }
 
