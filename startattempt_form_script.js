@@ -111,6 +111,9 @@ function initQuestionCategorySelectors() {
 	
 		incorrectquestionElement = document.querySelector("input[name='"+formElements[i].name+"_incorrectquestions']");
 		incorrectquestions += parseInt(incorrectquestionElement.value);*/
+		
+		questionNoLabel = document.querySelector("label[id='"+formElements[i].name+"_questionnolabel']");
+		questionNoLabel.innerHTML = "("+parseInt(allquestionElement.value)+")";
 	}
 }
 
