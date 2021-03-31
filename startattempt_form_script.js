@@ -84,7 +84,7 @@ function initTabs() {
 	
 	// Check first element
 	radioTabInputs[0].checked = true;
-	changeTab(radioTabInputs[0]);
+	updateTabs(radioTabInputs[0]);
 }
 
 function initRange() {
