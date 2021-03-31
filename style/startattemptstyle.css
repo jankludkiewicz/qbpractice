@@ -8,7 +8,7 @@
 }
 
 input.studypreference-radio {
-	visibility: hidden;
+	display: none;
 }
 
 label.studypreference-label {
