@@ -12,9 +12,26 @@ initTabs();
  * Updates numbers of questions after checking category selector
  */
 function updateQuestionNumbers(input) {
-	var questionElement = document.querySelector("input[name='"+input.name+"_allquestions']");
-	if (input.checked) allquestions += parseInt(questionElement.value);
-	else allquestions -= parseInt(questionElement.value);
+	var specifier;
+	switch(studyPreference) {
+		case 0:
+			specifier = "allquestions";
+			break;
+		case 1:
+			specifier = "flagged";
+			break;
+		case 2:
+			specifier = "unseen";
+			break;
+		case 3:
+			specifier = "incorrect";
+			break;
+	}
+	
+	var categoryQuestionNumber = parseInt(document.querySelector("input[name='"+input.name+"_"+specifier+"']").value)
+	
+	if (input.checked) studyPreferenceQuestionNumbers[studyPreference] += categoryQuestionNumber;
+	else studyPreferenceQuestionNumbers[studyPreference] -= categoryQuestionNumber;
 	
 	updateRange();
 }
