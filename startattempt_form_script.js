@@ -1,11 +1,10 @@
 // Define global variables
-var allquestions = 0;
-var flaggedquestions = 0;
-var unseenquestions = 0;
-var incorrectquestions = 0;
+var studyPreference = 0;
+var studyPreferenceQuestionNumbers = [0, 0, 0, 0]; // Indexes: 0 - allquestions, 1 - flagged, 2 - unseen, 3 - incorrect
 
 // Initialize form
 initTabs();
+initQuestionNumbers();
 initQuestionCategorySelectors();
 initRange();
 
@@ -26,9 +25,10 @@ function updateQuestionNumbers(input) {
  * Updates tabs after user selection
  */
 function updateTabs(input) {
+	studyPreference = parseInt(input.value)
 	
 	var selectedLabel;
-	switch(parseInt(input.value)) {
+	switch(studyPreference) {
 		case 0:
 		selectedLabel = document.getElementById('allquestions');
 		break;
@@ -59,7 +59,8 @@ function updateTabs(input) {
  */
 function updateRange() {
 	var rangeElement = document.getElementById('questionsno');
-	if (allquestions == 0) {
+	
+	if (studyPreferenceQuestionNumber[studyPreference] == 0) {
 		rangeElement.min = 0;
 		document.getElementById('id_submitbutton').disabled = true;
 	}
@@ -67,9 +68,40 @@ function updateRange() {
 		rangeElement.min = 1;
 		document.getElementById('id_submitbutton').disabled = false;
 	}
-	rangeElement.max = allquestions;
-	if (rangeElement.value > allquestions) rangeElement.value = allquestions;
-	document.getElementById('questionsnodisplay').innerHTML = rangeElement.value+" / "+allquestions;
+	
+	rangeElement.max = studyPreferenceQuestionNumber[studyPreference];
+	if (rangeElement.value > studyPreferenceQuestionNumber[studyPreference]) rangeElement.value = studyPreferenceQuestionNumber[studyPreference];
+	document.getElementById('questionsnodisplay').innerHTML = rangeElement.value+" / "+studyPreferenceQuestionNumber[studyPreference];
+}
+
+function initQuestionNumbers() {
+	var formElements = document.querySelectorAll("input[type='checkbox'][name^='subcategories']");
+	for (var i = 0; i < formElements.length; i++) {
+		// Adjust specifier based on studyPreference
+		var specifier;
+		switch(studyPreference) {
+			case 0:
+				specifier = "allquestions";
+				break;
+			case 1:
+				specifier = "flagged";
+				break;
+			case 2:
+				spcifier = "unseen";
+				break;
+			case 3:
+				specifier = "incorrect";
+				break;
+		}
+		
+		// Find category question number by studypreference
+		var cateoryQuestionNumber = parseInt(document.querySelector("input[name='"+formElements[i].name+"_"+specifier+"']").value)
+		studyPreferenceQuestionNumbers[studyPreference] += categoryQuestionNumber;
+		
+		// Change displayed question number in category
+		var questionNoLabel = document.querySelector("label[id='"+formElements[i].name+"_questionnolabel']");
+		questionNoLabel.innerHTML = "("+categoryQuestionNumber+")";
+	}
 }
 
 /*
@@ -93,27 +125,18 @@ function initTabs() {
  * 2) marks all checked
  * 3) calculates total question numbers of each type
  */
-function initQuestionCategorySelectors() {
+function initQuestionCategorySelectors(studypreference) {
 	var formElements = document.querySelectorAll("input[type='checkbox'][name^='subcategories']");
-
 	for (var i = 0; i < formElements.length; i++) {
 		formElements[i].addEventListener("change", function() {updateQuestionNumbers(this)}, false);
-		formElements[i].checked = true;
-	
-		allquestionElement = document.querySelector("input[name='"+formElements[i].name+"_allquestions']");
-		allquestions += parseInt(allquestionElement.value);
-	
-/*		flaggedquestionElement = document.querySelector("input[name='"+formElements[i].name+"_flaggedquestions']");
-		flaggedquestions += parseInt(flaggedquestionElement.value);
-	
-		unseenquestionElement = document.querySelector("input[name='"+formElements[i].name+"_unseenquestions']");
-		unseenquestions += parseInt(unseenquestionElement.value);
-	
-		incorrectquestionElement = document.querySelector("input[name='"+formElements[i].name+"_incorrectquestions']");
-		incorrectquestions += parseInt(incorrectquestionElement.value);*/
-		
-		questionNoLabel = document.querySelector("label[id='"+formElements[i].name+"_questionnolabel']");
-		questionNoLabel.innerHTML = "("+parseInt(allquestionElement.value)+")";
+		if (studyPreferenceQuestionNumbers[studyPreference] > 0) {
+			formElements[i].disabled = false;
+			formElements[i].checked = true;
+		}
+		else {
+			formElements[i].disabled = true;
+			formElements[i].checked = false;
+		}
 	}
 }
 
@@ -124,7 +147,8 @@ function initQuestionCategorySelectors() {
  */
 function initRange() {
 	var rangeElement = document.getElementById('questionsno');
-	if (allquestions == 0) {
+	
+	if (studyPreferenceQuestionNumbers[studyPreference] == 0) {
 		rangeElement.min = 0;
 		document.getElementById('id_submitbutton').disabled = true;
 	}
@@ -132,8 +156,8 @@ function initRange() {
 		rangeElement.min = 1;
 		document.getElementById('id_submitbutton').disabled = false;
 	}
-	rangeElement.max = allquestions;
-	rangeElement.value = Math.round(allquestions/2);
-	console.log(rangeElement.value);
-	document.getElementById('questionsnodisplay').innerHTML = rangeElement.value+" / "+allquestions;
+	
+	rangeElement.max = studyPreferenceQuestionNumbers[studyPreference];
+	rangeElement.value = Math.round(studyPreferenceQuestionNumbers[studyPreference]/2);
+	document.getElementById('questionsnodisplay').innerHTML = rangeElement.value+" / "+studyPreferenceQuestionNumbers[studyPreference];
 }
