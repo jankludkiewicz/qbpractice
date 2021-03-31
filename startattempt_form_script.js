@@ -60,7 +60,7 @@ function updateTabs(input) {
 function updateRange() {
 	var rangeElement = document.getElementById('questionsno');
 	
-	if (studyPreferenceQuestionNumber[studyPreference] == 0) {
+	if (studyPreferenceQuestionNumbers[studyPreference] == 0) {
 		rangeElement.min = 0;
 		document.getElementById('id_submitbutton').disabled = true;
 	}
@@ -69,9 +69,9 @@ function updateRange() {
 		document.getElementById('id_submitbutton').disabled = false;
 	}
 	
-	rangeElement.max = studyPreferenceQuestionNumber[studyPreference];
-	if (rangeElement.value > studyPreferenceQuestionNumber[studyPreference]) rangeElement.value = studyPreferenceQuestionNumber[studyPreference];
-	document.getElementById('questionsnodisplay').innerHTML = rangeElement.value+" / "+studyPreferenceQuestionNumber[studyPreference];
+	rangeElement.max = studyPreferenceQuestionNumbers[studyPreference];
+	if (rangeElement.value > studyPreferenceQuestionNumbers[studyPreference]) rangeElement.value = studyPreferenceQuestionNumbers[studyPreference];
+	document.getElementById('questionsnodisplay').innerHTML = rangeElement.value+" / "+studyPreferenceQuestionNumbers[studyPreference];
 }
 
 function initQuestionNumbers() {
