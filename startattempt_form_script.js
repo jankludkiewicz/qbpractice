@@ -110,6 +110,9 @@ function updateRange() {
 	document.getElementById('questionsnodisplay').innerHTML = rangeElement.value+" / "+studyPreferenceQuestionNumbers[studyPreference];
 }
 
+/*
+ * Pulls data out of form to get question numbers in specified studyPreference
+ */
 function initQuestionNumbers() {
 	studyPreferenceQuestionNumbers[studyPreference] = 0;
 	var formElements = document.querySelectorAll("input[type='checkbox'][name^='subcategories']");
