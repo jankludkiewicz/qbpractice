@@ -1,4 +1,5 @@
 // Define global variables
+var studyPreference;
 var studyPreferenceQuestionNumbers = []; // Indexes: 0 - allquestions, 1 - flagged, 2 - unseen, 3 - incorrect
 
 // Initialize form
