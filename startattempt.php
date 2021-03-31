@@ -39,6 +39,7 @@ $courseid = $context->get_parent_context()->instanceid;
 
 $PAGE->set_url('/blocks/qbpractice/startattempt.php', array('id' => $id, 'categoryid' => $categoryid));
 $PAGE->requires->js('/blocks/qbpractice/startattempt_form_script.js?v='.rand());
+$PAGE->requires->css('/blocks/qbpractice/style/startattemptstyle.css?v='.rand());
 $PAGE->set_context($context);
 
 require_login($courseid);
