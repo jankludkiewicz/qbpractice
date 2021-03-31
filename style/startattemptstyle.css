@@ -8,6 +8,7 @@
 }
 
 input.studypreference-radio {
+	visibility: hidden;
 }
 
 label.studypreference-label {
@@ -22,10 +23,4 @@ label.studypreference-label {
 
 label.studypreference-label:hover {
 	background-color: #eee;
-}
-
-input.studypreference-radio:checked+label {
-	box-shadow: 0 3px 0 -1px #fff, inset 0 5px 0 -1px #13cd4a;
-	border-color: #428bca;
-	z-index: 1;
 }
