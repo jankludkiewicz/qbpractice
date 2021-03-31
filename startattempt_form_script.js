@@ -1,6 +1,5 @@
 // Define global variables
-var studyPreference = 0;
-var studyPreferenceQuestionNumbers; // Indexes: 0 - allquestions, 1 - flagged, 2 - unseen, 3 - incorrect
+var studyPreferenceQuestionNumbers = []; // Indexes: 0 - allquestions, 1 - flagged, 2 - unseen, 3 - incorrect
 
 // Initialize form
 initQuestionCategorySelectors();
