@@ -3,6 +3,7 @@ var studyPreference = 0;
 var studyPreferenceQuestionNumbers = [0, 0, 0, 0]; // Indexes: 0 - allquestions, 1 - flagged, 2 - unseen, 3 - incorrect
 
 // Initialize form
+initQuestionCategorySelectors();
 initTabs();
 
 // Function definitions
@@ -51,8 +52,25 @@ function updateTabs(input) {
 	selectedLabel.style = "box-shadow: 0 3px 0 -1px #fff, inset 0 5px 0 -1px #13cd4a;";
 	
 	initQuestionNumbers();
-	initQuestionCategorySelectors();
+	updateQuestionCategorySelectors();
 	initRange();
+}
+
+/*
+ * Updates states of question category selectors based on question numbers in selected study preference
+ */
+function updateQuestionCategorySelectors() {
+	var formElements = document.querySelectorAll("input[type='checkbox'][name^='subcategories']");
+	for (var i = 0; i < formElements.length; i++) {
+		if (studyPreferenceQuestionNumbers[studyPreference] > 0) {
+			formElements[i].disabled = false;
+			formElements[i].checked = true;
+		}
+		else {
+			formElements[i].disabled = true;
+			formElements[i].checked = false;
+		}
+	}
 }
 
 /*
@@ -123,23 +141,11 @@ function initTabs() {
 
 /*
  * Initializes question category selectors:
- * 1) adds eventListeners (change)
- * 2) marks all checked
- * 3) calculates total question numbers of each type
+ * adds eventListeners (change)
  */
-function initQuestionCategorySelectors(studypreference) {
+function initQuestionCategorySelectors() {
 	var formElements = document.querySelectorAll("input[type='checkbox'][name^='subcategories']");
-	for (var i = 0; i < formElements.length; i++) {
-		formElements[i].addEventListener("change", function() {updateQuestionNumbers(this)}, false);
-		if (studyPreferenceQuestionNumbers[studyPreference] > 0) {
-			formElements[i].disabled = false;
-			formElements[i].checked = true;
-		}
-		else {
-			formElements[i].disabled = true;
-			formElements[i].checked = false;
-		}
-	}
+	for (var i = 0; i < formElements.length; i++) formElements[i].addEventListener("change", function() {updateQuestionNumbers(this)}, false);
 }
 
 /*
