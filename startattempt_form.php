@@ -47,15 +47,15 @@ class block_qbpractice_startattempt_form extends moodleform {
 		$mform->addElement('header', 'study', 'My practice preferences');
 		
 		$mform->addElement('html', '<div class="studypreference-wrapper">');
-		$mform->addElement('html', '<label class="studypreference-label" id="allquestions"><input type="radio" name="studypreference" class="studypreference-radio" value="0">');
+		$mform->addElement('html', '<label class="studypreference-label" id="allquestions"><input type="radio" name="studypreference" class="studypreference-radio" value="0" onclick="changeTab(this)">');
 		$mform->addElement('html', 'All questions</label>');
-		$mform->addElement('html', '<label class="studypreference-label" id="flagged"><input type="radio" name="studypreference" class="studypreference-radio" value="1">');
+		$mform->addElement('html', '<label class="studypreference-label" id="flagged"><input type="radio" name="studypreference" class="studypreference-radio" value="1" onclick="changeTab(this)">');
 		$mform->addElement('html', 'Flagged only</label>');
-		$mform->addElement('html', '<label class="studypreference-label" id="unseen"><input type="radio" name="studypreference" class="studypreference-radio" value="2">');
+		$mform->addElement('html', '<label class="studypreference-label" id="unseen"><input type="radio" name="studypreference" class="studypreference-radio" value="2" onclick="changeTab(this)">');
 		$mform->addElement('html', 'Unseen before</label>');
-		$mform->addElement('html', '<label class="studypreference-label" id="incorrect"><input type="radio" name="studypreference" class="studypreference-radio" value="3">');
+		$mform->addElement('html', '<label class="studypreference-label" id="incorrect"><input type="radio" name="studypreference" class="studypreference-radio" value="3" onclick="changeTab(this)">');
 		$mform->addElement('html', 'Answered incorrectly</label>');
-		$mform->addElement('html', '<label class="studypreference-label" id="exam"><input type="radio" name="studypreference" class="studypreference-radio" value="4">');
+		$mform->addElement('html', '<label class="studypreference-label" id="exam"><input type="radio" name="studypreference" class="studypreference-radio" value="4" onclick="changeTab(this)">');
 		$mform->addElement('html', 'Exam</label>');
 /*		$mform->addElement('radio', 'studypreference', '', 'All questions', 0);
 		$mform->addElement('radio', 'studypreference', '', 'Practice exam', 1);

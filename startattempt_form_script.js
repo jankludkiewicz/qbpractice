@@ -24,10 +24,9 @@ for (var i=0; i<formElements.length; i++) {
 
 initRange();
 
-function eventListener(a) {
-	console.log(a.checked);
-	questionElement = document.querySelector("input[name='"+a.name+"_noofquestions']");
-	if (a.checked) allquestions += parseInt(questionElement.value);
+function eventListener(input) {
+	questionElement = document.querySelector("input[name='"+input.name+"_noofquestions']");
+	if (input.checked) allquestions += parseInt(questionElement.value);
 	else allquestions -= parseInt(questionElement.value);
 	updateRange();
 }
@@ -45,6 +44,36 @@ function updateRange() {
 	rangeElement.max = noofquestions;
 	if (rangeElement.value > allquestions) rangeElement.value = allquestions;
 	document.getElementById('questionsnodisplay').innerHTML = rangeElement.value+" / "+allquestions;
+}
+
+function changeTab(input) {
+	var value = parseInt(input.value);
+	
+	var selectedLabel;
+	switch(value) {
+		case 0:
+		selectedLabel = document.getElementById('allquestions');
+		break;
+		case 1:
+		selectedLabel = document.getElementById('flagged');
+		break;
+		case 2:
+		selectedLabel = document.getElementById('unseen');
+		break;
+		case 3:
+		selectedLabel = document.getElementById('incorrect');
+		break;
+		case 4:
+		selectedLabel = document.getElementById('exam');
+		break;
+	}
+	
+	//Clear all labels
+	labels = document.querySelectorAll("label[class='studypreference-label']");
+	for (var i=0; i<labels.length; i++) labels[i].style = "box-shadow: none";
+	
+	//Select label
+	selectedLabel.style = "box-shadow: 0 3px 0 -1px #fff, inset 0 5px 0 -1px #13cd4a;";
 }
 
 function initRange() {
