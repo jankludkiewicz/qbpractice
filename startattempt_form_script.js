@@ -95,7 +95,7 @@ function initQuestionNumbers() {
 		}
 		
 		// Find category question number by studypreference
-		var cateoryQuestionNumber = parseInt(document.querySelector("input[name='"+formElements[i].name+"_"+specifier+"']").value)
+		var categoryQuestionNumber = parseInt(document.querySelector("input[name='"+formElements[i].name+"_"+specifier+"']").value)
 		studyPreferenceQuestionNumbers[studyPreference] += categoryQuestionNumber;
 		
 		// Change displayed question number in category
