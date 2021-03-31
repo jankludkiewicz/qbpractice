@@ -96,7 +96,6 @@ function initTabs() {
 function initQuestionCategorySelectors() {
 	var formElements = document.querySelectorAll("input[type='checkbox'][name^='subcategories']");
 
-console.log(formElements);
 	for (var i = 0; i < formElements.length; i++) {
 		formElements[i].addEventListener("change", function() {updateQuestionNumbers(this)}, false);
 		formElements[i].checked = true;
