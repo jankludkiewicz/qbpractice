@@ -12,14 +12,14 @@ for (var i=0; i<formElements.length; i++) {
 	allquestionElement = document.querySelector("input[name='"+formElements[i].name+"_allquestions']");
 	allquestions += parseInt(allquestionElement.value);
 	
-	flaggedquestionElement = document.querySelector("input[name='"+formElements[i].name+"_flaggedquestions']");
+/*	flaggedquestionElement = document.querySelector("input[name='"+formElements[i].name+"_flaggedquestions']");
 	flaggedquestions += parseInt(flaggedquestionElement.value);
 	
 	unseenquestionElement = document.querySelector("input[name='"+formElements[i].name+"_unseenquestions']");
 	unseenquestions += parseInt(unseenquestionElement.value);
 	
 	incorrectquestionElement = document.querySelector("input[name='"+formElements[i].name+"_incorrectquestions']");
-	incorrectquestions += parseInt(incorrectquestionElement.value);
+	incorrectquestions += parseInt(incorrectquestionElement.value);*/
 }
 
 initRange();

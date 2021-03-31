@@ -26,6 +26,6 @@ label.studypreference-label:hover {
 
 input.studypreference-radio:checked+label {
 	box-shadow: 0 3px 0 -1px #fff, inset 0 5px 0 -1px #13cd4a;
-	background-color: #fff;
 	border-color: #428bca;
+	z-index: 1;
 }
