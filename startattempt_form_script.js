@@ -15,7 +15,7 @@ initRange();
  * Updates numbers of questions after checking category selector
  */
 function updateQuestionNumbers(input) {
-	var questionElement = document.querySelector("input[name='"+input.name+"_noofquestions']");
+	var questionElement = document.querySelector("input[name='"+input.name+"_allquestions']");
 	if (input.checked) allquestions += parseInt(questionElement.value);
 	else allquestions -= parseInt(questionElement.value);
 	
