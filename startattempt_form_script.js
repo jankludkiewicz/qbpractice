@@ -4,9 +4,6 @@ var studyPreferenceQuestionNumbers = [0, 0, 0, 0]; // Indexes: 0 - allquestions,
 
 // Initialize form
 initTabs();
-initQuestionNumbers();
-initQuestionCategorySelectors();
-initRange();
 
 // Function definitions
 
@@ -52,6 +49,10 @@ function updateTabs(input) {
 	
 	//Select label
 	selectedLabel.style = "box-shadow: 0 3px 0 -1px #fff, inset 0 5px 0 -1px #13cd4a;";
+	
+	initQuestionNumbers();
+	initQuestionCategorySelectors();
+	initRange();
 }
 
 /*
