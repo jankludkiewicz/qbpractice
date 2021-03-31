@@ -77,9 +77,26 @@ function updateTabs(input) {
  * Updates states of question category selectors based on question numbers in selected study preference
  */
 function updateQuestionCategorySelectors() {
+	var specifier;
+	switch(studyPreference) {
+		case 0:
+			specifier = "allquestions";
+			break;
+		case 1:
+			specifier = "flagged";
+			break;
+		case 2:
+			specifier = "unseen";
+			break;
+		case 3:
+			specifier = "incorrect";
+			break;
+	}
+	
 	var formElements = document.querySelectorAll("input[type='checkbox'][name^='subcategories']");
 	for (var i = 0; i < formElements.length; i++) {
-		if (studyPreferenceQuestionNumbers[studyPreference] > 0) {
+		var categoryQuestionNumber = parseInt(document.querySelector("input[name='"+formElements[i].name+"_"+specifier+"']").value)
+		if (categoryQuestionNumber > 0) {
 			formElements[i].disabled = false;
 			formElements[i].checked = true;
 		}
