@@ -46,12 +46,24 @@ class block_qbpractice_startattempt_form extends moodleform {
 		
 		$mform->addElement('header', 'study', 'My practice preferences');
 		
-		$mform->addElement('radio', 'studypreference', '', 'All questions', 0);
+		$mform->addElement('html', '<div class="studypreference-wrapper">');
+		$mform->addElement('html', '<input type="radio" name="studypreference" class="studypreference-radio" value="0">');
+		$mform->addElement('html', '<label class="studypreference-label">All questions</label>');
+		$mform->addElement('html', '<input type="radio" name="studypreference" class="studypreference-radio" value="1">');
+		$mform->addElement('html', '<label class="studypreference-label">Flagged only</label>');
+		$mform->addElement('html', '<input type="radio" name="studypreference" class="studypreference-radio" value="2">');
+		$mform->addElement('html', '<label class="studypreference-label">Unseen before</label>');
+		$mform->addElement('html', '<input type="radio" name="studypreference" class="studypreference-radio" value="3">');
+		$mform->addElement('html', '<label class="studypreference-label">Answered incorrectly</label>');
+		$mform->addElement('html', '<input type="radio" name="studypreference" class="studypreference-radio" value="4">');
+		$mform->addElement('html', '<label class="studypreference-label">Exam</label>');
+/*		$mform->addElement('radio', 'studypreference', '', 'All questions', 0);
 		$mform->addElement('radio', 'studypreference', '', 'Practice exam', 1);
 		$mform->addElement('radio', 'studypreference', '', 'Flagged only', 2);
 		$mform->addElement('radio', 'studypreference', '', 'Unseen before', 3);
-		$mform->addElement('radio', 'studypreference', '', 'Answered incorrectly', 4);
+		$mform->addElement('radio', 'studypreference', '', 'Answered incorrectly', 4);*/
 		$mform->setDefault('studypreference', 0);
+		$mform->addElement('html', '</div>');
 		
 		$mform->addElement('static', 'questions', 'Number of questions');
 		$mform->addElement('html','<div class="form-group row"><div class="col-md-3"></div><div class="col-md-9"><input type="range" min="1" max="1" step="1" value="1" name="noofquestions" id="questionsno" onmouseup="updateRange()"> <label id="questionsnodisplay"></label></div></div>');
