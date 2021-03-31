@@ -46,12 +46,18 @@ require_login($courseid);
 
 $data = array();
 $data['category'] = $DB->get_record('question_categories', array('id' => $categoryid), 'id, name');
-$data['subcategories'] = $DB->get_records_sql("SELECT categories.id, categories.name, COUNT(*) AS allquestions, 20 AS flagged, 10 AS unseen, 5 AS incorrect
+$data['subcategories'] = $DB->get_records_sql("SELECT categories.id, categories.name, 
+										COUNT(DISTINCT question.id) AS allquestions, COUNT(DISTINCT (CASE WHEN attempts.flagged = 1 THEN question.id ELSE NULL END)) AS flagged,
+										COUNT(DISTINCT (CASE WHEN EXISTS (SELECT DISTINCT attempt.id FROM {question_attempts} AS attempt WHERE attempt.questionid = attempts.questionid AND attempt.responsesummary IS NOT NULL) THEN NULL ELSE question.id END)) AS unseen,
+										COUNT(DISTINCT (CASE WHEN attempts.rightanswer = attempts.responsesummary THEN question.id ELSE NULL END)) AS correct,
+										COUNT(DISTINCT (CASE WHEN NOT EXISTS (SELECT attempt.id FROM {question_attempts} AS attempt WHERE attempt.questionid = attempts.questionid AND attempt.rightanswer = attempt.responsesummary) AND attempts.rightanswer != attempts.responsesummary THEN question.id ELSE NULL END)) AS incorrect
 										FROM {question_categories} AS categories
                                         JOIN {question} AS question ON categories.id = question.category
-										WHERE categories.parent = ? AND question.parent = 0
+                                        LEFT JOIN {question_attempts} AS attempts ON attempts.questionid = question.id
+                                        LEFT JOIN {qbpractice_session} AS session ON session.questionusageid = attempts.questionusageid
+										WHERE categories.parent = ? AND question.parent = 0 AND (session.userid = ? OR session.userid IS NULL) 
                                         GROUP BY categories.id
-										ORDER BY categories.sortorder ASC", array($categoryid));
+										ORDER BY categories.sortorder ASC", array($categoryid, $USER->id));
 
 $mform = new block_qbpractice_startattempt_form(null, $data); //Starts new form (included in "startattempt_form.php")
 
