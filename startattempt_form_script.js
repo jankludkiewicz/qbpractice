@@ -88,7 +88,7 @@ function initQuestionNumbers() {
 				specifier = "flagged";
 				break;
 			case 2:
-				spcifier = "unseen";
+				specifier = "unseen";
 				break;
 			case 3:
 				specifier = "incorrect";
