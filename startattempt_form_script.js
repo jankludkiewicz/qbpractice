@@ -22,6 +22,7 @@ for (var i=0; i<formElements.length; i++) {
 	incorrectquestions += parseInt(incorrectquestionElement.value);*/
 }
 
+initTabs();
 initRange();
 
 function updateQuestionNumbers(input) {
