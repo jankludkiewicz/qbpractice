@@ -46,7 +46,7 @@ require_login($courseid);
 
 $data = array();
 $data['category'] = $DB->get_record('question_categories', array('id' => $categoryid), 'id, name');
-$data['subcategories'] = $DB->get_records_sql("SELECT categories.id, categories.name, COUNT(*) AS allquestions, 0 AS flagged, 0 AS unseen, 0 AS incorrect
+$data['subcategories'] = $DB->get_records_sql("SELECT categories.id, categories.name, COUNT(*) AS allquestions, 20 AS flagged, 10 AS unseen, 5 AS incorrect
 										FROM {question_categories} AS categories
                                         JOIN {question} AS question ON categories.id = question.category
 										WHERE categories.parent = ? AND question.parent = 0
