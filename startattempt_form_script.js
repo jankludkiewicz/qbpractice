@@ -76,6 +76,7 @@ function updateRange() {
 }
 
 function initQuestionNumbers() {
+	studyPreferenceQuestionNumbers[studyPreference] = 0;
 	var formElements = document.querySelectorAll("input[type='checkbox'][name^='subcategories']");
 	for (var i = 0; i < formElements.length; i++) {
 		// Adjust specifier based on studyPreference
