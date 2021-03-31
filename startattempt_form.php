@@ -40,7 +40,7 @@ class block_qbpractice_startattempt_form extends moodleform {
 		
 		foreach ($this->_customdata['subcategories'] as $subcategory) {
 			$mform->addElement('advcheckbox', 'subcategories['.$subcategory->id.']', $subcategory->name.' ('.$subcategory->allquestions.')', null, array('group' => 1), array(0, 1));
-			$mform->addElement('hidden', 'subcategories['.$subcategory->id.']_noofquestions', $subcategory->allquestions);
+			$mform->addElement('hidden', 'subcategories['.$subcategory->id.']_allquestions', $subcategory->allquestions);
 			$mform->setType('subcategories['.$subcategory->id.']_allquestions', PARAM_INT);
 		}
 		
