@@ -43,7 +43,7 @@ function updateRange() {
 		rangeElement.min = 1;
 		document.getElementById('id_submitbutton').disabled = false;
 	}
-	rangeElement.max = noofquestions;
+	rangeElement.max = allquestions;
 	if (rangeElement.value > allquestions) rangeElement.value = allquestions;
 	document.getElementById('questionsnodisplay').innerHTML = rangeElement.value+" / "+allquestions;
 }
