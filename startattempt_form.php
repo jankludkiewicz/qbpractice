@@ -35,16 +35,7 @@ class block_qbpractice_startattempt_form extends moodleform {
 
         $mform = $this->_form;
 		
-        $mform->addElement('header', 'general', get_string('general', 'form'));
 		$mform->addElement('static', 'categoryname', $this->_customdata['category']->name);
-		
-		foreach ($this->_customdata['subcategories'] as $subcategory) {
-			$mform->addElement('advcheckbox', 'subcategories['.$subcategory->id.']', $subcategory->name.' ('.$subcategory->allquestions.')', null, array('group' => 1), array(0, 1));
-			$mform->addElement('hidden', 'subcategories['.$subcategory->id.']_allquestions', $subcategory->allquestions);
-			$mform->setType('subcategories['.$subcategory->id.']_allquestions', PARAM_INT);
-		}
-		
-		$mform->addElement('header', 'study', 'My practice preferences');
 		
 		$mform->addElement('html', '<div class="studypreference-wrapper">');
 		$mform->addElement('html', '<label class="studypreference-label" id="allquestions"><input type="radio" name="studypreference" class="studypreference-radio" value="0">');
@@ -57,13 +48,14 @@ class block_qbpractice_startattempt_form extends moodleform {
 		$mform->addElement('html', 'Answered incorrectly</label>');
 		$mform->addElement('html', '<label class="studypreference-label" id="exam"><input type="radio" name="studypreference" class="studypreference-radio" value="4">');
 		$mform->addElement('html', 'Exam</label>');
-/*		$mform->addElement('radio', 'studypreference', '', 'All questions', 0);
-		$mform->addElement('radio', 'studypreference', '', 'Practice exam', 1);
-		$mform->addElement('radio', 'studypreference', '', 'Flagged only', 2);
-		$mform->addElement('radio', 'studypreference', '', 'Unseen before', 3);
-		$mform->addElement('radio', 'studypreference', '', 'Answered incorrectly', 4);*/
 		$mform->setDefault('studypreference', 0);
 		$mform->addElement('html', '</div>');
+		
+		foreach ($this->_customdata['subcategories'] as $subcategory) {
+			$mform->addElement('advcheckbox', 'subcategories['.$subcategory->id.']', $subcategory->name.' ('.$subcategory->allquestions.')', null, array('group' => 1), array(0, 1));
+			$mform->addElement('hidden', 'subcategories['.$subcategory->id.']_allquestions', $subcategory->allquestions);
+			$mform->setType('subcategories['.$subcategory->id.']_allquestions', PARAM_INT);
+		}
 		
 		$mform->addElement('static', 'questions', 'Number of questions');
 		$mform->addElement('html','<div class="form-group row"><div class="col-md-3"></div><div class="col-md-9"><input type="range" min="1" max="1" step="1" value="1" name="noofquestions" id="questionsno" onmouseup="updateRange()"> <label id="questionsnodisplay"></label></div></div>');
