@@ -122,6 +122,7 @@ $html .= $quba->render_question($slot, $options, $slot);
 $html .= html_writer::start_tag('div', array('class' => 'navigation_buttons'));
 if ($slot != 1) $html .= html_writer::empty_tag('input', array('type' => 'submit', 'name' => 'previous', 'value' => get_string('previousquestion', 'block_qbpractice'), 'class' => 'navigation_button'));
 if ($slot != end($quba->get_slots())) $html .= html_writer::empty_tag('input', array('type' => 'submit', 'name' => 'next', 'value' => get_string('nextquestion', 'block_qbpractice'), 'class' => 'navigation_button'));
+else $html .= html_writer::empty_tag('input', array('type' => 'submit', 'name' => 'finish', 'value' => get_string('finishsession', 'block_qbpractice')));
 $html .= html_writer::end_tag('div');
 $html .= html_writer::end_tag('form');
 
