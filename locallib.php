@@ -127,7 +127,6 @@ function get_questions($categoryids, $studypreference, $allowshuffle = true) {
 }
 
 function get_all_questions($categoryids) {
-	var_dump(question_bank::get_finder()->get_questions_from_categories($categoryids, null));
 	return question_bank::get_finder()->get_questions_from_categories($categoryids, null);
 }
 
@@ -137,7 +136,7 @@ function get_flagged_questions($categoryids, $userid) {
 										FROM {question} AS question
 										JOIN {question_attempts} AS attempt ON attempt.questionid = question.id
 										JOIN {qbpractice_session} AS session ON session.questionusageid = attempt.questionusageid
-										WHERE attempt.flagged = 1 AND question.category IN (?) AND session.userid = ?", array(implode(",", $categoryids), $userid));
+										WHERE question.parent = 0 AND attempt.flagged = 1 AND question.category IN (?) AND session.userid = ?", array(implode(",", $categoryids), $userid));
 										
 	$return = array();
 	foreach ($results as $result) $return[$result->id] = $result->id;
@@ -147,14 +146,13 @@ function get_flagged_questions($categoryids, $userid) {
 function get_unseen_questions($categoryids, $userid) {
 	global $DB;
 	$results = $DB->get_records_sql("SELECT DISTINCT question.id
-										FROM mdl_question AS question
-										LEFT JOIN mdl_question_attempts AS attempt ON attempt.questionid = question.id
-										LEFT JOIN mdl_qbpractice_session AS session ON session.questionusageid = attempt.questionusageid
-										WHERE question.category IN (?) AND attempt.responsesummary IS NULL
-										AND NOT EXISTS (SELECT * FROM mdl_question_attempts AS a 
-														JOIN mdl_qbpractice_session AS s ON s.questionusageid = a.questionusageid
-														WHERE a.responsesummary IS NOT NULL AND a.questionid = question.id AND s.userid = ?)
-										AND question.parent = 0", array(implode(",", $categoryids), $userid));
+										FROM {question} AS question
+										LEFT JOIN {question_attempts} AS attempt ON attempt.questionid = question.id
+										LEFT JOIN {qbpractice_session} AS session ON session.questionusageid = attempt.questionusageid
+										WHERE question.parent = 0 AND question.category IN (?)
+										AND NOT EXISTS (SELECT * FROM {question_attempts} AS a 
+														JOIN {qbpractice_session} AS s ON s.questionusageid = a.questionusageid
+														WHERE a.responsesummary IS NOT NULL AND a.questionid = question.id AND s.userid = ?)", array(implode(",", $categoryids), $userid));
 	
 	$return = array();
 	foreach ($results as $result) $return[$result->id] = $result->id;
@@ -163,25 +161,20 @@ function get_unseen_questions($categoryids, $userid) {
 
 function get_incorrect_questions($categoryids, $userid) {
 	global $DB;
+	$results = $DB->get_records_sql("SELECT DISTINCT question.id, question.name
+										FROM {question} AS question
+										JOIN {question_attempts} AS attempt ON attempt.questionid = question.id
+										JOIN {qbpractice_session} AS session ON session.questionusageid = attempt.questionusageid
+										WHERE question.parent = 0 AND question.category IN (?) AND attempt.rightanswer != attempt.responsesummary AND attempt.responsesummary IS NOT NULL AND session.userid = ?
+										AND NOT EXISTS (SELECT a.id
+														FROM {question_attempts} AS a
+														JOIN {qbpractice_session} AS s ON s.questionusageid = a.questionusageid
+														WHERE a.questionid = question.id AND s.userid = ? AND a.rightanswer = a.responsesummary)", array(implode(",", $categoryids), $userid, $userid));
+	
+	$return = array();
+	foreach ($results as $result) $return[$result->id] = $result->id;
+	return $return;
 }
-
-/*
-function choose_next_question($categoryids, $excludedquestions, $allowshuffle = true) {
-	
-    $available = question_bank::get_finder()->get_questions_from_categories($categoryids, null);
-	
-    if ($allowshuffle) shuffle($available); 
-
-    foreach ($available as $questionid) {
-        if (in_array($questionid, $excludedquestions)) continue;
-		else {
-			$question = question_bank::load_question($questionid, $allowshuffle);
-			return $question;
-		}
-    }
-
-    return null;
-}*/
 
 function get_question_categories($context) {
 	global $DB;
