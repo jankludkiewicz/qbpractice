@@ -65,9 +65,10 @@ if ($mform->is_cancelled()) {
     $returnurl = new moodle_url($context->get_url());
     redirect($returnurl);
 } else if ($fromform = $mform->get_data()) {
-    $sessionid = qbpractice_session_start($fromform, $context);
+	var_dump($fromform);
+    //$sessionid = qbpractice_session_start($fromform, $context);
 	$nexturl = new moodle_url('/blocks/qbpractice/attempt.php', array('id' => $sessionid));
-	redirect($nexturl);
+	//redirect($nexturl);
 }
 
 $mform->set_data(array('id' => $id));
