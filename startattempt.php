@@ -47,27 +47,35 @@ require_login($courseid);
 $data = array();
 $data['category'] = $DB->get_record('question_categories', array('id' => $categoryid), 'id, name');
 $data['subcategories'] = $DB->get_records_sql("SELECT categories.id, categories.name, 
-										COUNT(DISTINCT question.id) AS allquestions, COUNT(DISTINCT (CASE WHEN attempts.flagged = 1 THEN question.id ELSE NULL END)) AS flagged,
+										COUNT(DISTINCT question.id) AS allquestions,
+                                        COUNT(DISTINCT (CASE WHEN EXISTS (SELECT a.id
+                                                                          	FROM {question_attempts} AS a
+                                                                          	JOIN {qbpractice_session} AS s ON s.questionusageid = a.questionusageid
+                                                                          	WHERE a.questionid = question.id AND a.flagged = 1 AND s.userid = :userid)
+                                                        THEN question.id ELSE NULL END)) AS flagged,
 										COUNT(DISTINCT (CASE WHEN NOT EXISTS (SELECT a.id
 																				FROM {question_attempts} AS a
 																				JOIN {qbpractice_session} AS s ON s.questionusageid = a.questionusageid
-																				WHERE a.questionid = question.id AND a.responsesummary IS NOT NULL AND s.userid = session.userid)
+																				WHERE a.questionid = question.id AND a.responsesummary IS NOT NULL AND s.userid = :userid)
 														THEN question.id ELSE NULL END)) AS unseen,
-										COUNT(DISTINCT (CASE WHEN attempts.rightanswer = attempts.responsesummary
+										COUNT(DISTINCT (CASE WHEN EXISTS (SELECT a.id
+                                                                          	FROM {question_attempts} AS a
+                                                                          	JOIN {qbpractice_session} AS s ON s.questionusageid = a.questionusageid
+                                                                          	WHERE  a.questionid = question.id AND a.rightanswer = a.responsesummary AND s.userid = :userid)
 														THEN question.id ELSE NULL END)) AS correct,
 										COUNT(DISTINCT (CASE WHEN NOT EXISTS (SELECT a.id
 																				FROM {question_attempts} AS a
 																				JOIN {qbpractice_session} AS s ON s.questionusageid = a.questionusageid
-																				WHERE a.questionid = question.id AND a.rightanswer = a.responsesummary AND s.userid = session.userid)
+																				WHERE a.questionid = question.id AND a.rightanswer = a.responsesummary AND s.userid = :userid)
 																	AND attempts.rightanswer != attempts.responsesummary
 														THEN question.id ELSE NULL END)) AS incorrect
 										FROM {question_categories} AS categories
                                         JOIN {question} AS question ON categories.id = question.category
                                         LEFT JOIN {question_attempts} AS attempts ON attempts.questionid = question.id
                                         LEFT JOIN {qbpractice_session} AS session ON session.questionusageid = attempts.questionusageid
-										WHERE categories.parent = ? AND question.parent = 0 AND (session.userid = ? OR session.userid IS NULL) 
+										WHERE categories.parent = :categoryid AND question.parent = 0
                                         GROUP BY categories.id
-										ORDER BY categories.sortorder ASC", array($categoryid, $USER->id));
+										ORDER BY categories.sortorder ASC", array("categoryid" => $categoryid, "userid" => $USER->id));
 
 $mform = new block_qbpractice_startattempt_form(null, $data); //Starts new form (included in "startattempt_form.php")
 
