@@ -127,6 +127,7 @@ function get_questions($categoryids, $studypreference, $allowshuffle = true) {
 }
 
 function get_all_questions($categoryids) {
+	var_dump(question_bank::get_finder()->get_questions_from_categories($categoryids, null));
 	return question_bank::get_finder()->get_questions_from_categories($categoryids, null);
 }
 
