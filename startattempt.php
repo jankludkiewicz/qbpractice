@@ -51,31 +51,31 @@ $data['subcategories'] = $DB->get_records_sql("SELECT categories.id, categories.
                                         COUNT(DISTINCT (CASE WHEN EXISTS (SELECT a.id
                                                                           	FROM {question_attempts} AS a
                                                                           	JOIN {qbpractice_session} AS s ON s.questionusageid = a.questionusageid
-                                                                          	WHERE a.questionid = question.id AND a.flagged = 1 AND s.userid = :userid)
+                                                                          	WHERE a.questionid = question.id AND a.flagged = 1 AND s.userid = ?)
                                                         THEN question.id ELSE NULL END)) AS flagged,
 										COUNT(DISTINCT (CASE WHEN NOT EXISTS (SELECT a.id
 																				FROM {question_attempts} AS a
 																				JOIN {qbpractice_session} AS s ON s.questionusageid = a.questionusageid
-																				WHERE a.questionid = question.id AND a.responsesummary IS NOT NULL AND s.userid = :userid)
+																				WHERE a.questionid = question.id AND a.responsesummary IS NOT NULL AND s.userid = ?)
 														THEN question.id ELSE NULL END)) AS unseen,
 										COUNT(DISTINCT (CASE WHEN EXISTS (SELECT a.id
                                                                           	FROM {question_attempts} AS a
                                                                           	JOIN {qbpractice_session} AS s ON s.questionusageid = a.questionusageid
-                                                                          	WHERE  a.questionid = question.id AND a.rightanswer = a.responsesummary AND s.userid = :userid)
+                                                                          	WHERE  a.questionid = question.id AND a.rightanswer = a.responsesummary AND s.userid = ?)
 														THEN question.id ELSE NULL END)) AS correct,
 										COUNT(DISTINCT (CASE WHEN NOT EXISTS (SELECT a.id
 																				FROM {question_attempts} AS a
 																				JOIN {qbpractice_session} AS s ON s.questionusageid = a.questionusageid
-																				WHERE a.questionid = question.id AND a.rightanswer = a.responsesummary AND s.userid = :userid)
+																				WHERE a.questionid = question.id AND a.rightanswer = a.responsesummary AND s.userid = ?)
 																	AND attempts.rightanswer != attempts.responsesummary
 														THEN question.id ELSE NULL END)) AS incorrect
 										FROM {question_categories} AS categories
                                         JOIN {question} AS question ON categories.id = question.category
                                         LEFT JOIN {question_attempts} AS attempts ON attempts.questionid = question.id
                                         LEFT JOIN {qbpractice_session} AS session ON session.questionusageid = attempts.questionusageid
-										WHERE categories.parent = :categoryid AND question.parent = 0
+										WHERE categories.parent = ? AND question.parent = 0
                                         GROUP BY categories.id
-										ORDER BY categories.sortorder ASC", array("categoryid" => $categoryid, "userid" => $USER->id));
+										ORDER BY categories.sortorder ASC", array($USER->id, $USER->id, $USER->id, $USER->id, $categoryid));
 
 $mform = new block_qbpractice_startattempt_form(null, $data); //Starts new form (included in "startattempt_form.php")
 
