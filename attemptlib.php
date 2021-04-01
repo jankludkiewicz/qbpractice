@@ -42,7 +42,7 @@ function get_first_active_question($quba) {
 	foreach ($slots as $slot) {
 		if ($quba->get_question_state($slot)->is_active()) return $slot;
 	}
-	return null;
+	return 1;
 }
 
 function get_navigation_panel($sessionid, $quba, $active, $returnurl) {
