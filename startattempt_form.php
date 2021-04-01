@@ -82,7 +82,7 @@ class block_qbpractice_startattempt_form extends moodleform {
 		$mform->setType('categoryid', PARAM_INT);
 		$mform->setType('noofquestions', PARAM_INT);
 		$mform->setType('behaviour', PARAM_ALPHA);
-		$mform->setType('studypreference', PARAM_INT);
+	//	$mform->setType('studypreference', PARAM_INT);
     }
 
 }
