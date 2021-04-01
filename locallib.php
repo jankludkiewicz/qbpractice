@@ -169,7 +169,7 @@ function get_incorrect_questions($categoryids, $userid) {
 										AND NOT EXISTS (SELECT a.id
 														FROM {question_attempts} AS a
 														JOIN {qbpractice_session} AS s ON s.questionusageid = a.questionusageid
-														WHERE a.questionid = question.id AND s.userid = ? AND a.rightanswer = a.responsesummary)", array(implode(",", $categoryids), $userid, $userid));
+														WHERE a.questionid = question.id AND s.userid = session.userid AND a.rightanswer = a.responsesummary)", array(implode(",", $categoryids), $userid));
 	
 	$return = array();
 	foreach ($results as $result) $return[$result->id] = $result->id;
