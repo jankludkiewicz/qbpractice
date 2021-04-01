@@ -140,7 +140,7 @@ function get_flagged_questions($categoryids, $userid) {
 										JOIN {qbpractice_session} AS session ON session.questionusageid = attempt.questionusageid
 										WHERE attempt.flagged = 1 AND question.category IN (?) AND session.userid = ?", array($categories, $userid));
 	var_dump($result);*/
-	return array(129=>129);
+	return array(9473=>9473);
 }
 
 function get_unseen_questions($categoryids, $userid) {
