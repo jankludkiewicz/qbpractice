@@ -75,7 +75,7 @@ $data['subcategories'] = $DB->get_records_sql("SELECT categories.id, categories.
                                         LEFT JOIN {qbpractice_session} AS session ON session.questionusageid = attempts.questionusageid
 										WHERE categories.parent = :categoryid AND question.parent = 0
                                         GROUP BY categories.id
-										ORDER BY categories.sortorder ASC", array("categoryid" => $categoryid, "userid" => $USER->id, "userid" => $USER->id, "userid" => $USER->id, "userid" => $USER->id));
+										ORDER BY categories.sortorder ASC", array("categoryid" => $categoryid, "userid" => $USER->id));
 
 $mform = new block_qbpractice_startattempt_form(null, $data); //Starts new form (included in "startattempt_form.php")
 
