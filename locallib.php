@@ -141,12 +141,24 @@ function get_flagged_questions($categoryids, $userid) {
 										
 	$return = array();
 	foreach ($results as $result) $return[$result->id] = $result->id;
-	var_dump($return);
 	return $return;
 }
 
 function get_unseen_questions($categoryids, $userid) {
 	global $DB;
+	$results = $DB->get_records_sql("SELECT DISTINCT question.id
+										FROM mdl_question AS question
+										LEFT JOIN mdl_question_attempts AS attempt ON attempt.questionid = question.id
+										LEFT JOIN mdl_qbpractice_session AS session ON session.questionusageid = attempt.questionusageid
+										WHERE question.category IN (?) AND attempt.responsesummary IS NULL
+										AND NOT EXISTS (SELECT * FROM mdl_question_attempts AS a 
+														JOIN mdl_qbpractice_session AS s ON s.questionusageid = a.questionusageid
+														WHERE a.responsesummary IS NOT NULL AND a.questionid = question.id AND s.userid = ?)
+										AND question.parent = 0", array(implode(",", $categoryids), $userid));
+	
+	$return = array();
+	foreach ($results as $result) $return[$result->id] = $result->id;
+	return $return;
 }
 
 function get_incorrect_questions($categoryids, $userid) {
