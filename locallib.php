@@ -135,12 +135,13 @@ function get_flagged_questions($categoryids, $userid) {
 	flagged;
 	$categories = implode(",", $categoryids);
 	var_dump($categories);
-	$result = $DB->get_records_sql("SELECT DISTINCT question.id
+	/*$result = $DB->get_records_sql("SELECT DISTINCT question.id
 										FROM {question} AS question
 										JOIN {question_attempts} AS attempt ON attempt.questionid = question.id
 										JOIN {qbpractice_session} AS session ON session.questionusageid = attempt.questionusageid
 										WHERE attempt.flagged = 1 AND question.category IN (?) AND session.userid = ?", array($categories, $userid));
-	var_dump($result);
+	var_dump($result);*/
+	return null;
 }
 
 function get_unseen_questions($categoryids, $userid) {
