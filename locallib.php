@@ -42,6 +42,8 @@ function qbpractice_session_start($fromform, $context) {
     $session->typeofpractice = $value;
 	$session->userid = $USER->id;
 	$session->totalnoofquestions = $fromform->noofquestions;
+	
+	$studypreference = $fromform->studypreference;
 
 	//Process selected subcategories from the form
 	$arraycategoryids = array();
@@ -51,7 +53,7 @@ function qbpractice_session_start($fromform, $context) {
 	$quba = question_engine::make_questions_usage_by_activity('block_qbpractice', $context);
 	$quba->set_preferred_behaviour($fromform->behaviour);
 	
-	$questionids = get_questions($arraycategoryids);
+	$questionids = get_questions($arraycategoryids, $studypreference);
 	
 	for ($i=0; $i<$session->totalnoofquestions; $i++) {		
 		$question = question_bank::load_question($questionids[$i]);
@@ -102,12 +104,50 @@ function qbpractice_session_finish() {
 	}
 }
 
-function get_questions($categoryids, $allowshuffle = true) {
-	$available = question_bank::get_finder()->get_questions_from_categories($categoryids, null);
+function get_questions($categoryids, $studypreference, $allowshuffle = true) {
+	global $USER;
+	switch($studypreference) {
+		case 0: // All questions
+			$available = get_all_questions($categoryids);
+			break;
+		case 1: // Flagged only
+			$available = get_flagged_questions($categoryids, $USER->id);
+			break;
+		case 2: // Unseen before
+			$available = get_unseen_questions($categoryids, $USER->id);
+			break;
+		case 3: // Answered incorrectly
+			$available = get_incorrect_questions($categoryids, $USER->id);
+			break;
+	}
 	
     if ($allowshuffle) shuffle($available);
 	
 	return $available;
+}
+
+function get_all_questions($categoryids) {
+	return question_bank::get_finder()->get_questions_from_categories($categoryids, null);
+}
+
+function get_flagged_questions($categoryids, $userid) {
+	global $DB;
+	flagged;
+	$categories = implode(",", $categoryids);
+	$result = $DB->get_records_sql("SELECT DISTINCT question.id
+										FROM {question} AS question
+										JOIN {question_attempts} AS attempt ON attempt.questionid = question.id
+										JOIN {qbpractice_session} AS session ON session.questionusageid = attempt.questionusageid
+										WHERE attempt.flagged = 1 AND question.category IN (?) AND session.userid = ?", array($categories, $userid));
+	var_dump($result);
+}
+
+function get_unseen_questions($categoryids, $userid) {
+	global $DB;
+}
+
+function get_incorrect_questions($categoryids, $userid) {
+	global $DB;
 }
 
 /*
