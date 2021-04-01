@@ -134,15 +134,15 @@ function get_all_questions($categoryids) {
 function get_flagged_questions($categoryids, $userid) {
 	global $DB;
 	$categories = implode(",", $categoryids);
-	/*$result = $DB->get_records_sql("SELECT DISTINCT question.id
+	$results = $DB->get_records_sql("SELECT DISTINCT question.id
 										FROM {question} AS question
 										JOIN {question_attempts} AS attempt ON attempt.questionid = question.id
 										JOIN {qbpractice_session} AS session ON session.questionusageid = attempt.questionusageid
 										WHERE attempt.flagged = 1 AND question.category IN (?) AND session.userid = ?", array($categories, $userid));
-	var_dump($result);*/
-	$result = array(0=>"9495");
-	var_dump($result."<br><br>");
-	return $result;
+										
+	$return = array();
+	foreach ($results as $result) $return[$result->id] = $result->id;
+	return $return;
 }
 
 function get_unseen_questions($categoryids, $userid) {
