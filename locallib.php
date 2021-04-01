@@ -134,6 +134,7 @@ function get_flagged_questions($categoryids, $userid) {
 	global $DB;
 	flagged;
 	$categories = implode(",", $categoryids);
+	var_dump($categories);
 	$result = $DB->get_records_sql("SELECT DISTINCT question.id
 										FROM {question} AS question
 										JOIN {question_attempts} AS attempt ON attempt.questionid = question.id
