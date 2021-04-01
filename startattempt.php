@@ -48,9 +48,18 @@ $data = array();
 $data['category'] = $DB->get_record('question_categories', array('id' => $categoryid), 'id, name');
 $data['subcategories'] = $DB->get_records_sql("SELECT categories.id, categories.name, 
 										COUNT(DISTINCT question.id) AS allquestions, COUNT(DISTINCT (CASE WHEN attempts.flagged = 1 THEN question.id ELSE NULL END)) AS flagged,
-										COUNT(DISTINCT (CASE WHEN EXISTS (SELECT DISTINCT attempt.id FROM {question_attempts} AS attempt WHERE attempt.questionid = attempts.questionid AND attempt.responsesummary IS NOT NULL) THEN NULL ELSE question.id END)) AS unseen,
-										COUNT(DISTINCT (CASE WHEN attempts.rightanswer = attempts.responsesummary THEN question.id ELSE NULL END)) AS correct,
-										COUNT(DISTINCT (CASE WHEN NOT EXISTS (SELECT attempt.id FROM {question_attempts} AS attempt WHERE attempt.questionid = attempts.questionid AND attempt.rightanswer = attempt.responsesummary) AND attempts.rightanswer != attempts.responsesummary THEN question.id ELSE NULL END)) AS incorrect
+										COUNT(DISTINCT (CASE WHEN NOT EXISTS (SELECT a.id
+																				FROM {question_attempts} AS a
+																				JOIN {qbpractice_session} AS s ON s.questionusageid = a.questionusageid
+																				WHERE a.questionid = question.id AND a.responsesummary IS NOT NULL AND s.userid = session.userid)
+														THEN question.id ELSE NULL END)) AS unseen,
+										COUNT(DISTINCT (CASE WHEN attempts.rightanswer = attempts.responsesummary
+														THEN question.id ELSE NULL END)) AS correct,
+										COUNT(DISTINCT (CASE WHEN NOT EXISTS (SELECT attempt.id
+																				FROM {question_attempts} AS attempt
+																				WHERE attempt.questionid = attempts.questionid AND attempt.rightanswer = attempt.responsesummary)
+																	AND attempts.rightanswer != attempts.responsesummary
+														THEN question.id ELSE NULL END)) AS incorrect
 										FROM {question_categories} AS categories
                                         JOIN {question} AS question ON categories.id = question.category
                                         LEFT JOIN {question_attempts} AS attempts ON attempts.questionid = question.id
