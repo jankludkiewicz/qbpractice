@@ -77,6 +77,7 @@ class block_qbpractice_startattempt_form extends moodleform {
 		$mform->addElement('hidden', 'categoryid', 0);
 		$mform->addElement('hidden', 'noofquestions', 0);
 		$mform->addElement('hidden', 'behaviour', 'immediatefeedback');
+		$mform->addElement('hidden', 'studypreference', 0);
 		
 		$mform->setType('id', PARAM_INT);
 		$mform->setType('categoryid', PARAM_INT);
