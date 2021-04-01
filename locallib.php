@@ -81,6 +81,8 @@ function qbpractice_session_finish() {
 		
 		foreach ($sessions as $session) {
 			$quba = question_engine::load_questions_usage_by_activity($session->questionusageid);
+			
+			$quba->finish_all_questions();
 	
 			$slots = $quba->get_slots();
 			$marksobtained = 0;
