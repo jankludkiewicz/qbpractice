@@ -142,6 +142,7 @@ function get_flagged_questions($categoryids, $userid) {
 										
 	$return = array();
 	foreach ($results as $result) $return[$result->id] = $result->id;
+	var_dump($return);
 	return $return;
 }
 
