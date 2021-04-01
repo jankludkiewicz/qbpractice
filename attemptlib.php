@@ -45,7 +45,7 @@ function get_first_active_question($quba) {
 	return 1;
 }
 
-function get_navigation_panel($sessionid, $quba, $active, $returnurl) {
+function get_navigation_panel($session, $quba, $active, $returnurl) {
 		$bc = new block_contents();
         $bc->attributes['id'] = 'block_qbpractice_navblock';
         $bc->attributes['role'] = 'navigation';
@@ -65,7 +65,7 @@ function get_navigation_panel($sessionid, $quba, $active, $returnurl) {
 			if ($slot == $active) $activeclass = "this_slot";
 			else $activeclass = "other_slot";
 			
-			$actionurl = new moodle_url("/blocks/qbpractice/attempt.php", array('id' => $sessionid, 'slot' => $slot));
+			$actionurl = new moodle_url("/blocks/qbpractice/attempt.php", array('id' => $session->id, 'slot' => $slot));
 			$buttoncontent = $slot;
 			$buttoncontent .= html_writer::tag('span', '', array('class' => "status_box ".$slotclass));
 			$buttoncontent .= html_writer::tag('span', '', array('class' => "status_box ".$activeclass));
@@ -74,7 +74,8 @@ function get_navigation_panel($sessionid, $quba, $active, $returnurl) {
 		$html .= html_writer::end_tag('div');
 		$html .= html_writer::start_tag('div', array('class' => 'other_nav'));
 		$html .= html_writer::start_tag('form', array('method' => 'post', 'action' => $returnurl, 'enctype' => 'multipart/form-data', 'id' => 'navigationform'));
-		$html .= html_writer::empty_tag('input', array('type' => 'submit', 'name' => 'finish', 'value' => get_string('finishsession', 'block_qbpractice')));
+		if ($session->status == "finished") $html .= html_writer::empty_tag('input', array('type' => 'submit', 'name' => 'finishreview', 'value' => get_string('finishreview', 'block_qbpractice')));
+		else if $html .= html_writer::empty_tag('input', array('type' => 'submit', 'name' => 'finish', 'value' => get_string('finishsession', 'block_qbpractice')));
 		$html .= html_writer::end_tag('form');
 		$html .= html_writer::end_tag('div');
 		

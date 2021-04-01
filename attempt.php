@@ -37,6 +37,7 @@ $slot = optional_param('slot', null, PARAM_INT);
 $previous = optional_param('previous', null, PARAM_BOOL);
 $next = optional_param('next', null, PARAM_BOOL);
 $finish = optional_param('finish', null, PARAM_BOOL);
+$finishreview = optional_param('finishreview', null, PARAM_BOOL);
 
 // Qbpractice session, course and context variables
 $session = $DB->get_record('qbpractice_session', array('id' => $sessionid));
@@ -84,13 +85,21 @@ if (data_submitted()) {
         redirect($nexturl);
 		
     } else if ($finish) {
+		
 		qbpractice_session_finish();
         redirect($finishurl);
-	
+		
+	} else if ($finishreview) {
+		
+		redirect($finishurl);
+		
+	}
     } else {
+		
 		$quba->process_all_actions();
 		$quba->finish_question($slot);
 		question_engine::save_questions_usage_by_activity($quba);
+		
 	}
 	
 }
@@ -103,7 +112,7 @@ $options->marks = question_display_options::HIDDEN;
 if (has_capability('moodle/question:editall', $context)) $options->editquestionparams = array('courseid' => $courseid, 'returnurl' => $currenturl);
 
 // Add navigation panel
-$navbc = get_navigation_panel($sessionid, $quba, $slot, $currenturl);
+$navbc = get_navigation_panel($session, $quba, $slot, $currenturl);
 $regions = $PAGE->blocks->get_regions();
 $PAGE->blocks->add_fake_block($navbc, reset($regions));
 
@@ -118,10 +127,11 @@ $html = html_writer::start_tag('form', array('method' => 'post', 'action' => $cu
 // Output the question.
 $html .= $quba->render_question($slot, $options, $slot);
 
-// Finish the question form.
+// Form action buttons
 $html .= html_writer::start_tag('div', array('class' => 'navigation_buttons'));
 if ($slot != 1) $html .= html_writer::empty_tag('input', array('type' => 'submit', 'name' => 'previous', 'value' => get_string('previousquestion', 'block_qbpractice'), 'class' => 'navigation_button'));
 if ($slot != end($quba->get_slots())) $html .= html_writer::empty_tag('input', array('type' => 'submit', 'name' => 'next', 'value' => get_string('nextquestion', 'block_qbpractice'), 'class' => 'navigation_button'));
+else if ($session->status == "finished") $html .= html_writer::empty_tag('input', array('type' => 'submit', 'name' => 'finishreview', 'value' => get_string('finishreview', 'block_qbpractice')));
 else $html .= html_writer::empty_tag('input', array('type' => 'submit', 'name' => 'finish', 'value' => get_string('finishsession', 'block_qbpractice')));
 $html .= html_writer::end_tag('div');
 $html .= html_writer::end_tag('form');

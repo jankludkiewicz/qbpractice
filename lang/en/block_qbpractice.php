@@ -38,5 +38,7 @@ $string['previoussessionssummary'] = 'Previous sessions summary';
 
 $string['nextquestion'] = 'Next';
 $string['previousquestion'] = 'Previous';
+$string['finishsession'] = 'Finish session';
+$string['finishreview'] = 'Finish review';
 
 $string['sessionnavigation'] = 'Session navigation';
