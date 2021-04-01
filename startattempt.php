@@ -55,9 +55,10 @@ $data['subcategories'] = $DB->get_records_sql("SELECT categories.id, categories.
 														THEN question.id ELSE NULL END)) AS unseen,
 										COUNT(DISTINCT (CASE WHEN attempts.rightanswer = attempts.responsesummary
 														THEN question.id ELSE NULL END)) AS correct,
-										COUNT(DISTINCT (CASE WHEN NOT EXISTS (SELECT attempt.id
-																				FROM {question_attempts} AS attempt
-																				WHERE attempt.questionid = attempts.questionid AND attempt.rightanswer = attempt.responsesummary)
+										COUNT(DISTINCT (CASE WHEN NOT EXISTS (SELECT a.id
+																				FROM {question_attempts} AS a
+																				JOIN {qbpractice_session} AS s ON s.questionusageid = a.questionusageid
+																				WHERE a.questionid = question.id AND a.rightanswer = a.responsesummary AND s.userid = session.userid)
 																	AND attempts.rightanswer != attempts.responsesummary
 														THEN question.id ELSE NULL END)) AS incorrect
 										FROM {question_categories} AS categories
