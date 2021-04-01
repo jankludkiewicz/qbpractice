@@ -141,7 +141,7 @@ function get_flagged_questions($categoryids, $userid) {
 										WHERE attempt.flagged = 1 AND question.category IN (?) AND session.userid = ?", array($categories, $userid));
 	var_dump($result);*/
 	$result = array(0=>"9495");
-	var_dump($result);
+	var_dump($result."<br><br>");
 	return $result;
 }
 
