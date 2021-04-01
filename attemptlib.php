@@ -75,7 +75,7 @@ function get_navigation_panel($session, $quba, $active, $returnurl) {
 		$html .= html_writer::start_tag('div', array('class' => 'other_nav'));
 		$html .= html_writer::start_tag('form', array('method' => 'post', 'action' => $returnurl, 'enctype' => 'multipart/form-data', 'id' => 'navigationform'));
 		if ($session->status == "finished") $html .= html_writer::empty_tag('input', array('type' => 'submit', 'name' => 'finishreview', 'value' => get_string('finishreview', 'block_qbpractice')));
-		else if $html .= html_writer::empty_tag('input', array('type' => 'submit', 'name' => 'finish', 'value' => get_string('finishsession', 'block_qbpractice')));
+		else $html .= html_writer::empty_tag('input', array('type' => 'submit', 'name' => 'finish', 'value' => get_string('finishsession', 'block_qbpractice')));
 		$html .= html_writer::end_tag('form');
 		$html .= html_writer::end_tag('div');
 		
