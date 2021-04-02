@@ -4,8 +4,6 @@ Y.use('core_question_flags', function(Y) {
 	M.util.js_complete('random606772a4ef9cb1'); 
 });
 
-M.core_question_flags.add_listener(flipFlag);
-
 function flipFlag() {
 	var flag = document.querySelector('input.questionflagvalue');
 	var questionflagpostdata = document.querySelector('input.questionflagpostdata').value;
