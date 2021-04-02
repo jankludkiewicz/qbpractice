@@ -134,7 +134,7 @@ else $html .= html_writer::empty_tag('input', array('type' => 'submit', 'name' =
 $html .= html_writer::end_tag('div');
 $html .= html_writer::end_tag('form');
 
-$js = "document.querySelectorAll('input.questionflagvalue').addEventListener('change', flipFlag);
+$js = "document.querySelector('input.questionflagvalue').addEventListener('change', flipFlag);
 		function flipFlag() {
 			var flag = document.querySelectorAll('input.questionflagvalue');
 			var newstate = flag.value=='1'?true:false;
