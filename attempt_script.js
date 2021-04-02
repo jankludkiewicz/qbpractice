@@ -1,10 +1,10 @@
-M.util.js_pending('random606772a4ef9cb1');
+M.util.js_pending('qbpractice_flags');
 Y.use('core_question_flags', function(Y) {
-	M.core_question_flags.add_listener(flipFlag);
-	M.util.js_complete('random606772a4ef9cb1'); 
+	M.core_question_flags.add_listener(ajaxDBFlagQuery);
+	M.util.js_complete('qbpractice_flags'); 
 });
 
-function flipFlag() {
+function ajaxDBFlagQuery() {
 	var flag = document.querySelector('input.questionflagvalue');
 	var questionflagpostdata = document.querySelector('input.questionflagpostdata').value;
 	var toggleurl = 'toggleflag.php?'+questionflagpostdata;
