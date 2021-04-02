@@ -133,6 +133,9 @@ else if ($session->status == "finished") $html .= html_writer::empty_tag('input'
 else $html .= html_writer::empty_tag('input', array('type' => 'submit', 'name' => 'finish', 'value' => get_string('finishsession', 'block_qbpractice')));
 $html .= html_writer::end_tag('div');
 $html .= html_writer::end_tag('form');
+$html .= html_writer::start_tag('script');
+$html .= "document.querySelectorAll("input.questionflagvalue").addEventListener("change", flipFlag);";
+$html .= html_writer::end_tag('script');
 
 // Final output
 echo $OUTPUT->header();
