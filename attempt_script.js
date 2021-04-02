@@ -1,4 +1,5 @@
 var flag = document.querySelector('div.questionflag').childNodes[1];
+console.log(flag);
 flag.addEventListener("change", flipFlag);
 
 function flipFlag() {
