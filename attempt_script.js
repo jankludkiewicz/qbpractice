@@ -6,7 +6,8 @@ Y.use('core_question_flags', function(Y) {
 
 function ajaxDBFlagQuery() {
 	var flag = document.querySelector('input.questionflagvalue');
-	var questionflagpostdata = document.querySelector('input.questionflagpostdata').value;
-	var toggleurl = 'toggleflag.php?'+questionflagpostdata;
+	var questionid = document.querySelector('input[id="questionid"]').value;
+	var newstate = flag.value;
+	var toggleurl = 'toggleflag.php?qid='+questionid+'&newstate='+newstate;
 	$.ajax({url: toggleurl, success: function(result){alert(result);}});
 }

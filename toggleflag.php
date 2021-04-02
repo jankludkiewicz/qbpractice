@@ -32,24 +32,14 @@ require_once($CFG->dirroot . '/question/engine/lib.php');
 $questionid = required_param('qid', PARAM_INT);
 $newstate = required_param('newstate', PARAM_BOOL);
 
-//$qaid = required_param('qaid', PARAM_INT);
-//$checksum = required_param('checksum', PARAM_ALPHANUM);
-//$qubaid = required_param('qubaid', PARAM_INT);
-//$slot = required_param('slot', PARAM_INT);
-
-// Check user is logged in.
-require_login();
-require_sesskey();
-
 // Check that the requested session really exists
-$results = $DB->get_records_sql("SELECT attempt.id AS qaid, attempt.questionusageid AS qubaid, attempt.slot AS slot
+$results = $DB->get_records_sql("SELECT attempt.id, attempt.flagged
 								FROM {question_attempts} AS attempt
 								JOIN {qbpractice_session} AS session ON session.questionusageid = attempt.questionusageid
 								WHERE session.userid = ? AND attempt.questionid = ?", array($USER->id, $questionid));
 foreach ($results as $result) {
-	$checksum = question_flags::get_toggle_checksum($result->qubaid, $questionid, $result->qaid, $result->slot);
-	question_flags::update_flag($result->qubaid, $questionid, $result->qaid, $result->slot, $checksum, $newstate);
-	//echo $result->qaid.",";
+	$result->flagged = $newstate;
+	$DB->update_record("{question_attempts}", $result);
 }
 
 echo 'OK';
