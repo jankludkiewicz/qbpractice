@@ -33,7 +33,7 @@ $questionid = required_param('qid', PARAM_INT);
 $newstate = required_param('newstate', PARAM_INT);
 
 // Check that the requested session really exists
-$attempts = $DB->get_records_sql("SELECT *
+$attempts = $DB->get_records_sql("SELECT attempt.id AS id
 								FROM {question_attempts} AS attempt
 								JOIN {qbpractice_session} AS session ON session.questionusageid = attempt.questionusageid
 								WHERE session.userid = ? AND attempt.questionid = ?", array($USER->id, $questionid));
