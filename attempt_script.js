@@ -9,5 +9,5 @@ function ajaxDBFlagQuery() {
 	var questionid = document.querySelector('input[id="questionid"]').value;
 	var newstate = flag.value;
 	var toggleurl = 'toggleflag.php?qid='+questionid+'&newstate='+newstate;
-	$.ajax({url: toggleurl, success: function(result){alert(result);}});
+	$.ajax({url: toggleurl});
 }
