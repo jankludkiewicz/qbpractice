@@ -1,4 +1,4 @@
-var flag = document.querySelectorAll('div.questionflag').child;
+var flag = document.querySelectorAll('div.questionflag');
 console.log(flag);
 
 function flipFlag() {
