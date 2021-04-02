@@ -47,9 +47,9 @@ $results = $DB->get_records_sql("SELECT attempt.id AS qaid, attempt.questionusag
 								FROM {question_attempts} AS attempt
 								JOIN {qbpractice_session} AS session ON session.questionusageid = attempt.questionusageid
 								WHERE session.userid = ? AND attempt.questionid = ?", array($USER->id, $questionid));
-foreach($results as $result) {
+/*foreach ($results as $result) {
 	$checksum = question_flags::get_toggle_checksum($result->qubaid, $questionid, $result->qaid, $result->slot);
 	question_flags::update_flag($result->qubaid, $questionid, $result->qaid, $result->slot, $checksum, $newstate);
-}
+}*/
 
 echo 'OK';
