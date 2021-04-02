@@ -22,7 +22,7 @@
  * @copyright  2009 The Open University
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-/*
+
 define('AJAX_SCRIPT', true);
 
 require_once('../config.php');
@@ -38,8 +38,8 @@ $newstate = required_param('newstate', PARAM_BOOL);
 //$slot = required_param('slot', PARAM_INT);
 
 // Check user is logged in.
-require_login();
-require_sesskey();
+//require_login();
+//require_sesskey();
 
 // Check that the requested session really exists
 $results = $DB->get_records_sql("SELECT attempt.id AS qaid, attempt.questionusageid AS qubaid, attempt.slot AS slot
@@ -50,5 +50,5 @@ foreach ($results as $result) {
 	$checksum = question_flags::get_toggle_checksum($result->qubaid, $questionid, $result->qaid, $result->slot);
 	question_flags::update_flag($result->qubaid, $questionid, $result->qaid, $result->slot, $checksum, $newstate);
 }
-*/
+
 echo 'OK';
