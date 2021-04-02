@@ -3,7 +3,7 @@ var flag = document.querySelectorAll("input.questionflagvalue");
 initFlagListener();
 
 function initFlagListener() {
-	flag.addEventListener("click", flipFlag);
+flag.addEventListener("click", function() (flipFlag();});
 }
 
 function flipFlag() {
