@@ -38,10 +38,16 @@ $attempts = $DB->get_records_sql("SELECT attempt.id AS id
 								JOIN {qbpractice_session} AS session ON session.questionusageid = attempt.questionusageid
 								WHERE session.userid = ? AND attempt.questionid = ?", array($USER->id, $questionid));
 								
+$transaction = $DB->start_delegated_transaction();
+						
 foreach ($attempts as $attempt) {
-	$attempt->flagged = $newstate;
-	var_dump($attempt);
-	$DB->update_record("{question_attempts}", $attempt);
+	$updatesql = "UPDATE {question_attempts} 
+							SET flagged = ?
+							WHERE id = ?";
+							
+	$DB->execute($updatesql, array($newstate, $attempt->id));
 }
+
+$transaction->allow_commit();
 
 echo 'OK';
