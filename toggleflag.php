@@ -49,7 +49,7 @@ $results = $DB->get_records_sql("SELECT attempt.id AS qaid, attempt.questionusag
 foreach ($results as $result) {
 	$checksum = question_flags::get_toggle_checksum($result->qubaid, $questionid, $result->qaid, $result->slot);
 	question_flags::update_flag($result->qubaid, $questionid, $result->qaid, $result->slot, $checksum, $newstate);
-	echo $result->qaid.",";
+	//echo $result->qaid.",";
 }
 
 echo 'OK';
