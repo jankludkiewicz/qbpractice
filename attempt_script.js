@@ -4,7 +4,7 @@ initFlagListener();
 
 function initFlagListener() {
 	console.log(flag);
-		document.querySelector('span[class="questionflagimage"]').addEventListener("click", flipFlag);
+//		document.querySelector('span[class="questionflagimage"]').addEventListener("click", flipFlag);
 }
 
 function flipFlag() {
