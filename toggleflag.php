@@ -50,5 +50,6 @@ foreach ($results as $result) {
 	$checksum = question_flags::get_toggle_checksum($result->qubaid, $questionid, $result->qaid, $result->slot);
 	question_flags::update_flag($result->qubaid, $questionid, $result->qaid, $result->slot, $checksum, $newstate);
 }
+var_dump($results);
 
 echo 'OK';

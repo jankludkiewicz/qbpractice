@@ -8,7 +8,7 @@ function flipFlag() {
 	var flag = document.querySelector('input.questionflagvalue');
 	var questionflagpostdata = document.querySelector('input.questionflagpostdata').value;
 	var toggleurl = 'toggleflag.php?'+questionflagpostdata;
-	$.ajax({url: toggleurl});
+	$.ajax({url: toggleurl, success: alert(result)});
 }
 
 function consoleShow() {
