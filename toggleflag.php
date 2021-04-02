@@ -37,7 +37,7 @@ $attempts = $DB->get_records_sql("SELECT *
 								FROM {question_attempts} AS attempt
 								JOIN {qbpractice_session} AS session ON session.questionusageid = attempt.questionusageid
 								WHERE session.userid = ? AND attempt.questionid = ?", array($USER->id, $questionid));
-								
+					var_dump($attempts);			
 foreach ($attempts as $attempt) {
 	$attempt->flagged = $newstate;
 	$DB->update_record("{question_attempts}", $attempt);
