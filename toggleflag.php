@@ -24,10 +24,10 @@
  */
 
 define('AJAX_SCRIPT', true);
-/*
+
 require_once('../config.php');
 require_once($CFG->dirroot . '/question/engine/lib.php');
-
+/*
 // Parameters
 $questionid = required_param('qid', PARAM_INT);
 $newstate = required_param('newstate', PARAM_BOOL);
