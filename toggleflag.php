@@ -25,9 +25,9 @@
 
 define('AJAX_SCRIPT', true);
 
-require_once('../config.php');
+require_once(dirname(dirname(dirname(__FILE__))) . '/config.php');
 require_once($CFG->dirroot . '/question/engine/lib.php');
-/*
+
 // Parameters
 $questionid = required_param('qid', PARAM_INT);
 $newstate = required_param('newstate', PARAM_BOOL);
@@ -50,5 +50,5 @@ foreach ($results as $result) {
 	$checksum = question_flags::get_toggle_checksum($result->qubaid, $questionid, $result->qaid, $result->slot);
 	question_flags::update_flag($result->qubaid, $questionid, $result->qaid, $result->slot, $checksum, $newstate);
 }
-*/
+
 echo 'OK';
