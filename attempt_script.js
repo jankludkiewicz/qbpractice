@@ -15,6 +15,6 @@ function flipFlag() {
 
 function consoleShow() {
 	var flag = document.querySelector('input.questionflagvalue');
-	flag.addEventListener("change", flipFlag);
+	flipFlag();
 	console.log(flag);
 }
