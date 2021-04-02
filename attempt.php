@@ -133,7 +133,16 @@ else if ($session->status == "finished") $html .= html_writer::empty_tag('input'
 else $html .= html_writer::empty_tag('input', array('type' => 'submit', 'name' => 'finish', 'value' => get_string('finishsession', 'block_qbpractice')));
 $html .= html_writer::end_tag('div');
 $html .= html_writer::end_tag('form');
-$html .= html_writer::script("document.querySelectorAll('input.questionflagvalue').addEventListener('change', flipFlag);");
+
+$js = "document.querySelectorAll('input.questionflagvalue').addEventListener('change', flipFlag);
+		function flipFlag() {
+			var flag = document.querySelectorAll('input.questionflagvalue');
+			var newstate = flag.value=='1'?true:false;
+			var qid = document.getElementById('questionid').value;
+			var toggleurl = 'toggleflag.php?qid='+qid+'&newstate='+newstate
+			$ajax({url: toggleurl});
+			}";
+$html .= html_writer::script($js);
 
 // Final output
 echo $OUTPUT->header();
