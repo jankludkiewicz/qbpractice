@@ -1,4 +1,4 @@
-var flag = document.querySelectorAll('input[type="hidden"]');
+var flag = document.querySelectorAll('div.questionflag');
 console.log(flag);
 
 function flipFlag() {
