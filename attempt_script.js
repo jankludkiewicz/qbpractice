@@ -1,4 +1,4 @@
-var flag = document.querySelector('input[class="questionflagvalue"]');
+var flag = document.querySelector('input[type="hidden"][class="questionflagvalue"]');
 
 initFlagListener();
 
