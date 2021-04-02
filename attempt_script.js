@@ -1,7 +1,7 @@
 initFlagListener();
 
 function initFlagListener() {
-	var flag = document.querySelector("input[type='hidden'][class='questionflagvalue']");
+	var flag = document.querySelectorAll("input[type='hidden']");
 	console.log(flag);
 //		document.querySelector('span[class="questionflagimage"]').addEventListener("click", flipFlag);
 }
