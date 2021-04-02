@@ -6,10 +6,8 @@ document.querySelector('input[id="changer"]').addEventListener("click", consoleS
 
 function flipFlag() {
 	var flag = document.querySelector('input.questionflagvalue');
-	console.log(flag);
-	var newstate = flag.value=='1'?true:false;
-	var qid = document.getElementById('questionid').value;
-	var toggleurl = 'toggleflag.php?qid='+qid+'&newstate='+newstate
+	var questionflagpostdata = document.querySelector('input.questionflagpostdata').value;
+	var toggleurl = 'toggleflag.php?'+questionflagpostdata;
 	$.ajax({url: toggleurl});
 }
 

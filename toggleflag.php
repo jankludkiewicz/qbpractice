@@ -39,6 +39,7 @@ $newstate = required_param('newstate', PARAM_BOOL);
 
 // Check user is logged in.
 require_login();
+require_sesskey();
 
 // Check that the requested session really exists
 $results = $DB->get_records_sql("SELECT attempt.id AS qaid, attempt.questionusageid AS qubaid, attempt.slot AS slot
