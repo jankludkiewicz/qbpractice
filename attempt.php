@@ -50,7 +50,8 @@ $PAGE->set_context($context);
 $PAGE->set_pagelayout('standard');
 $title = get_string('practicesession', 'block_qbpractice');
 $PAGE->set_heading($title);
-$PAGE->requires->css('/blocks/qbpractice/style/attemptstyle.css');
+$PAGE->requires->css('/blocks/qbpractice/style/attemptstyle.css?v='.rand());
+$PAGE->requires->js('/blocks/qbpractice/attempt_script.js?v='.rand());
 
 // Security functions
 require_login($courseid);
@@ -69,9 +70,6 @@ $previousurl = new moodle_url('/blocks/qbpractice/attempt.php', array('id' => $s
 $currenturl = new moodle_url('/blocks/qbpractice/attempt.php', array('id' => $sessionid, 'slot' => $slot));
 $nexturl = new moodle_url('/blocks/qbpractice/attempt.php', array('id' => $sessionid, 'slot' => $nextslot));
 $finishurl = new moodle_url('/blocks/qbpractice/summary.php', array('id' => $session->instanceid));
-
-// No more questions in a question usage
-if ($nextslot == null) $nexturl = $finishurl;
 
 // Form processing
 if (data_submitted()) {
@@ -122,6 +120,7 @@ $headtags .= question_engine::initialise_js();
 
 // Start the question form.
 $html = html_writer::start_tag('form', array('method' => 'post', 'action' => $currenturl, 'enctype' => 'multipart/form-data', 'id' => 'responseform'));
+$html = html_writer::empty_tag('input', array('type' => 'hidden', 'id' => 'questionid', 'value' => $quba->get_question_attempt()->get_question_id()));
 
 // Output the question.
 $html .= $quba->render_question($slot, $options, $slot);
