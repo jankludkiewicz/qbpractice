@@ -1,4 +1,5 @@
-document.querySelector('input[type="hidden"]').addEventListener('change', flipFlag);
+var flag = document.querySelectorAll('input[type="hidden"]').addEventListener('change', flipFlag);
+console.log(flag);
 
 function flipFlag() {
 	var flag = document.querySelector('input.questionflagvalue');
