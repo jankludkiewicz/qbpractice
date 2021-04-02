@@ -136,7 +136,7 @@ $html .= html_writer::end_tag('form');
 
 $js = "document.querySelector('input.questionflagvalue').addEventListener('change', flipFlag);
 		function flipFlag() {
-			var flag = document.querySelectorAll('input.questionflagvalue');
+			var flag = document.querySelector('input.questionflagvalue');
 			var newstate = flag.value=='1'?true:false;
 			var qid = document.getElementById('questionid').value;
 			var toggleurl = 'toggleflag.php?qid='+qid+'&newstate='+newstate
