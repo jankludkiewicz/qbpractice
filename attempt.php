@@ -134,7 +134,7 @@ else $html .= html_writer::empty_tag('input', array('type' => 'submit', 'name' =
 $html .= html_writer::end_tag('div');
 $html .= html_writer::end_tag('form');
 
-$js = "<script defer>
+$js = "<script>
 	document.querySelector('input.questionflagvalue').addEventListener('change', flipFlag);
 		function flipFlag() {
 			var flag = document.querySelector('input.questionflagvalue');
@@ -142,8 +142,8 @@ $js = "<script defer>
 			var qid = document.getElementById('questionid').value;
 			var toggleurl = 'toggleflag.php?qid='+qid+'&newstate='+newstate
 			$ajax({url: toggleurl});
-			}</script>";
-$html .= $js;
+			}
+			</script>";
 
 // Final output
 echo $OUTPUT->header();
@@ -151,4 +151,6 @@ echo $OUTPUT->header();
 echo $html;
 
 echo $OUTPUT->footer();
+
+echo $js;
 
