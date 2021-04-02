@@ -41,15 +41,15 @@ $newstate = required_param('newstate', PARAM_BOOL);
 // Check user is logged in.
 require_login();
 require_sesskey();
-
+/*
 // Check that the requested session really exists
 $results = $DB->get_records_sql("SELECT attempt.id AS qaid, attempt.questionusageid AS qubaid, attempt.slot AS slot
 								FROM {question_attempts} AS attempt
 								JOIN {qbpractice_session} AS session ON session.questionusageid = attempt.questionusageid
-								WHERE session.userid = ? AND attempt.questionid = ?", array($USER->id, $questionid));
-/*foreach ($results as $result) {
+								WHERE session.userid = ? AND attempt.questionid = ?", array($USER->id, $questionid));*/
+foreach ($results as $result) {
 	$checksum = question_flags::get_toggle_checksum($result->qubaid, $questionid, $result->qaid, $result->slot);
 	question_flags::update_flag($result->qubaid, $questionid, $result->qaid, $result->slot, $checksum, $newstate);
-}*/
+}
 
 echo 'OK';
