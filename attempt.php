@@ -152,5 +152,3 @@ echo $html;
 
 echo $OUTPUT->footer();
 
-echo $js;
-
