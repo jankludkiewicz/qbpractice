@@ -29,6 +29,7 @@ $string['result'] = 'Result';
 $string['order'] = 'Nr:';
 $string['subjectname'] = 'Subject name';
 $string['date'] = 'Date';
+$string['inprogress'] = 'in progress';
 
 $string['selectcategory'] = 'Select category to start new session:';
 $string['practicesession'] = 'Question Bank Practice Session';

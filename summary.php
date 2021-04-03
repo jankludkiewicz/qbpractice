@@ -59,8 +59,15 @@ foreach ($sessions as $session) {
 	$actionurl = new moodle_url('/blocks/qbpractice/attempt.php', array('id' => $session->id));
 	$label = html_writer::tag('span', $subjectname);
 	$sessionlink = html_writer::link($actionurl, $label, array(null));
-	$score = round($session->marksobtained/$session->totalmarks*100,2);
-	$table->data[] = array($i, $sessionlink, $session->totalnoofquestions, $score.'%', date("d-m-Y H:i", $session->timefinished));
+	
+	if ($session->status == "finished") {
+		$score = round($session->marksobtained/$session->totalmarks*100,2);
+		$table->data[] = array($i, $sessionlink, $session->totalnoofquestions, $score.'%', date("d-m-Y H:i", $session->timefinished));
+	}
+	if ($session->status == "inprogress") {
+		$table->data[] = array($i, $sessionlink, $session->totalnoofquestions, '', get_string('inprogress', 'block_qbpractice'));
+	}
+	
 	$i++;
 }
 
