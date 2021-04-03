@@ -93,7 +93,7 @@ $html = html_writer::table($table);
 if (!empty($sessions)) {
 	$actionurl = new moodle_url('/blocks/qbpractice/clear_practice_history.php', array('id' => $id));
 	$label = html_writer::tag('span', get_string('clearhistory', 'block_qbpractice'));
-	$html .= html_writer::link($actionurl, $label, array('class'=>'clear_practice_history', 'title' => 'practice history'));
+	$html .= html_writer::link($actionurl, $label, array('id'=>'clear_practice_history'));
 }
 
 $html .= html_writer::empty_tag('br');
