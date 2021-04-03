@@ -40,6 +40,11 @@ $courseid = $context->get_parent_context()->instanceid;
 $PAGE->set_url('/blocks/qbpractice/startattempt.php', array('id' => $id, 'categoryid' => $categoryid));
 $PAGE->requires->js('/blocks/qbpractice/startattempt_form_script.js?v='.rand());
 $PAGE->requires->css('/blocks/qbpractice/style/startattemptstyle.css?v='.rand());
+
+$PAGE->set_title(get_string('practicesession','block_qbpractice'));
+$PAGE->set_heading(get_string('practicesession','block_qbpractice'));
+$PAGE->set_pagelayout('standard');
+
 $PAGE->set_context($context);
 
 require_login($courseid);
@@ -90,11 +95,6 @@ if ($mform->is_cancelled()) {
 
 $mform->set_data(array('id' => $id));
 $mform->set_data(array('categoryid' => $categoryid));
-
-// Print the page header.
-$PAGE->set_title(format_string($data['category']->name));
-$PAGE->set_heading(format_string($data['category']->name));
-$PAGE->set_pagelayout('course');
 
 // Output starts here.
 echo $OUTPUT->header();
