@@ -61,6 +61,9 @@ function qbpractice_session_start($fromform, $context) {
 	}
 	
 	$quba->start_all_questions();
+	
+	// Sets existing flags
+	$quba = set_flags($quba);
 
 	question_engine::save_questions_usage_by_activity($quba);
 	
@@ -107,19 +110,18 @@ function qbpractice_session_finish() {
 }
 
 function get_questions($categoryids, $studypreference, $allowshuffle = true) {
-	global $USER;
 	switch($studypreference) {
 		case 0: // All questions
 			$available = get_all_questions($categoryids);
 			break;
 		case 1: // Flagged only
-			$available = get_flagged_questions($categoryids, $USER->id);
+			$available = get_flagged_questions($categoryids);
 			break;
 		case 2: // Unseen before
-			$available = get_unseen_questions($categoryids, $USER->id);
+			$available = get_unseen_questions($categoryids);
 			break;
 		case 3: // Answered incorrectly
-			$available = get_incorrect_questions($categoryids, $USER->id);
+			$available = get_incorrect_questions($categoryids);
 			break;
 	}
 	
@@ -132,21 +134,21 @@ function get_all_questions($categoryids) {
 	return question_bank::get_finder()->get_questions_from_categories($categoryids, null);
 }
 
-function get_flagged_questions($categoryids, $userid) {
-	global $DB;
+function get_flagged_questions($categoryids) {
+	global $DB, $USER;
 	$results = $DB->get_records_sql("SELECT DISTINCT question.id
 										FROM {question} AS question
 										JOIN {question_attempts} AS attempt ON attempt.questionid = question.id
 										JOIN {qbpractice_session} AS session ON session.questionusageid = attempt.questionusageid
-										WHERE question.parent = 0 AND attempt.flagged = 1 AND question.category IN (?) AND session.userid = ?", array(implode(",", $categoryids), $userid));
+										WHERE question.parent = 0 AND attempt.flagged = 1 AND question.category IN (?) AND session.userid = ?", array(implode(",", $categoryids), $USER->id));
 										
 	$return = array();
 	foreach ($results as $result) $return[$result->id] = $result->id;
 	return $return;
 }
 
-function get_unseen_questions($categoryids, $userid) {
-	global $DB;
+function get_unseen_questions($categoryids) {
+	global $DB, $USER;
 	$results = $DB->get_records_sql("SELECT DISTINCT question.id
 										FROM {question} AS question
 										LEFT JOIN {question_attempts} AS attempt ON attempt.questionid = question.id
@@ -154,15 +156,15 @@ function get_unseen_questions($categoryids, $userid) {
 										WHERE question.parent = 0 AND question.category IN (?)
 										AND NOT EXISTS (SELECT * FROM {question_attempts} AS a 
 														JOIN {qbpractice_session} AS s ON s.questionusageid = a.questionusageid
-														WHERE a.responsesummary IS NOT NULL AND a.questionid = question.id AND s.userid = ?)", array(implode(",", $categoryids), $userid));
+														WHERE a.responsesummary IS NOT NULL AND a.questionid = question.id AND s.userid = ?)", array(implode(",", $categoryids), $USER->id));
 	
 	$return = array();
 	foreach ($results as $result) $return[$result->id] = $result->id;
 	return $return;
 }
 
-function get_incorrect_questions($categoryids, $userid) {
-	global $DB;
+function get_incorrect_questions($categoryids) {
+	global $DB, $USER;
 	$results = $DB->get_records_sql("SELECT DISTINCT question.id, question.name
 										FROM {question} AS question
 										JOIN {question_attempts} AS attempt ON attempt.questionid = question.id
@@ -171,11 +173,32 @@ function get_incorrect_questions($categoryids, $userid) {
 										AND NOT EXISTS (SELECT a.id
 														FROM {question_attempts} AS a
 														JOIN {qbpractice_session} AS s ON s.questionusageid = a.questionusageid
-														WHERE a.questionid = question.id AND s.userid = session.userid AND a.rightanswer = a.responsesummary)", array(implode(",", $categoryids), $userid));
+														WHERE a.questionid = question.id AND s.userid = session.userid AND a.rightanswer = a.responsesummary)", array(implode(",", $categoryids), $USER->id));
 	
 	$return = array();
 	foreach ($results as $result) $return[$result->id] = $result->id;
 	return $return;
+}
+
+function set_flags($quba) {
+	global $DB, $USER;
+	
+	$slots = $quba->get_slots();
+	foreach ($slots as slot) {
+		$question_attempt = $quba->get_question_attempt($slot);
+		
+		$flag_exists = $DB->record_exists_sql("SELECT COUNT(*) AS num
+										FROM {question} AS question
+										JOIN {question_attempts} AS attempt ON attempt.questionid = question.id
+										JOIN {qbpractice_session} AS session ON session.questionusageid = attempt.questionusageid
+										WHERE question.parent = 0 AND question.id = ? AND attempt.flagged = 1", array($question_attempt->get_question_id())); 
+	
+		if ($flag_exists) {
+			$question_attempt->set_flagged(true);
+			$quba->replace_loaded_question_attempt_info($slot, $question_attempt);
+		}
+	}
+	return $quba;
 }
 
 function get_question_categories($context) {
