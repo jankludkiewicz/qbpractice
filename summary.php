@@ -88,8 +88,14 @@ if (empty($sessions)) {
 
 $html = html_writer::table($table);
 
-$actionurl = new moodle_url('/blocks/qbpractice/clear_practice_history.php', array('id' => $id));
-$label = html_writer::tag('span', get_string('clearhistory', 'block_qbpractice'));
+if (!empty($sessions)) {
+	$actionurl = new moodle_url('/blocks/qbpractice/clear_practice_history.php', array('id' => $id));
+	$label = html_writer::tag('span', get_string('clearhistory', 'block_qbpractice'));
+	$html .= html_writer::link($actionurl, $label, array(null));
+}
+
+$actionurl = new moodle_url($context->get_url(), array('id' => $id));
+$label = html_writer::tag('span', get_string('backtocourse', 'block_qbpractice'));
 $html .= html_writer::link($actionurl, $label, array(null));
 
 echo $OUTPUT->header();
