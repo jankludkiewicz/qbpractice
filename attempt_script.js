@@ -7,7 +7,7 @@ Y.use('core_question_flags', function(Y) {
 YUI().use('node-base', function(Y) {
     function init() {
         Y.all("input[name='finish']").on('click', function(e) {
-            var args = {'message':'Are you sure you want to clear all <b>practice history</b>? All question attempts including flags, sessions and its results will be lost.'};
+            var args = {'message':'Are you sure you want to finish current session? You will not be able to attempt this session any more. This session may be accessed through summary table for future reference.'};
             M.util.show_confirm_dialog(e, args);
             return false;
         });
