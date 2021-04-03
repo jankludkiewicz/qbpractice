@@ -36,6 +36,10 @@ div.other_nav {
     border: 3px solid #1f536b;
 }
 
+.qnbutton.flagged .thispageholder {
+	background: url(/theme/image.php/adaptable/theme/1617379692/mod/quiz/flag-on) 20px 0 no-repeat;
+}
+
 .qnbutton.correct .trafficlight {
 	background-color: #8bc34a;
 }
