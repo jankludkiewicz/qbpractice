@@ -26,10 +26,10 @@ $string['summary'] = 'Summary table';
 $string['pastsessions'] = 'Past sessions';
 $string['totalnoofquestions'] = 'Total questions number';
 $string['result'] = 'Result';
-$string['order'] = 'Nr:';
+$string['order'] = 'Nr';
 $string['subjectname'] = 'Subject name';
 $string['date'] = 'Date';
-$string['inprogress'] = 'in progress';
+$string['inprogress'] = 'In progress';
 
 $string['selectcategory'] = 'Select category to start new session:';
 $string['practicesession'] = 'Question Bank Practice Session';
