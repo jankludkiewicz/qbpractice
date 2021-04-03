@@ -76,10 +76,20 @@ function get_navigation_panel($session, $quba, $active, $returnurl) {
 		}
 		$html .= html_writer::end_tag('div');
 		$html .= html_writer::start_tag('div', array('class' => 'other_nav'));
+		
+		// Other navigation buttons including: finish button and previous sessions summary link
+		
+		// Add finish button
 		$html .= html_writer::start_tag('form', array('method' => 'post', 'action' => $returnurl, 'enctype' => 'multipart/form-data', 'id' => 'navigationform'));
 		if ($session->status == "finished") $html .= html_writer::empty_tag('input', array('type' => 'submit', 'name' => 'finishreview', 'value' => get_string('finishreview', 'block_qbpractice')));
 		else $html .= html_writer::empty_tag('input', array('type' => 'submit', 'name' => 'finish', 'value' => get_string('finishsession', 'block_qbpractice')));
 		$html .= html_writer::end_tag('form');
+		
+		// Add previus sessions summary link
+		$actionurl = new moodle_url("/blocks/qbpractice/summary.php", array('id' => $session->instanceid));
+		$label = html_writer::tag('span', get_string('previoussessionssummary', 'block_qbpractice'));
+		$html .= html_writer::link($actionurl, $label, array(null));
+		
 		$html .= html_writer::end_tag('div');
 		
 		$bc->content = $html;
