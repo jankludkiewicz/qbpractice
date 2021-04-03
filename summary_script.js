@@ -1,10 +1,10 @@
 YUI().use('node-base', function(Y) {
     function init() {
-        Y.all(".delete_item").on('click', function(e) {
+        Y.all(".clear_practice_history").on('click', function(e) {
             var args = {'url':e.currentTarget.get('href'),
-                'message':'Are you sure you want to delete <b>' + 
+                'message':'Are you sure you want to clear all <b>' + 
                   e.currentTarget.get('title') + 
-                     '</b> ? All fields and data associated with this form will be lost'};
+                     '</b>? All question attempts including <b>flags</b>, sessions and its results are going to be lost.'};
             M.util.show_confirm_dialog(e, args);
             return false;
         });
