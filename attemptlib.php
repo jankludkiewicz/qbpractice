@@ -92,7 +92,7 @@ function get_navigation_panel($session, $quba, $active, $returnurl) {
 		
 		// Add go back to course link
 		
-		$actionurl = new moodle_url($context->get_url());
+		$actionurl = new moodle_url(context_block::instance($session->instanceid)->get_url());
 		$label = html_writer::tag('span', get_string('backtocourse', 'block_qbpractice'));
 		$html .= html_writer::link($actionurl, $label, array(null));
 		
