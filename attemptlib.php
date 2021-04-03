@@ -58,9 +58,9 @@ function get_navigation_panel($session, $quba, $active, $returnurl) {
 		foreach ($slots as $slot) {
 			$question_state = $quba->get_question_state($slot);
 			
-			if ($question_state->is_correct()) $slotclass = "correct_slot";
-			else if ($question_state->is_incorrect()) $slotclass = "incorrect_slot";
-			else $slotclass = "normal_slot";
+			if ($question_state->is_correct()) $correctness = "correct";
+			else if ($question_state->is_incorrect()) $correctness = "incorrect";
+			else $correctness = "";
 			
 			if ($slot == $active) $thispage = "thispage";
 			else $thispage = "";
@@ -69,7 +69,7 @@ function get_navigation_panel($session, $quba, $active, $returnurl) {
 			$buttoncontent = $slot;
 			$buttoncontent .= html_writer::tag('span', '', array('class' => "thispageholder"));
 			$buttoncontent .= html_writer::tag('span', '', array('class' => "trafficlight"));
-			$html .= html_writer::link($actionurl, $buttoncontent, array('class' => 'qnbutton '.$thispage, 'id' => 'qbpracticenavbutton'.$slot));
+			$html .= html_writer::link($actionurl, $buttoncontent, array('class' => 'qnbutton '.$thispage.' '.$correctness, 'id' => 'qbpracticenavbutton'.$slot));
 		}
 		$html .= html_writer::end_tag('div');
 		$html .= html_writer::start_tag('div', array('class' => 'other_nav'));
