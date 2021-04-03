@@ -97,16 +97,22 @@ function qbpractice_session_finish() {
 				$marksobtained += $fraction * $maxmarks;
 				$totalmarks += $maxmarks;
 			}
-	
-			$updatesql = "UPDATE {qbpractice_session} 
-							SET status = 'finished', marksobtained = ?, totalmarks = ?, timefinished = ?
-							WHERE id=?";
 					
-			$DB->execute($updatesql, array($marksobtained, $totalmarks, time(), $session->id));
+			$DB->execute("UPDATE {qbpractice_session} 
+							SET status = 'finished', marksobtained = ?, totalmarks = ?, timefinished = ?
+							WHERE id=?", array($marksobtained, $totalmarks, time(), $session->id));
 		}
 		
 		$transaction->allow_commit();
 	}
+}
+
+function clear_user_history() {
+	global $USER, $DB;
+	
+	$DB->execute("DELETE attempts, attempt_steps, usages, session
+					FROM mdl_question_attempts AS attempts, mdl_question_attempt_steps AS attempt_steps, mdl_question_usages AS usages, mdl_qbpractice_session AS session
+					WHERE attempts.questionusageid = session.questionusageid AND attempts.questionusageid = usages.id AND session.userid = ?", array($USER->id));
 }
 
 function get_questions($categoryids, $studypreference, $allowshuffle = true) {
