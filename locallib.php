@@ -187,11 +187,11 @@ function set_flags($quba) {
 	foreach ($slots as $slot) {
 		$question_attempt = $quba->get_question_attempt($slot);
 		
-		$flag_exists = $DB->record_exists_sql("SELECT COUNT(*) AS num
+		$flag_exists = $DB->record_exists_sql("SELECT *
 										FROM {question} AS question
 										JOIN {question_attempts} AS attempt ON attempt.questionid = question.id
 										JOIN {qbpractice_session} AS session ON session.questionusageid = attempt.questionusageid
-										WHERE question.parent = 0 AND question.id = ? AND attempt.flagged = 1", array($question_attempt->get_question_id())); 
+										WHERE question.parent = 0 AND question.id = ? AND attempt.flagged = 1 AND session.userid = ?", array($question_attempt->get_question_id(), $USER->id));
 	
 		if ($flag_exists) {
 			$question_attempt->set_flagged(true);
