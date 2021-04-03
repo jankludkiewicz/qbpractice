@@ -65,7 +65,13 @@ foreach ($sessions as $session) {
 		$table->data[] = array($i, $sessionlink, $session->totalnoofquestions, $score.'%', date("d-m-Y H:i", $session->timefinished));
 	}
 	if ($session->status == "inprogress") {
-		$table->data[] = array($i, $sessionlink, $session->totalnoofquestions, '', get_string('inprogress', 'block_qbpractice'));
+		$row = new html_table_row();
+		$row->cells = array($i, $sessionlink, $session->totalnoofquestions);
+		$status_cell = new html_table_cell();
+		$status_cell->colspan = 2;
+		$status_cell->text = get_string('inprogress', 'block_qbpractice');
+		$row->cells[] = $status_cell;
+		$table->data[] = $row;
 	}
 	
 	$i++;
