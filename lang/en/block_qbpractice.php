@@ -31,6 +31,7 @@ $string['subjectname'] = 'Subject name';
 $string['date'] = 'Date';
 $string['inprogress'] = 'In progress';
 $string['nosessions'] = 'No sessions attempted yet';
+$string['clearhistory'] = 'Clear practice history'; 
 
 // Block
 $string['selectcategory'] = 'Select category to start new session:';
