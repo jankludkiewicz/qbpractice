@@ -77,7 +77,7 @@ function get_navigation_panel($session, $quba, $active, $returnurl) {
 		$html .= html_writer::end_tag('div');
 		$html .= html_writer::start_tag('div', array('class' => 'other_nav'));
 		
-		// Other navigation buttons including: finish button and previous sessions summary link
+		// Other navigation buttons including: finish button, previous sessions summary link and go back to course link
 		
 		// Add finish button
 		$html .= html_writer::start_tag('form', array('method' => 'post', 'action' => $returnurl, 'enctype' => 'multipart/form-data', 'id' => 'navigationform'));
@@ -88,6 +88,12 @@ function get_navigation_panel($session, $quba, $active, $returnurl) {
 		// Add previus sessions summary link
 		$actionurl = new moodle_url("/blocks/qbpractice/summary.php", array('id' => $session->instanceid));
 		$label = html_writer::tag('span', get_string('previoussessionssummary', 'block_qbpractice'));
+		$html .= html_writer::link($actionurl, $label, array(null));
+		
+		// Add go back to course link
+		
+		$actionurl = new moodle_url($context->get_url());
+		$label = html_writer::tag('span', get_string('backtocourse', 'block_qbpractice'));
 		$html .= html_writer::link($actionurl, $label, array(null));
 		
 		$html .= html_writer::end_tag('div');
