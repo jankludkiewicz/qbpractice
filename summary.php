@@ -47,8 +47,6 @@ $table->align = array('left', 'left');
 $table->size = array('', '');
 $table->data = array();
 
-qbpractice_session_finish();
-
 $sessions = $DB->get_records('qbpractice_session', array('userid' => $USER->id));
 
 $i = 1;
