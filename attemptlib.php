@@ -62,14 +62,14 @@ function get_navigation_panel($session, $quba, $active, $returnurl) {
 			else if ($question_state->is_incorrect()) $slotclass = "incorrect_slot";
 			else $slotclass = "normal_slot";
 			
-			if ($slot == $active) $activeclass = "this_slot";
-			else $activeclass = "other_slot";
+			if ($slot == $active) $thispage = "thispage";
+			else $thispage = "";
 			
 			$actionurl = new moodle_url("/blocks/qbpractice/attempt.php", array('id' => $session->id, 'slot' => $slot));
 			$buttoncontent = $slot;
 			$buttoncontent .= html_writer::tag('span', '', array('class' => "thispageholder"));
 			$buttoncontent .= html_writer::tag('span', '', array('class' => "trafficlight"));
-			$html .= html_writer::link($actionurl, $buttoncontent, array('class' => 'qnbutton', 'id' => 'qbpracticenavbutton'.$slot));
+			$html .= html_writer::link($actionurl, $buttoncontent, array('class' => 'qnbutton '.$thispage, 'id' => 'qbpracticenavbutton'.$slot));
 		}
 		$html .= html_writer::end_tag('div');
 		$html .= html_writer::start_tag('div', array('class' => 'other_nav'));

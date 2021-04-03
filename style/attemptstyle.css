@@ -32,6 +32,10 @@ div.other_nav {
     float: left;
 }
 
+.qnbutton.thispage .thispageholder {
+    border: 3px solid #1f536b;
+}
+
 .thispageholder {
 	display: block;
     position: absolute;
@@ -39,6 +43,8 @@ div.other_nav {
     bottom: 0;
     left: 0;
     right: 0;
+	border-radius: 4px;
+	border: 1px solid #999;
 }
 
 .trafficlight {
