@@ -120,7 +120,7 @@ $headtags .= question_engine::initialise_js();
 
 // Start the question form.
 $html = html_writer::start_tag('form', array('method' => 'post', 'action' => $currenturl, 'enctype' => 'multipart/form-data', 'id' => 'responseform'));
-$html = html_writer::empty_tag('input', array('type' => 'hidden', 'id' => 'questionid', 'value' => $quba->get_question_attempt($slot)->get_question_id()));
+$html .= html_writer::empty_tag('input', array('type' => 'hidden', 'id' => 'questionid', 'value' => $quba->get_question_attempt($slot)->get_question_id()));
 
 // Output the question.
 $html .= $quba->render_question($slot, $options, $slot);
