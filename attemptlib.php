@@ -67,9 +67,9 @@ function get_navigation_panel($session, $quba, $active, $returnurl) {
 			
 			$actionurl = new moodle_url("/blocks/qbpractice/attempt.php", array('id' => $session->id, 'slot' => $slot));
 			$buttoncontent = $slot;
-			$buttoncontent .= html_writer::tag('span', '', array('class' => "status_box ".$slotclass));
-			$buttoncontent .= html_writer::tag('span', '', array('class' => "status_box ".$activeclass));
-			$html .= html_writer::link($actionurl, $buttoncontent, array('class' => 'qnbutton'));
+			$buttoncontent .= html_writer::tag('span', '', array('class' => "thispageholder"));
+			$buttoncontent .= html_writer::tag('span', '', array('class' => "trafficlight"));
+			$html .= html_writer::link($actionurl, $buttoncontent, array('class' => 'qnbutton', 'id' => 'qbpracticenavbutton'.$slot));
 		}
 		$html .= html_writer::end_tag('div');
 		$html .= html_writer::start_tag('div', array('class' => 'other_nav'));
