@@ -8,6 +8,4 @@ YUI().use('node-base', function(Y) {
     }
  
  Y.on("domready", init);
- 
- 
 });

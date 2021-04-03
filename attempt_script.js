@@ -4,6 +4,18 @@ Y.use('core_question_flags', function(Y) {
 	M.util.js_complete('qbpractice_flags'); 
 });
 
+YUI().use('node-base', function(Y) {
+    function init() {
+        Y.all("input[name='finish']").on('click', function(e) {
+            var args = {'url':e.currentTarget.get('href'), 'message':'Are you sure you want to clear all <b>practice history</b>? All question attempts including flags, sessions and its results will be lost.'};
+            M.util.show_confirm_dialog(e, args);
+            return false;
+        });
+    }
+ 
+ Y.on("domready", init);
+});
+
 function manageFlags() {
 	// Send AJAX query
 	var questionid = document.querySelector('input[id="questionid"]').value;
