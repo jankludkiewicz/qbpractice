@@ -11,7 +11,7 @@ function manageFlags() {
 	$.ajax({url: 'toggleflag.php?qid='+questionid+'&newstate='+newstate});
 	
 	// Change flag in navigation menu
-	qnbutton.classList.remove('flagged');
 	var qnbutton = document.querySelector('a.qnbutton.thispage');
+	qnbutton.classList.remove('flagged');
 	if (newstate == 1) qnbutton.classList.add('flagged');
 }
