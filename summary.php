@@ -88,7 +88,7 @@ if (empty($sessions)) {
 
 $html = html_writer::table($table);
 
-$actionurl = new moodle_url('/blocks/qbpractice/clear_practice_history.php', array('id' => $this->context->instanceid));
+$actionurl = new moodle_url('/blocks/qbpractice/clear_practice_history.php', array('id' => $id));
 $label = html_writer::tag('span', get_string('clearhistory', 'block_qbpractice'));
 $html .= html_writer::link($actionurl, $label, array(null));
 
