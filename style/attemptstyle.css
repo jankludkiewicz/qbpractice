@@ -1,4 +1,4 @@
-div.slot_buttons {
+div.qn_buttons_wrapper {
 	overflow: auto;
 }
 
@@ -15,7 +15,7 @@ div.other_nav {
 	margin-right: 20px;
 }
 
-.slot_button {
+.qnbutton {
 	width: 35px;
     height: 45px;
     margin: 0 5px 5px 0;
