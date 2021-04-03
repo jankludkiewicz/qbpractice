@@ -65,7 +65,7 @@ function get_navigation_panel($session, $quba, $active, $returnurl) {
 			if ($slot == $active) $thispage = "thispage";
 			else $thispage = "";
 			
-			if ($quba->get_question_attempt($slot).is_flagged()) $flagged = "flagged";
+			if ($quba->get_question_attempt($slot)->is_flagged()) $flagged = "flagged";
 			else $flagged = "";
 			
 			$actionurl = new moodle_url("/blocks/qbpractice/attempt.php", array('id' => $session->id, 'slot' => $slot));
