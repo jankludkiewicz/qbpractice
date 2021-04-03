@@ -39,6 +39,8 @@ $PAGE->set_title(get_string('pluginname', 'block_qbpractice'));
 $PAGE->set_heading(get_string('summary', 'block_qbpractice'));
 $PAGE->set_pagelayout('standard');
 
+$PAGE->requires->js('/blocks/qbpractice/summary_script.js?v='.rand());
+
 $table = new html_table();
 $table->attributes['class'] = 'generaltable boxaligncenter';
 $table->caption = get_string('pastsessions', 'block_qbpractice');
@@ -91,7 +93,7 @@ $html = html_writer::table($table);
 if (!empty($sessions)) {
 	$actionurl = new moodle_url('/blocks/qbpractice/clear_practice_history.php', array('id' => $id));
 	$label = html_writer::tag('span', get_string('clearhistory', 'block_qbpractice'));
-	$html .= html_writer::link($actionurl, $label, array(null));
+	$html .= html_writer::link($actionurl, $label, array('class'=>'delete_item', 'title' => 'Delete blablablabla'));
 }
 
 $html .= html_writer::empty_tag('br');
