@@ -77,6 +77,15 @@ foreach ($sessions as $session) {
 	$i++;
 }
 
+if (empty($sessions)) {
+	$row = new html_table_row();
+	$no_sessions_cell = new html_table_cell();
+	$no_sessions_cell->colspan = 5;
+	$no_sessions_cell->text = get_string('nosessions', 'block_qbpractice');
+	$row->cells[] = $no_sessions_cell;
+	$table->data[] = $row;
+}
+
 echo $OUTPUT->header();
 
 echo html_writer::table($table);

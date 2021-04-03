@@ -30,6 +30,7 @@ $string['order'] = 'Nr';
 $string['subjectname'] = 'Subject name';
 $string['date'] = 'Date';
 $string['inprogress'] = 'In progress';
+$string['nosessions'] = 'No sessions attempted yet';
 
 // Block
 $string['selectcategory'] = 'Select category to start new session:';
