@@ -37,7 +37,7 @@ require_login($courseid);
 
 $PAGE->set_title(get_string('pluginname', 'block_qbpractice'));
 $PAGE->set_heading(get_string('summary', 'block_qbpractice'));
-$PAGE->set_pagelayout('incourse');
+$PAGE->set_pagelayout('standard');
 
 $table = new html_table();
 $table->attributes['class'] = 'generaltable boxaligncenter';
