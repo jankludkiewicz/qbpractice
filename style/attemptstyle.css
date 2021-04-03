@@ -53,6 +53,7 @@ div.other_nav {
     right: 0;
 	border-radius: 4px;
 	border: 1px solid #999;
+	z-index: 1;
 }
 
 .trafficlight {
@@ -65,5 +66,4 @@ div.other_nav {
 	margin-top: 25px;
 	background-color: #fff;
     border-radius: 0 0 4px 4px;
-	border: 0;
 }
