@@ -46,9 +46,9 @@ class block_qbpractice extends block_base {
 			
 			$this->content->text .= html_writer::empty_tag('br');
 			
-			$finishurl = new moodle_url("/blocks/qbpractice/summary.php", array('id' => $this->context->instanceid));
-			$label = html_writer::tag('span', get_string('finishsession', 'block_qbpractice'));
-			$this->content->text .= html_writer::link($finishurl, $label, array(null));
+			$summaryurl = new moodle_url("/blocks/qbpractice/summary.php", array('id' => $this->context->instanceid));
+			$label = html_writer::tag('span', get_string('previoussessionssummary', 'block_qbpractice'));
+			$this->content->text .= html_writer::link($summaryurl, $label, array(null));
 		} else {
 			// Select category to start session
 			$this->content->text = html_writer::tag('span', get_string('selectcategory', 'block_qbpractice'));

@@ -17,11 +17,11 @@
 // Basic plugin strings.
 $string['pluginname'] = 'Question Bank Practice';
 
-
 // Capabilites.
 $string['qbpractice:addinstance'] = 'Allow to add Question Bank Practice block';
 $string['qbpractice:use'] = 'Allow to use Question Bank Practice';
 
+// summary.php
 $string['summary'] = 'Summary table';
 $string['pastsessions'] = 'Past sessions';
 $string['totalnoofquestions'] = 'Total questions number';
@@ -31,15 +31,16 @@ $string['subjectname'] = 'Subject name';
 $string['date'] = 'Date';
 $string['inprogress'] = 'In progress';
 
+// Block
 $string['selectcategory'] = 'Select category to start new session:';
 $string['practicesession'] = 'Question Bank Practice Session';
 $string['continuesession'] = 'Continue previous session';
 $string['finishsession'] = 'Finish session';
 $string['previoussessionssummary'] = 'Previous sessions summary';
 
+// attempt.php
+$string['sessionnavigation'] = 'Session navigation';
 $string['nextquestion'] = 'Next';
 $string['previousquestion'] = 'Previous';
 $string['finishsession'] = 'Finish session';
 $string['finishreview'] = 'Finish review';
-
-$string['sessionnavigation'] = 'Session navigation';
