@@ -31,13 +31,13 @@ $context = context_block::instance($id);
 $courseid = $context->get_parent_context()->instanceid;
 
 $PAGE->set_url('/block/qbpractice/summary.php', array('id' => $id));
-$PAGE->set_context($context);
+$PAGE->set_context($context->get_parent_context());
 
 require_login($courseid);
 
 $PAGE->set_title(get_string('pluginname', 'block_qbpractice'));
 $PAGE->set_heading(get_string('summary', 'block_qbpractice'));
-$PAGE->set_pagelayout('standard');
+$PAGE->set_pagelayout('course');
 
 $table = new html_table();
 $table->attributes['class'] = 'generaltable boxaligncenter';
