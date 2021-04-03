@@ -52,7 +52,7 @@ function get_navigation_panel($session, $quba, $active, $returnurl) {
         $bc->attributes['aria-labelledby'] = 'block_qbpractice_navblock_title';
         $bc->title = html_writer::span(get_string('sessionnavigation', 'block_qbpractice'));
 		
-		$html = html_writer::start_tag('div', array('class' => 'qn_buttons_wrapper'));
+		$html = html_writer::start_tag('div', array('class' => 'qnbuttons_wrapper'));
 		
 		$slots = $quba->get_slots();
 		foreach ($slots as $slot) {
