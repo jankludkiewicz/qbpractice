@@ -184,7 +184,7 @@ function set_flags($quba) {
 	global $DB, $USER;
 	
 	$slots = $quba->get_slots();
-	foreach ($slots as slot) {
+	foreach ($slots as $slot) {
 		$question_attempt = $quba->get_question_attempt($slot);
 		
 		$flag_exists = $DB->record_exists_sql("SELECT COUNT(*) AS num
@@ -198,6 +198,7 @@ function set_flags($quba) {
 			$quba->replace_loaded_question_attempt_info($slot, $question_attempt);
 		}
 	}
+	
 	return $quba;
 }
 
