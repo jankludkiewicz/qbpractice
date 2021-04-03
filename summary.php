@@ -94,6 +94,6 @@ $html .= html_writer::link($actionurl, $label, array(null));
 
 echo $OUTPUT->header();
 
-echo 
+echo $html;
 
 echo $OUTPUT->footer();
