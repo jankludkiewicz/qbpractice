@@ -69,7 +69,7 @@ function get_navigation_panel($session, $quba, $active, $returnurl) {
 			$buttoncontent = $slot;
 			$buttoncontent .= html_writer::tag('span', '', array('class' => "status_box ".$slotclass));
 			$buttoncontent .= html_writer::tag('span', '', array('class' => "status_box ".$activeclass));
-			$html .= html_writer::link($actionurl, $buttoncontent, array('class' => 'slot_button'));
+			$html .= html_writer::link($actionurl, $buttoncontent, array('class' => 'qnbutton'));
 		}
 		$html .= html_writer::end_tag('div');
 		$html .= html_writer::start_tag('div', array('class' => 'other_nav'));
