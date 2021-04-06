@@ -62,8 +62,7 @@ class block_qbpractice extends block_base {
 			foreach ($questioncategories as $questioncategory) {
 				$this->content->text .= html_writer::start_tag('li', array(null));
 				$actionurl = new moodle_url("/blocks/qbpractice/startattempt.php", array('id' => $this->context->instanceid, 'categoryid' => $questioncategory->id));
-				$label = html_writer::tag('span', $questioncategory->name);
-				$this->content->text .= html_writer::link($actionurl, $label, array(null));
+				$this->content->text .= html_writer::link($actionurl, $questioncategory->name, array(null));
 				$this->content->text .= html_writer::end_tag('li');
 			}
 		
@@ -71,7 +70,7 @@ class block_qbpractice extends block_base {
 			
 			$actionurl = new moodle_url('/blocks/qbpractice/summary.php', array('id' => $this->context->instanceid));
 			$this->content->footer = html_writer::start_tag('p', array('class' => 'ordinary_paragraph'))
-			$this->content->footer .= html_writer::link($actionurl, get_string('previoussessionssummary'), 'block_qbpractice'), array(null));
+			$this->content->footer .= html_writer::link($actionurl, get_string('previoussessionssummary', 'block_qbpractice'), array(null));
 			$this->content->footer .= html_writer::end_tag('p')
 		}
 
