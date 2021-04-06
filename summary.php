@@ -97,8 +97,6 @@ if (!empty($sessions)) {
 	$html .= html_writer::end_tag('p');
 }
 
-$html .= html_writer::empty_tag('br');
-
 $actionurl = new moodle_url($context->get_url());
 $html .= html_writer::start_tag('p', array('class' => 'ordinary_link'));
 $html .= html_writer::link($actionurl, get_string('backtocourse', 'block_qbpractice'), array(null));
