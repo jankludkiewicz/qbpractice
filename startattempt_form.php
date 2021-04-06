@@ -46,8 +46,12 @@ class block_qbpractice_startattempt_form extends moodleform {
 		$mform->addElement('html', 'Unseen before</label>');
 		$mform->addElement('html', '<label class="studypreference-label" id="incorrect"><input type="radio" name="studypreference" class="studypreference-radio" value="3">');
 		$mform->addElement('html', 'Answered incorrectly</label>');
+		
+		/* Hidden for future expansion
 		$mform->addElement('html', '<label class="studypreference-label" id="exam"><input type="radio" name="studypreference" class="studypreference-radio" value="4">');
 		$mform->addElement('html', 'Exam</label>');
+		*/
+		
 		$mform->setDefault('studypreference', 0);
 		$mform->addElement('html', '</div>');
 		
