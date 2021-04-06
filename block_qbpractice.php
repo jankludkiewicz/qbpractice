@@ -41,17 +41,19 @@ class block_qbpractice extends block_base {
 			$session = reset($sessions);
 			
 			$continueurl = new moodle_url("/blocks/qbpractice/attempt.php", array('id' => $session->id));
-			$label = html_writer::tag('span', get_string('continuesession', 'block_qbpractice'));
-			$this->content->text = html_writer::link($continueurl, $label, array(null));
-			
-			$this->content->text .= html_writer::empty_tag('br');
+			$this->content->text = html_writer::start_tag('p', array('class' => 'ordinary_paragraph'));
+			$this->content->text .= html_writer::link($continueurl, get_string('continuesession', 'block_qbpractice'), array(null));
+			$this->content->text .= html_writer::end_tag('p');
 			
 			$summaryurl = new moodle_url("/blocks/qbpractice/summary.php", array('id' => $this->context->instanceid));
-			$label = html_writer::tag('span', get_string('previoussessionssummary', 'block_qbpractice'));
-			$this->content->text .= html_writer::link($summaryurl, $label, array(null));
+			$this->content->text .= html_writer::start_tag('p', array('class' => 'ordinary_paragraph'));
+			$this->content->text .= html_writer::link($summaryurl, get_string('previoussessionssummary', 'block_qbpractice'), array(null));
+			$this->content->text .= html_writer::end_tag('p');
 		} else {
 			// Select category to start session
-			$this->content->text = html_writer::tag('span', get_string('selectcategory', 'block_qbpractice'));
+			$this->content->text = html_writer::start_tag('p', array('class' => 'ordinary_paragraph'));
+			$this->content->text .= html_writer::tag('span', get_string('selectcategory', 'block_qbpractice'));
+			$this->content->text .= html_writer::end_tag('p');
 		
 			$questioncategories = get_question_categories($coursecatcontext);
 		
@@ -68,8 +70,9 @@ class block_qbpractice extends block_base {
 			$this->content->text .= html_writer::end_tag('ul');
 			
 			$actionurl = new moodle_url('/blocks/qbpractice/summary.php', array('id' => $this->context->instanceid));
-			$label = html_writer::tag('span', get_string('previoussessionssummary', 'block_qbpractice'));
-			$this->content->footer = html_writer::link($actionurl, $label, array(null));
+			$this->content->footer = html_writer::start_tag('p', array('class' => 'ordinary_paragraph'))
+			$this->content->footer .= html_writer::link($actionurl, get_string('previoussessionssummary', 'block_qbpractice'), array(null));
+			$this->content->footer .= html_writer::end_tag('p')
 		}
 
 		return $this->content;
