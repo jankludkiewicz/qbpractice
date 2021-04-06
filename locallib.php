@@ -112,7 +112,7 @@ function clear_user_history() {
 	
 	$DB->execute("DELETE attempts, attempt_steps, usages, session
 					FROM mdl_question_attempts AS attempts, mdl_question_attempt_steps AS attempt_steps, mdl_question_usages AS usages, mdl_qbpractice_session AS session
-					WHERE attempts.questionusageid = session.questionusageid AND attempts.questionusageid = usages.id AND session.userid = ?", array($USER->id));
+					WHERE attempts.questionusageid = session.questionusageid AND attempts.questionusageid = usages.id AND attempts.id = attempt_steps.questionattemptid AND session.userid = ?", array($USER->id));
 }
 
 function get_questions($categoryids, $studypreference, $allowshuffle = true) {
