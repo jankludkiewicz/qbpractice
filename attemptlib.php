@@ -87,12 +87,15 @@ function get_navigation_panel($session, $quba, $active, $returnurl) {
 		
 		// Add previus sessions summary link
 		$actionurl = new moodle_url("/blocks/qbpractice/summary.php", array('id' => $session->instanceid));
+		$html .= html_writer::start_tag('p');
 		$html .= html_writer::link($actionurl, get_string('previoussessionssummary', 'block_qbpractice'), array(null));
+		$html .= html_writer::end_tag('p');
 		
 		// Add go back to course link
-		$html .= html_writer::empty_tag('br');
 		$actionurl = new moodle_url(context_block::instance($session->instanceid)->get_url());
+		$html .= html_writer::start_tag('p');
 		$html .= html_writer::link($actionurl, get_string('backtocourse', 'block_qbpractice'), array(null));
+		$html .= html_writer::end_tag('p');
 		
 		$html .= html_writer::end_tag('div');
 		
