@@ -71,7 +71,7 @@ class block_qbpractice extends block_base {
 			$actionurl = new moodle_url('/blocks/qbpractice/summary.php', array('id' => $this->context->instanceid));
 			$this->content->footer = html_writer::start_tag('p', array('class' => 'ordinary_paragraph'));
 			$this->content->footer .= html_writer::link($actionurl, get_string('previoussessionssummary', 'block_qbpractice'), array(null));
-			$this->content->footer .= html_writer::end_tag('p')
+			$this->content->footer .= html_writer::end_tag('p');
 		}
 
 		return $this->content;
