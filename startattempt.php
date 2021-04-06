@@ -77,6 +77,7 @@ $data['subcategories'] = $DB->get_records_sql("SELECT categories.id, categories.
 										FROM {question_categories} AS categories
                                         JOIN {question} AS question ON categories.id = question.category
                                         LEFT JOIN {question_attempts} AS attempts ON attempts.questionid = question.id
+                                        LEFT JOIN {qbpractice_session} AS session ON session.questionusageid = attempts.questionusageid
 										WHERE categories.parent = ? AND question.parent = 0
                                         GROUP BY categories.id
 										ORDER BY categories.sortorder ASC", array($USER->id, $USER->id, $USER->id, $USER->id, $USER->id, $categoryid));
