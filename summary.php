@@ -40,6 +40,7 @@ $PAGE->set_heading(get_string('summary', 'block_qbpractice'));
 $PAGE->set_pagelayout('standard');
 
 $PAGE->requires->js('/blocks/qbpractice/summary_script.js?v='.rand());
+$PAGE->requires->css('/blocks/qbpractice/style/summarystyle.css?v='.rand());
 
 $table = new html_table();
 $table->attributes['class'] = 'generaltable boxaligncenter';
@@ -59,8 +60,7 @@ foreach ($sessions as $session) {
 										JOIN {question_categories} AS sub ON sub.parent = top.id
 										WHERE sub.id = ?", array($category_ids[0]));
 	$actionurl = new moodle_url('/blocks/qbpractice/attempt.php', array('id' => $session->id));
-	$label = html_writer::tag('span', $subjectname);
-	$sessionlink = html_writer::link($actionurl, $label, array(null));
+	$sessionlink = html_writer::link($actionurl, $subjectname, array(null));
 	
 	if ($session->status == "finished") {
 		$score = round($session->marksobtained/$session->totalmarks*100,2);
@@ -92,15 +92,17 @@ $html = html_writer::table($table);
 
 if (!empty($sessions)) {
 	$actionurl = new moodle_url('/blocks/qbpractice/clear_practice_history.php', array('id' => $id));
-	$label = html_writer::tag('span', get_string('clearhistory', 'block_qbpractice'));
-	$html .= html_writer::link($actionurl, $label, array('id'=>'clear_practice_history'));
+	$html .= html_writer::start_tag('p', array('class' => 'ordinary_link'));
+	$html .= html_writer::link($actionurl, get_string('clearhistory', 'block_qbpractice'), array('id'=>'clear_practice_history'));
+	$html .= html_writer::end_tag('p');
 }
 
 $html .= html_writer::empty_tag('br');
 
 $actionurl = new moodle_url($context->get_url());
-$label = html_writer::tag('span', get_string('backtocourse', 'block_qbpractice'));
-$html .= html_writer::link($actionurl, $label, array(null));
+$html .= html_writer::start_tag('p', array('class' => 'ordinary_link'));
+$html .= html_writer::link($actionurl, get_string('backtocourse', 'block_qbpractice'), array(null));
+$html .= html_writer::end_tag('p');
 
 echo $OUTPUT->header();
 
