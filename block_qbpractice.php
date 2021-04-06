@@ -60,9 +60,10 @@ class block_qbpractice extends block_base {
 			$this->content->text .= html_writer::start_tag('ul', array(null));
 		
 			foreach ($questioncategories as $questioncategory) {
+				$completeness = "(".round($questioncategory->seenbefore/$questioncategory->allquestions*100)."%)";
 				$this->content->text .= html_writer::start_tag('li', array(null));
 				$actionurl = new moodle_url("/blocks/qbpractice/startattempt.php", array('id' => $this->context->instanceid, 'categoryid' => $questioncategory->id));
-				$this->content->text .= html_writer::link($actionurl, $questioncategory->name, array(null));
+				$this->content->text .= html_writer::link($actionurl, $questioncategory->name." ".$completeness, array(null));
 				$this->content->text .= html_writer::end_tag('li');
 			}
 		
