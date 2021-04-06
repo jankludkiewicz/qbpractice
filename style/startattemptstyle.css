@@ -25,3 +25,7 @@ label.studypreference-label {
 label.studypreference-label:hover {
 	background-color: #eee;
 }
+
+input.questions_range {
+	width: 60%;
+}
