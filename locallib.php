@@ -212,12 +212,12 @@ function get_question_categories($context) {
 	global $DB, $USER;
 	
 	return $DB->get_records_sql("SELECT categories.id, categories.name, COUNT(DISTINCT questions.id) AS allquestions, COUNT(DISTINCT CASE WHEN attempts.responsesummary IS NOT NULL THEN questions.id ELSE NULL END) AS seenbefore
-									FROM mdl_question_categories AS categories
-									JOIN mdl_question_categories AS top ON top.id = categories.parent
-                                    JOIN mdl_question_categories AS sub ON sub.parent = categories.id
-                                    LEFT JOIN mdl_question AS questions ON questions.category = sub.id
-                                    LEFT JOIN mdl_question_attempts AS attempts ON attempts.questionid = questions.id
-                                    LEFT JOIN mdl_qbpractice_session AS sessions ON sessions.questionusageid = attempts.questionusageid
+									FROM {question_categories} AS categories
+									JOIN {question_categories} AS top ON top.id = categories.parent
+                                    JOIN {question_categories} AS sub ON sub.parent = categories.id
+                                    LEFT JOIN {question} AS questions ON questions.category = sub.id
+                                    LEFT JOIN {question_attempts} AS attempts ON attempts.questionid = questions.id
+                                    LEFT JOIN {qbpractice_session} AS sessions ON sessions.questionusageid = attempts.questionusageid
 									WHERE categories.contextid = ? AND top.parent = 0 AND (sessions.userid = ? OR sessions.userid IS NULL) AND questions.parent = 0
                                     GROUP BY categories.id
 									ORDER BY categories.sortorder ASC", array($context->id, $USER->id));
