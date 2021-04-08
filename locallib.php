@@ -145,7 +145,7 @@ function get_all_questions($categoryids) {
 function get_flagged_questions($categoryids) {
 	global $DB, $USER;
 	$DB->set_debug(true);
-	$results = $DB->get_records_sql("SELECT DISTINCT question.id
+	$results = $DB->get_fieldset_sql("SELECT DISTINCT question.id
 										FROM {question} AS question
 										JOIN {question_attempts} AS attempt ON attempt.questionid = question.id
 										JOIN {qbpractice_session} AS session ON session.questionusageid = attempt.questionusageid
