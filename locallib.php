@@ -48,7 +48,7 @@ function qbpractice_session_start($fromform, $context) {
 	//Process selected subcategories from the form
 	$arraycategoryids = array();
 	
-	foreach ($fromform->subcategories as $key => $subcategorychecked) if (($subcategorychecked==1) && !str_contains($key,"_")) $arraycategoryids[$key] = $key;
+	foreach ($fromform->subcategories as $key => $subcategorychecked) if (($subcategorychecked==1) && !strpos($key, "_")) $arraycategoryids[$key] = $key;
 	$session->categoryids = implode(',', $arraycategoryids);
 	var_dump($arraycategoryids);
 
