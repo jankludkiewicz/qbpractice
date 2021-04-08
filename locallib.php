@@ -148,7 +148,7 @@ function get_flagged_questions($categoryids) {
 										JOIN {qbpractice_session} AS session ON session.questionusageid = attempt.questionusageid
 										WHERE question.parent = 0 AND attempt.flagged = 1 AND question.category IN (?) AND session.userid = ?", array(implode(",", $categoryids), $USER->id));
 										
-	var_dump($DB->last_sql);
+	$DB->query_log();
 	$return = array();
 	foreach ($results as $result) $return[$result->id] = $result->id;
 	return $return;
