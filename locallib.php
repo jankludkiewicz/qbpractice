@@ -47,9 +47,10 @@ function qbpractice_session_start($fromform, $context) {
 
 	//Process selected subcategories from the form
 	$arraycategoryids = array();
-	var_dump($fromform);
-	foreach ($fromform->subcategories as $key => $subcategorychecked) if ($subcategorychecked==1) $arraycategoryids[$key] = $key;
+	
+	foreach ($fromform->subcategories as $key => $subcategorychecked) if (($subcategorychecked==1) && !str_contains($key,"_")) $arraycategoryids[$key] = $key;
 	$session->categoryids = implode(',', $arraycategoryids);
+	var_dump($arraycategoryids);
 
 	$quba = question_engine::make_questions_usage_by_activity('block_qbpractice', $context);
 	$quba->set_preferred_behaviour($fromform->behaviour);
