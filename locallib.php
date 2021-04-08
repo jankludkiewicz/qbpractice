@@ -47,6 +47,7 @@ function qbpractice_session_start($fromform, $context) {
 
 	//Process selected subcategories from the form
 	$arraycategoryids = array();
+	var_dump($fromform);
 	foreach ($fromform->subcategories as $key => $subcategorychecked) if ($subcategorychecked==1) $arraycategoryids[$key] = $key;
 	$session->categoryids = implode(',', $arraycategoryids);
 
@@ -142,15 +143,12 @@ function get_all_questions($categoryids) {
 
 function get_flagged_questions($categoryids) {
 	global $DB, $USER;
-	$DB->set_debug(true);
 	$results = $DB->get_records_sql("SELECT DISTINCT question.id
 										FROM {question} AS question
 										JOIN {question_attempts} AS attempt ON attempt.questionid = question.id
 										JOIN {qbpractice_session} AS session ON session.questionusageid = attempt.questionusageid
 										WHERE question.parent = 0 AND attempt.flagged = 1 AND question.category IN (?) AND session.userid = ?", array(implode(",", $categoryids), $USER->id));
 										
-	$DB->set_debug(false);
-	var_dump($categoryids);
 	$return = array();
 	foreach ($results as $result) $return[$result->id] = $result->id;
 	return $return;
