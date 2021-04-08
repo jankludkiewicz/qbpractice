@@ -55,7 +55,6 @@ function qbpractice_session_start($fromform, $context) {
 	
 	$questionids = get_questions($arraycategoryids, $studypreference);
 	
-	var_dump($questionids);
 	for ($i=0; $i<$session->totalnoofquestions; $i++) {
 		$question = question_bank::load_question($questionids[$i]);
 		$slot = $quba->add_question($question);
@@ -149,6 +148,7 @@ function get_flagged_questions($categoryids) {
 										JOIN {qbpractice_session} AS session ON session.questionusageid = attempt.questionusageid
 										WHERE question.parent = 0 AND attempt.flagged = 1 AND question.category IN (?) AND session.userid = ?", array(implode(",", $categoryids), $USER->id));
 										
+	var_dump($DB->last_sql);
 	$return = array();
 	foreach ($results as $result) $return[$result->id] = $result->id;
 	return $return;
