@@ -151,6 +151,7 @@ function get_flagged_questions($categoryids) {
 										WHERE question.parent = 0 AND attempt.flagged = 1 AND question.category IN (?) AND session.userid = ?", array(implode(",", $categoryids), $USER->id));
 										
 	$return = array();
+	var_dump($results);
 	foreach ($results as $result) $return[$result->id] = $result->id;
 	return $return;
 }
