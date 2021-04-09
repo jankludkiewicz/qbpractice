@@ -161,14 +161,15 @@ function get_flagged_questions($categoryids) {
 
 function get_unseen_questions($categoryids) {
 	global $DB, $USER;
+	$categories_sql = implode(",", $categoryids);
 	$results = $DB->get_records_sql("SELECT DISTINCT question.id
 										FROM {question} AS question
 										LEFT JOIN {question_attempts} AS attempt ON attempt.questionid = question.id
 										LEFT JOIN {qbpractice_session} AS session ON session.questionusageid = attempt.questionusageid
-										WHERE question.parent = 0 AND question.category IN (?)
+										WHERE question.parent = 0 AND question.category IN ($categories_sql)
 										AND NOT EXISTS (SELECT * FROM {question_attempts} AS a 
 														JOIN {qbpractice_session} AS s ON s.questionusageid = a.questionusageid
-														WHERE a.responsesummary IS NOT NULL AND a.questionid = question.id AND s.userid = ?)", array(implode(",", $categoryids), $USER->id));
+														WHERE a.responsesummary IS NOT NULL AND a.questionid = question.id AND s.userid = ?)", array($USER->id));
 	
 	$return = array();
 	foreach ($results as $result) $return[$result->id] = $result->id;
@@ -177,15 +178,16 @@ function get_unseen_questions($categoryids) {
 
 function get_incorrect_questions($categoryids) {
 	global $DB, $USER;
+	$categories_sql = implode(",", $categoryids);
 	$results = $DB->get_records_sql("SELECT DISTINCT question.id, question.name
 										FROM {question} AS question
 										JOIN {question_attempts} AS attempt ON attempt.questionid = question.id
 										JOIN {qbpractice_session} AS session ON session.questionusageid = attempt.questionusageid
-										WHERE question.parent = 0 AND question.category IN (?) AND attempt.rightanswer != attempt.responsesummary AND attempt.responsesummary IS NOT NULL AND session.userid = ?
+										WHERE question.parent = 0 AND question.category IN ($categories_sql) AND attempt.rightanswer != attempt.responsesummary AND attempt.responsesummary IS NOT NULL AND session.userid = ?
 										AND NOT EXISTS (SELECT a.id
 														FROM {question_attempts} AS a
 														JOIN {qbpractice_session} AS s ON s.questionusageid = a.questionusageid
-														WHERE a.questionid = question.id AND s.userid = session.userid AND a.rightanswer = a.responsesummary)", array(implode(",", $categoryids), $USER->id));
+														WHERE a.questionid = question.id AND s.userid = session.userid AND a.rightanswer = a.responsesummary)", array($USER->id));
 	
 	$return = array();
 	foreach ($results as $result) $return[$result->id] = $result->id;
